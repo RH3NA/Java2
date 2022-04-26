@@ -31,7 +31,8 @@ public class LoginController {
         Connection conn = connectNow.getConnection();
 
         // If the DBquery email value (username input) = idUser value (password input), then '1' will be returned, meaning a match.
-        String verifyLogin = "select count(1) from D0005N.User where email = '" + usernameInput.getText() + " and idUser = " + passwordInput.getText() + "'";
+        String verifyLogin = "select count(1) from D0005N.User where email = '" + usernameInput.getText() + "' and idUser = '" + passwordInput.getText() + "'";
+
 
         try {
             Statement statement = conn.createStatement();
