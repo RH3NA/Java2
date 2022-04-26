@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.LoginController">
+<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.SearchController">
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -18,7 +18,7 @@
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
-         <Button fx:id="searchForResultButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="418.0" layoutY="52.0" onAction="#onSearchInputButtonClick" text="Go!" />
+         <Button fx:id="searchForResultButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="418.0" layoutY="52.0" onAction="#onSearchForResultButton" text="Go!" />
          <ImageView fitHeight="52.0" fitWidth="60.0" layoutX="39.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@LTUSearchIcon.jpg" />
          </ImageView>
@@ -26,7 +26,7 @@
       </AnchorPane>
    </center>
    <bottom>
-      <TextArea fx:id="searchForResultArea" prefHeight="187.0" prefWidth="500.0" promptText="Search results will show here" BorderPane.alignment="CENTER">
+      <TextArea fx:id="searchResultsArea" prefHeight="187.0" prefWidth="500.0" promptText="Search results will show here" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
