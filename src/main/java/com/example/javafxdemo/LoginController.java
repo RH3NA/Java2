@@ -6,25 +6,52 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import java.sql.Connection;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class LoginController {
 
-    @FXML
-    private Label loginErrorLabel;
-    @FXML
-    TextField usernameInput;
-    @FXML
-    PasswordField passwordInput;
+    @FXML private Label loginErrorLabel;
+    @FXML TextField usernameInput;
+    @FXML PasswordField passwordInput;
 
     public void loginButtonOnAction(ActionEvent a) {
-        if (!passwordInput.getText().isBlank() && !usernameInput.getText().isBlank()) {
-            loginErrorLabel.setText("Something went wrong. Try again, or click 'register'.");
-        } else {
+        if (passwordInput.getText().isBlank() && usernameInput.getText().isBlank()) {
             loginErrorLabel.setText("Fill in username and password.");
+        } else {
+            validateLogin();
         }
     }
+
+    public void validateLogin() {
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+        // If the DBquery email value (username input) = idUser value (password input), then '1' will be returned, meaning a match.
+        String verifyLogin = "select count(1) from D0005N.User where email = '" + usernameInput.getText() + "' and idUser = '" + passwordInput.getText() + "'";
+
+
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(verifyLogin);
+
+            while (resultSet.next()) {
+                if (resultSet.getInt(1) == 1) {
+                    loginErrorLabel.setText("Welcome. Successful login.");
+
+                } else {
+                    loginErrorLabel.setText("Invalid login. Please try again or register.");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private Button RegisterButton;
@@ -52,15 +79,6 @@ public class LoginController {
         Stage stage = (Stage) loginSearchButton.getScene().getWindow();
         stage.setScene(sceneSearch);
         stage.show();
-    }
-
-    @FXML
-    private TextField searchTextInputField;
-    @FXML
-    private TextArea searchForResultArea;
-
-    public void onSearchInputButtonClick() {
-        searchForResultArea.setText(searchTextInputField.getText());
     }
 
 }

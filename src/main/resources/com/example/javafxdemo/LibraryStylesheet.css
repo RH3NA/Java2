@@ -4,8 +4,8 @@
 .borderpane {-fx-background-color: #0B0B45}
 .stage {-fx-background-color: #0B0B45}
 .scene {-fx-background-color: #0B0B45}
-.button {-fx-background-color: #00ff00; -fx-text-fill: #000000; -fx-font-weight: bold}
-.button:pressed {-fx-background-color: #FF4500}
+.button {-fx-background-color: #00ff00; -fx-text-fill: #000000;-fx-font-weight: bold}
+
 .button:hover {-fx-background-color: #c6fc04}
 .text-field {-fx-background-color: #ffffff; -fx-text-fill: #0B0B45}
 .text-area {-fx-background-color: #ffffff; -fx-text-fill: #0B0B45}
