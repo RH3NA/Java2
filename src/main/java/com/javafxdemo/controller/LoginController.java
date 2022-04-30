@@ -1,19 +1,26 @@
-package com.example.javafxdemo;
+package com.javafxdemo.controller;
 
+import com.javafxdemo.DBConnection;
+import com.javafxdemo.LibraryApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.sql.Connection;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class LoginController {
 
+    @FXML private Label welcomeText;
     @FXML private Label loginErrorLabel;
     @FXML TextField usernameInput;
     @FXML PasswordField passwordInput;
@@ -38,12 +45,14 @@ public class LoginController {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(verifyLogin);
 
+
             while (resultSet.next()) {
                 if (resultSet.getInt(1) == 1) {
                     loginErrorLabel.setText("Welcome. Successful login.");
 
                 } else {
                     loginErrorLabel.setText("Invalid login. Please try again or register.");
+
                 }
             }
 
@@ -53,11 +62,12 @@ public class LoginController {
     }
 
 
+
     @FXML
     private Button RegisterButton;
 
     public void onRegisterButtonClick(ActionEvent a) throws IOException {
-        Scene sceneRegister = new Scene(FXMLLoader.load(getClass().getResource("registration-view.fxml")));
+        Scene sceneRegister = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/registration-view.fxml")));
         Stage stage = (Stage) RegisterButton.getScene().getWindow();
         stage.setScene(sceneRegister);
         stage.show();
@@ -75,7 +85,7 @@ public class LoginController {
     private Button loginSearchButton;
 
     public void onLoginSearchButtonClick(ActionEvent a) throws IOException {
-        Scene sceneSearch = new Scene(FXMLLoader.load(getClass().getResource("search-view.fxml")));
+        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
         Stage stage = (Stage) loginSearchButton.getScene().getWindow();
         stage.setScene(sceneSearch);
         stage.show();

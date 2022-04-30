@@ -5,9 +5,8 @@
 .stage {-fx-background-color: #0B0B45}
 .scene {-fx-background-color: #0B0B45}
 .button {-fx-background-color: #00ff00; -fx-text-fill: #000000;-fx-font-weight: bold}
-
 .button:hover {-fx-background-color: #c6fc04}
-.text-field {-fx-background-color: #ffffff; -fx-text-fill: #0B0B45}
+.text-field {fx-background-color: #ffffff; -fx-text-fill: #0B0B45}
 .text-area {-fx-background-color: #ffffff; -fx-text-fill: #0B0B45}
 .label {-fx-background-color: #0B0B45; -fx-text-fill: #00ff00; -fx-font-family: "Avenir Next", sans-serif}
 #welcomeTextLabel {-fx-text-fill: #e80808; -fx-font-family: "Avenir Next", sans-serif; -fx-font-size: 16}

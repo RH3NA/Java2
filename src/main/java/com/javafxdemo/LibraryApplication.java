@@ -1,4 +1,4 @@
-package com.example.javafxdemo;
+package com.javafxdemo;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ public class LibraryApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("login-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/login-view.fxml"));  // (LibraryApplication.class.getResource("login-fxml.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("LibraryStylesheet.css").toExternalForm());
         stage.setTitle("Ruminski Library");

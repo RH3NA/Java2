@@ -1,8 +1,7 @@
-package com.example.javafxdemo;
+package com.javafxdemo;
 
-import java.sql.Connection; // we can ‹ import java.sql.*;  › to get all sql classes instead of partial (but more memory/resource burden)
+import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.*;
 
 public class DBConnection {
 
