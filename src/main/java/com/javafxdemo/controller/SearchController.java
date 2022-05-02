@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static com.javafxdemo.controller.UserController.getUsers;
 
 public class  SearchController {
 
@@ -18,6 +21,8 @@ public class  SearchController {
     public Button searchForResultButton;
     @FXML
     private Label searchResultsArea;
+    @FXML
+    private Button searchResultsLoanButton;
 
     public void onSearchForResultButton(ActionEvent a) throws Exception {  // throwing out exceptions so the system doesn't crash & also ensure connection and statement closes
         DBConnection connectNow = new DBConnection();       //This initiates a new connection instance of 'conn' using the DBConnection Class
@@ -32,16 +37,23 @@ public class  SearchController {
             ResultSet resultSet = statement.getResultSet(); // will run the query until all results collected
 
             while (resultSet.next()) {  //outputs the query result back to the search results area (label) on search page
-                searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\t\t\t Item ID\t\tNo. in Stock\n" +
+                searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\t Item ID\t\tNo. in Stock\n" +
                         resultSet.getString("isbn") + "   " +
                         resultSet.getString("title") + "\t\t" +
-                        resultSet.getString("idItem") + "\t\t" +
+                        resultSet.getString("publisher") + "\t\t" +
+                        resultSet.getString("idItem") + "\t\t\t\t" +
                         resultSet.getString("numberInStock"));
             }
             hadResults = statement.getMoreResults(); // will loop until no more results available
         }
 
         statement.close(); // closes query
+
+    }
+
+    public void onSearchResultsLoanButton() throws SQLException, ClassNotFoundException {
+        getUsers();
+
 
     }
 }

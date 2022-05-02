@@ -2,6 +2,7 @@ package com.javafxdemo.controller;
 
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class LoginController {
@@ -24,6 +27,28 @@ public class LoginController {
     @FXML private Label loginErrorLabel;
     @FXML TextField usernameInput;
     @FXML PasswordField passwordInput;
+
+    private String loggedInIdUser;
+    public String getLoggedInIdUser() {
+        return loggedInIdUser;
+    }
+    public void setLoggedInIdUser(String loggedInIdUser) {
+        this.loggedInIdUser = loggedInIdUser;
+    }
+    private String loggedInUserType;
+    public String getLoggedInUserType() {
+        return loggedInUserType;
+    }
+
+    public void setLoggedInUserType(String loggedInUserType) {
+        this.loggedInUserType = loggedInUserType;
+    }
+
+
+
+
+
+
 
     public void loginButtonOnAction(ActionEvent a) {
         if (passwordInput.getText().isBlank() && usernameInput.getText().isBlank()) {
@@ -49,9 +74,13 @@ public class LoginController {
             while (resultSet.next()) {
                 if (resultSet.getInt(1) == 1) {
                     loginErrorLabel.setText("Welcome. Successful login.");
+                    setLoggedInIdUser(passwordInput.getText());
+                    System.out.println(getLoggedInIdUser());
+                    createNewSession();
 
                 } else {
                     loginErrorLabel.setText("Invalid login. Please try again or register.");
+                    break;
 
                 }
             }
@@ -59,7 +88,30 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
+    public void createNewSession() throws SQLException {
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+        String checkUserType = "select UserType_idUserType from D0005N.User where idUser = '" + getLoggedInIdUser() + "'";
+
+
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(checkUserType);
+
+
+            while (resultSet.next()) {
+                setLoggedInUserType(String.valueOf(resultSet.getInt("UserType_idUserType")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("id user = " + getLoggedInIdUser() + " user type = " + getLoggedInUserType());
+
+    }
+
 
 
 

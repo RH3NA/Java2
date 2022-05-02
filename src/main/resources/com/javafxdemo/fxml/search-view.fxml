@@ -6,10 +6,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.SearchController">
    <center>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="322.0" prefWidth="611.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -21,16 +23,15 @@
             <Image url="@../images/LTUSearchIcon.jpg" />
          </ImageView>
          <TextField fx:id="searchTextInputField" layoutX="108.0" layoutY="52.0" prefHeight="26.0" prefWidth="389.0" promptText="Enter library search here..." />
+         <Label fx:id="searchResultsArea" layoutX="42.0" layoutY="130.0" prefHeight="296.0" prefWidth="504.0">
+            <padding>
+               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+         </Label>
+         <Button fx:id="searchResultsLoanButton" layoutX="562.0" layoutY="233.0" mnemonicParsing="false" onAction="#onSearchResultsLoanButton" text="Loan?" />
       </AnchorPane>
    </center>
-   <bottom>
-      <Label fx:id="searchResultsArea" prefHeight="296.0" prefWidth="570.0" BorderPane.alignment="CENTER_LEFT">
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-         <BorderPane.margin>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </BorderPane.margin>
-      </Label>
-   </bottom>
+   <right>
+      <AnchorPane prefHeight="466.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>
