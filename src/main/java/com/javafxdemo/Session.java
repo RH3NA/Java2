@@ -1,16 +1,28 @@
 package com.javafxdemo;
 
-public class Session {
-    private int idUser;
-    private int userType;
-    private String logInTime;
-    private String logOutTime;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    public Session(int idUser, int userType) {
-        this.idUser = idUser;
-        this.userType = userType;
+import java.io.IOException;
+
+public class Session extends Application {
+
+    public Session() {
+    }
+
+        @Override
+        public void start(Stage stage) throws IOException {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/login-view.fxml"));  // (LibraryApplication.class.getResource("login-fxml.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            scene.getStylesheets().add(getClass().getResource("LibraryStylesheet.css").toExternalForm());
+            stage.setTitle("Ruminski Library");
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }
 
-    }
 

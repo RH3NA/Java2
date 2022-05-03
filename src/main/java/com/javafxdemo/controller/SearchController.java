@@ -1,12 +1,18 @@
 package com.javafxdemo.controller;
 
 import com.javafxdemo.DBConnection;
+import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,8 +27,7 @@ public class  SearchController {
     public Button searchForResultButton;
     @FXML
     private Label searchResultsArea;
-    @FXML
-    private Button searchResultsLoanButton;
+
 
     public void onSearchForResultButton(ActionEvent a) throws Exception {  // throwing out exceptions so the system doesn't crash & also ensure connection and statement closes
         DBConnection connectNow = new DBConnection();       //This initiates a new connection instance of 'conn' using the DBConnection Class
@@ -50,9 +55,14 @@ public class  SearchController {
         statement.close(); // closes query
 
     }
+    @FXML
+    private Button searchResultsLoanButton;
+    public void onSearchResultsLoanButton(ActionEvent a) throws IOException {
 
-    public void onSearchResultsLoanButton() throws SQLException, ClassNotFoundException {
-        getUsers();
+            Scene sceneLoan = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/loan-view.fxml")));
+            Stage stage = (Stage) searchResultsLoanButton.getScene().getWindow();
+            stage.setScene(sceneLoan);
+            stage.show();
 
 
     }

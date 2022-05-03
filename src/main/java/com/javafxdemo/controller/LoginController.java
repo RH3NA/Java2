@@ -2,6 +2,7 @@ package com.javafxdemo.controller;
 
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.LoggedInSession;
 import com.javafxdemo.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +28,8 @@ public class LoginController {
     @FXML private Label loginErrorLabel;
     @FXML TextField usernameInput;
     @FXML PasswordField passwordInput;
+
+    @FXML Button loginButton;
 
     private String loggedInIdUser;
     public String getLoggedInIdUser() {
@@ -77,8 +80,20 @@ public class LoginController {
                     setLoggedInIdUser(passwordInput.getText());
                     System.out.println(getLoggedInIdUser());
                     createNewSession();
+                    LoggedInSession loggedInSession = new LoggedInSession(getLoggedInIdUser(), getLoggedInUserType());
+                        if(loggedInSession.getUserTypeId().equalsIgnoreCase("1111") || loggedInSession.getUserTypeId().equalsIgnoreCase("1112")
+                            || loggedInSession.getUserTypeId().equalsIgnoreCase("1113")) {
+                                Scene sceneLoggedIn = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/loggedIn-view.fxml")));
+                                Stage stage = (Stage) loginButton.getScene().getWindow();
+                                stage.setScene(sceneLoggedIn);
+                                stage.show();
 
-                } else {
+                }
+                if(loggedInSession.getUserTypeId().equalsIgnoreCase("1114") || loggedInSession.getUserTypeId().equalsIgnoreCase("1115")) {
+                    System.out.println("We have to create an admin page..");
+                    }
+                }
+                else {
                     loginErrorLabel.setText("Invalid login. Please try again or register.");
                     break;
 
@@ -109,7 +124,6 @@ public class LoginController {
             e.printStackTrace();
         }
         System.out.println("id user = " + getLoggedInIdUser() + " user type = " + getLoggedInUserType());
-
     }
 
 
