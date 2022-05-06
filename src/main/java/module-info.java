@@ -5,7 +5,10 @@ module com.example.javafxdemo {
     requires javafx.graphics;
     requires javafx.base;
     requires java.sql;
+    requires mysql.connector.java;
 
-    opens com.example.javafxdemo to javafx.fxml;
-    exports com.example.javafxdemo;
+    opens com.javafxdemo to javafx.fxml;
+    exports com.javafxdemo;
+    exports com.javafxdemo.controller;
+    opens com.javafxdemo.controller to javafx.fxml;
 }

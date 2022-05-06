@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoginController">
+    <VBox layoutX="14.0" layoutY="88.0" spacing="32.0">
+        <TextField fx:id="FirstnameInput" prefHeight="25.0" prefWidth="162.0" promptText="Firstname" VBox.vgrow="NEVER" />
+        <TextField fx:id="PhoneInput" prefHeight="25.0" prefWidth="162.0" promptText="Phone" text="+46 " />
+        <SplitMenuButton fx:id="UserTypeDropList" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Select...">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Admin" />
+                <MenuItem mnemonicParsing="false" text="Manager" />
+                <MenuItem mnemonicParsing="false" text="Researcher" />
+                <MenuItem mnemonicParsing="false" text="Student" />
+                <MenuItem mnemonicParsing="false" text="Teacher" />
+            </items>
+        </SplitMenuButton>
+        <TextField fx:id="EmailInput" prefHeight="25.0" prefWidth="162.0" promptText="Email" />
+    </VBox>
+    <VBox layoutX="14.0" layoutY="68.0" spacing="38.0">
+        <Label text="Firstname" />
+        <Label text="Phone" />
+        <Label text="User Type" />
+        <Label text="Email" />
+        <Label text="Notes" />
+    </VBox>
+    <Label layoutX="249.0" layoutY="8.0" text="Registration" textAlignment="CENTER">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+    <Label layoutX="211.0" layoutY="238.0" text="Confirm Email" />
+    <TextField fx:id="ConfirmEmailInput" layoutX="211.0" layoutY="259.0" prefHeight="25.0" prefWidth="162.0" promptText="Enter Email again" />
+    <Label layoutX="206.0" layoutY="68.0" text="Lastname" />
+    <TextField fx:id="LastnameInput" layoutX="206.0" layoutY="88.0" prefHeight="25.0" prefWidth="162.0" promptText="Lastname" />
+    <TextArea fx:id="NotesInput" layoutX="14.0" layoutY="315.0" prefHeight="66.0" prefWidth="572.0" />
+    <Button fx:id="RegisterButton" layoutX="405.0" layoutY="259.0" mnemonicParsing="false" text="REGISTER" />
+</AnchorPane>

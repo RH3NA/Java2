@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoginController">
+    <right>
+        <AnchorPane prefHeight="206.0" prefWidth="266.0" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="30.0" right="5.0" top="20.0" />
+            </BorderPane.margin>
+            <Label layoutX="27.0" layoutY="19.0" text="Username" />
+            <Label layoutX="27.0" layoutY="64.0" text="Password" />
+            <PasswordField fx:id="passwordInput" layoutX="101.0" layoutY="56.0" promptText="Enter User ID" />
+            <TextField fx:id="usernameInput" layoutX="101.0" layoutY="15.0" promptText="Enter email" />
+            <Button fx:id="loginButton" layoutX="65.0" layoutY="98.0" mnemonicParsing="false" onAction="#validateLogin" prefWidth="151.0" text="Login" />
+            <Button fx:id="RegisterButton" layoutX="153.0" layoutY="176.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="Register" />
+            <Label layoutX="64.0" layoutY="182.0" text="No account?" />
+            <Label fx:id="loginErrorLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="130.0" onDragDetected="#loginButtonOnAction" prefHeight="37.0" prefWidth="223.0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+                <font>
+                    <Font name="System Bold" size="13.0" />
+                </font>
+            </Label>
+        </AnchorPane>
+    </right>
+    <top>
+        <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <Button fx:id="HelloButton" onAction="#onHelloButtonClick" prefHeight="57.0" prefWidth="96.0" text="Hello!" />
+            <Label fx:id="welcomeTextLabel" alignment="CENTER" onDragDetected="#onHelloButtonClick" prefHeight="97.0" prefWidth="246.0" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true" />
+            <Button fx:id="loginSearchButton" mnemonicParsing="false" onAction="#onLoginSearchButtonClick" text="Search" />
+        </HBox>
+    </top>
+   <left>
+       <ImageView fitHeight="127.0" fitWidth="211.0" layoutX="20.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+           <effect>
+               <Shadow />
+           </effect>
+           <BorderPane.margin>
+               <Insets left="5.0" />
+           </BorderPane.margin>
+           <Image url="@../images/UserLoginIcon.jpg" />
+       </ImageView>
+   </left>
+   <padding>
+      <Insets left="5.0" right="5.0" />
+   </padding>
+</BorderPane>
