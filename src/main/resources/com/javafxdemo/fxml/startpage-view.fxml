@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoginController">
+<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.StartpageController">
     <right>
         <AnchorPane prefHeight="206.0" prefWidth="266.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
@@ -18,7 +18,7 @@
             <PasswordField fx:id="passwordInput" layoutX="101.0" layoutY="56.0" promptText="Enter User ID" />
             <TextField fx:id="usernameInput" layoutX="101.0" layoutY="15.0" promptText="Enter email" />
             <Button fx:id="loginButton" layoutX="65.0" layoutY="98.0" mnemonicParsing="false" onAction="#validateLogin" prefWidth="151.0" text="Login" />
-            <Button fx:id="RegisterButton" layoutX="153.0" layoutY="176.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="Register" />
+            <Button fx:id="registerButton" layoutX="153.0" layoutY="176.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="Register" />
             <Label layoutX="64.0" layoutY="182.0" text="No account?" />
             <Label fx:id="loginErrorLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="130.0" onDragDetected="#loginButtonOnAction" prefHeight="37.0" prefWidth="223.0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
                 <font>
@@ -34,7 +34,7 @@
             </padding>
             <Button fx:id="HelloButton" onAction="#onHelloButtonClick" prefHeight="57.0" prefWidth="96.0" text="Hello!" />
             <Label fx:id="welcomeTextLabel" alignment="CENTER" onDragDetected="#onHelloButtonClick" prefHeight="97.0" prefWidth="246.0" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true" />
-            <Button fx:id="loginSearchButton" mnemonicParsing="false" onAction="#onLoginSearchButtonClick" text="Search" />
+            <Button fx:id="startPageSearchButton" mnemonicParsing="false" onAction="#onStartPageSearchButtonClick" text="Search" />
         </HBox>
     </top>
    <left>

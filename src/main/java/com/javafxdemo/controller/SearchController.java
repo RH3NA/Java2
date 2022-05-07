@@ -1,8 +1,9 @@
 package com.javafxdemo.controller;
 
+import com.javafxdemo.Context;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
-import com.javafxdemo.Session;
+import com.javafxdemo.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.javafxdemo.controller.UserController.getUsers;
+
 
 public class  SearchController {
 
@@ -58,11 +59,16 @@ public class  SearchController {
     @FXML
     private Button searchResultsLoanButton;
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException {
-
+        UserModel currentUser = Context.getInstance().getCurrentUser();
+        if (currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) {
             Scene sceneLoan = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/loan-view.fxml")));
             Stage stage = (Stage) searchResultsLoanButton.getScene().getWindow();
             stage.setScene(sceneLoan);
             stage.show();
+        }
+            else {
+                System.out.println("Something went wrong. Try logging in.");
+            }
 
 
     }
