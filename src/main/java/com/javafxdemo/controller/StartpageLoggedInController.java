@@ -16,28 +16,48 @@ import java.io.IOException;
 public class StartpageLoggedInController { //added a logged in startpage
 
     @FXML
-    private Button startPageLoggedInSearchButton;
+    private Button searchButton;
     @FXML
-    private Button startPageLoggedInActiveLoansButton;
+    private Button reservationButton;
     @FXML
-    private Button startPageLoggedInLogOutButton;
+    private Button roomBookingButton;
     @FXML
-    private Label startPageLoggedInWelcomeLabel;
+    private Button paymentButton;
+    @FXML
+    private Button profileButton;
+    @FXML
+    private Button historyButton;
+    @FXML
+    private Button exitButton;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button loanButton;
+    @FXML
+    private static Label welcomeTextLabel;
 
 
-    public void onStartPageLoggedInSearchButtonClick(ActionEvent a) throws IOException {
+    public void onSearchButtonClick(ActionEvent a) throws IOException {
         Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
-        Stage stage = (Stage) startPageLoggedInSearchButton.getScene().getWindow();
+        Stage stage = (Stage) searchButton.getScene().getWindow();
+        stage.setScene(sceneSearch);
+        stage.show();
+    }
+    public void onLoanButtonClick(ActionEvent a) throws IOException {
+        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
+        Stage stage = (Stage) loanButton.getScene().getWindow();
         stage.setScene(sceneSearch);
         stage.show();
     }
 
-    public void onStartPageLoggedInActiveLoansButton(ActionEvent a) {
-        startPageLoggedInWelcomeLabel.setText("Welcome " + Context.getInstance().getCurrentUser().getFirstName() + "!");
-    }
-
     public void onStartPageLoggedInLogOutButton(ActionEvent a) {
     }
+
+    public static void setWelcomeName(String s) {
+        welcomeTextLabel.setText("Welcome " + Context.getInstance().getCurrentUser().getFirstName() + "!");
+    }
+
+
 
 
 }

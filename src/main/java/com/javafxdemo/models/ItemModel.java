@@ -2,11 +2,18 @@ package com.javafxdemo.models;
 
 public class ItemModel {
     private int idItem;
-    private short numberInStock;
+    private int numberInStock;
     private String title;
     private String isbn;
-    private short totalStock;
     private String publisher;
+
+    public ItemModel(int idItem, int numberInStock, String title, String isbn, String publisher) {
+        this.idItem = idItem;
+        this.numberInStock = numberInStock;
+        this.title = title;
+        this.isbn = isbn;
+        this.publisher = publisher;
+    }
 
 
     public int getIdItem() {
@@ -20,11 +27,11 @@ public class ItemModel {
 
 
 
-    public short getNumberInStock() {
+    public int getNumberInStock() {
         return numberInStock;
     }
 
-    public void setNumberInStock(short numberInStock) {
+    public void setNumberInStock(int numberInStock) {
         this.numberInStock = numberInStock;
     }
 
@@ -44,16 +51,6 @@ public class ItemModel {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-
-
-    public short getTotalStock() {
-        return totalStock;
-    }
-
-    public void setTotalStock(short totalStock) {
-        this.totalStock = totalStock;
-    }
-
 
     public String getPublisher() {
         return publisher;

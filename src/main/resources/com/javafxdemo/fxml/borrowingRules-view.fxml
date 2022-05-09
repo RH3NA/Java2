@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borrowingRulesPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+    <bottom>
+        <ButtonBar buttonMinWidth="50.0" prefHeight="70.0" prefWidth="84.0" BorderPane.alignment="CENTER">
+            <buttons>
+                <ImageView fitHeight="94.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../images/LTULogo.jpg" />
+                </ImageView>
+                <Button mnemonicParsing="false" prefHeight="42.0" text="Exit" visible="false" />
+                <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="42.0" text="Exit" />
+                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="42.0" text="Back" />
+            </buttons>
+            <BorderPane.margin>
+                <Insets bottom="15.0" right="15.0" top="15.0" />
+            </BorderPane.margin>
+        </ButtonBar>
+    </bottom>
+    <left>
+        <VBox prefHeight="213.0" prefWidth="177.0" spacing="4.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="38.0" top="15.0" />
+            </padding>
+            <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Search" />
+            <Button fx:id="reservationButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Reservation" />
+            <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
+            <Button fx:id="roomBookingButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Room Booking" />
+            <Button fx:id="paymentButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Payment" />
+            <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Profile" />
+            <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="History" />
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+            <Label layoutX="204.0" layoutY="68.0" text="Borrowing Rules:">
+                <VBox.margin>
+                    <Insets top="10.0" />
+                </VBox.margin>
+            </Label>
+            <Label text="You can borrow a maximum of 5 items at a time. You can extend your loan items twice.">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Label layoutX="120.0" layoutY="157.0" text="Item Limits:">
+                <VBox.margin>
+                    <Insets top="18.0" />
+                </VBox.margin>
+            </Label>
+            <GridPane prefHeight="52.0" prefWidth="416.0" vgap="4.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.7410583496094" minWidth="12.0"
+                                       prefWidth="287.9962158203125"/>
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="206.87619018554688" minWidth="10.0"
+                                       prefWidth="152.0037841796875"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="12.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets left="15.0" right="15.0"/>
+                </VBox.margin>
+                <Label layoutX="10.0" layoutY="17.0" text="Standard items, e-books">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets left="20.0"/>
+                    </padding>
+                </Label>
+                <Label text="Course literature, Journals, Magazines, Newspapers" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets left="20.0"/>
+                    </padding>
+                </Label>
+                <Label layoutX="10.0" layoutY="7.0" text="DVDs, Films, Audio-books" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets left="20.0"/>
+                    </padding>
+                </Label>
+                <Label layoutX="10.0" layoutY="27.0" text="Reference literature" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets left="20.0"/>
+                    </padding>
+                </Label>
+                <Label text="60 days" GridPane.columnIndex="1">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets right="30.0"/>
+                    </padding>
+                </Label>
+                <Label text="30 days" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets right="30.0"/>
+                    </padding>
+                </Label>
+                <Label text="14 days" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets right="30.0"/>
+                    </padding>
+                </Label>
+                <Label text="0 days*" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <padding>
+                        <Insets right="30.0"/>
+                    </padding>
+                </Label>
+                <Label text="* Read at Library Location Only" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <font>
+                        <Font size="7.0"/>
+                    </font>
+                    <padding>
+                        <Insets right="30.0"/>
+                    </padding>
+                </Label>
+            </GridPane>
+            <Label text="You cannot borrow if:">
+                <VBox.margin>
+                    <Insets top="10.0" />
+                </VBox.margin>
+            </Label>
+            <GridPane maxWidth="-Infinity" prefHeight="112.0" prefWidth="276.0">
+                <columnConstraints>
+                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0"
+                                       prefWidth="270.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="12.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="12.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="12.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="12.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="12.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="12.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets left="15.0" right="15.0"/>
+                </VBox.margin>
+                <Label text="X  you have already extended the loan on your item twice">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Label>
+                <Label text="X  the item is reserved" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Label>
+                <Label text="X  you have reached the item's borrowing limit" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Label>
+                <Label text="X  you have a debt of $2.50 or more" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Label>
+                <Label text="X  you have received a bill for item replacement" GridPane.rowIndex="4">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Label>
+                <Label text="X  you are suspended" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Label>
+            </GridPane>
+            <BorderPane.margin>
+                <Insets right="5.0" top="10.0" />
+            </BorderPane.margin>
+        </VBox>
+    </center>
+</BorderPane>

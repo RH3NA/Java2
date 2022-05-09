@@ -3,6 +3,9 @@ package com.javafxdemo.controller;
 import com.javafxdemo.Context;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.models.InventoryModel;
+import com.javafxdemo.models.ItemModel;
+import com.javafxdemo.models.LoanModel;
 import com.javafxdemo.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +23,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-
 public class  SearchController {
 
     @FXML
@@ -28,6 +30,62 @@ public class  SearchController {
     public Button searchForResultButton;
     @FXML
     private Label searchResultsArea;
+
+    public int getIdItem() {
+        return idItem;
+    }
+
+    public void setIdItem(int idItem) {
+        this.idItem = idItem;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getNumberInStock() {
+        return numberInStock;
+    }
+
+    public void setNumberInStock(int numberInStock) {
+        this.numberInStock = numberInStock;
+    }
+
+    private int idItem;
+    private String title;
+    private String isbn;
+    private String publisher;
+    private int numberInStock;
+
+    public String getSearchIsbn() {
+        return searchIsbn;
+    }
+
+    public void setSearchIsbn(String searchIsbn) {
+        this.searchIsbn = searchIsbn;
+    }
+
+    private String searchIsbn;
 
 
     public void onSearchForResultButton(ActionEvent a) throws Exception {  // throwing out exceptions so the system doesn't crash & also ensure connection and statement closes
@@ -37,37 +95,49 @@ public class  SearchController {
         CallableStatement statement = conn.prepareCall("{CALL SearchByIsbn(?)}");  //makes a statement call ready to execute the procedure in database
 
         statement.setString(1, searchTextInputField.getText()); // gets input text from JavaFX 'search bar'
+        setSearchIsbn(searchTextInputField.getText());
         boolean hadResults = statement.execute(); // executes sql query
 
         while (hadResults) {
             ResultSet resultSet = statement.getResultSet(); // will run the query until all results collected
 
             while (resultSet.next()) {  //outputs the query result back to the search results area (label) on search page
-                searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\t Item ID\t\tNo. in Stock\n" +
-                        resultSet.getString("isbn") + "   " +
-                        resultSet.getString("title") + "\t\t" +
-                        resultSet.getString("publisher") + "\t\t" +
-                        resultSet.getString("idItem") + "\t\t\t\t" +
-                        resultSet.getString("numberInStock"));
+                        setIdItem(resultSet.getInt("idItem"));
+                        setTitle(resultSet.getString("title"));
+                        setIsbn(resultSet.getString("isbn"));
+                        setPublisher(resultSet.getString("publisher"));
+                        setNumberInStock(resultSet.getInt("numberInStock"));
+                searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\tNo. in Stock\n" +
+                        getIsbn() + "   " +
+                        getTitle() + "\t\t" +
+                        getPublisher() + "\t\t" +
+                        //getIdItem() + "\t\t\t\t" +            removed iditem showing here since it's not of any importance to the clients, they only need the barcode and idloan
+                        getNumberInStock());
             }
             hadResults = statement.getMoreResults(); // will loop until no more results available
         }
-
         statement.close(); // closes query
+        Context.getInstance().setCurrentSearch(new ItemModel(getIdItem(), getNumberInStock(), getTitle(), getIsbn(), getPublisher()));
 
     }
     @FXML
     private Button searchResultsLoanButton;
-    public void onSearchResultsLoanButton(ActionEvent a) throws IOException {
+    public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
         UserModel currentUser = Context.getInstance().getCurrentUser();
-        if (currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) {
+        LoanModel currentLoan = Context.getInstance().getCurrentLoan();
+        ItemModel currentSearch = Context.getInstance().getCurrentSearch();
+        if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (getSearchIsbn().equalsIgnoreCase(getIsbn()))){
             Scene sceneLoan = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/loan-view.fxml")));
             Stage stage = (Stage) searchResultsLoanButton.getScene().getWindow();
             stage.setScene(sceneLoan);
             stage.show();
+            InventoryModel.getInventoryDB();
+            Context.getInstance().setCurrentLoan(new LoanModel(currentUser.getIdUser(), InventoryModel.availableBarcode(currentSearch.getIdItem()), null, null));
         }
             else {
-                System.out.println("Something went wrong. Try logging in.");
+                System.out.println("You need to be logged in to proceed.");
+
+                // add redirect to startpage + error label with this error text in the actual gui
             }
 
 
