@@ -133,6 +133,7 @@ public class  SearchController {
             stage.show();
             InventoryModel.getInventoryDB();
             Context.getInstance().setCurrentLoan(new LoanModel(currentUser.getIdUser(), InventoryModel.availableBarcode(currentSearch.getIdItem()), null, null));
+            System.out.println(currentLoan);
         }
             else {
                 System.out.println("You need to be logged in to proceed.");

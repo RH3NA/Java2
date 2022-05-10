@@ -69,6 +69,7 @@ public class StartpageController {
                 }
                 if(Context.getInstance().getCurrentUser().getUserType() == 1114 || Context.getInstance().getCurrentUser().getUserType() == 1115) {
                     System.out.println("We have to create an admin page..");
+
                     }
                 }
                 else {
@@ -81,6 +82,7 @@ public class StartpageController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
     }
 
