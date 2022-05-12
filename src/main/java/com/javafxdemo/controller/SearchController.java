@@ -1,6 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.Context;
+import com.javafxdemo.Session;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.models.InventoryModel;
@@ -77,6 +77,16 @@ public class  SearchController {
     private String publisher;
     private int numberInStock;
 
+    public int getTotalStock() {
+        return totalStock;
+    }
+
+    public void setTotalStock(int totalStock) {
+        this.totalStock = totalStock;
+    }
+
+    private int totalStock;
+
     public String getSearchIsbn() {
         return searchIsbn;
     }
@@ -107,6 +117,7 @@ public class  SearchController {
                         setIsbn(resultSet.getString("isbn"));
                         setPublisher(resultSet.getString("publisher"));
                         setNumberInStock(resultSet.getInt("numberInStock"));
+                        setTotalStock(resultSet.getInt(("totalStock")));
                 searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\tNo. in Stock\n" +
                         getIsbn() + "   " +
                         getTitle() + "\t\t" +
@@ -117,23 +128,24 @@ public class  SearchController {
             hadResults = statement.getMoreResults(); // will loop until no more results available
         }
         statement.close(); // closes query
-        Context.getInstance().setCurrentSearch(new ItemModel(getIdItem(), getNumberInStock(), getTitle(), getIsbn(), getPublisher()));
+        Session.getInstance().setCurrentSearch(new ItemModel(getIdItem(), getNumberInStock(), getTitle(), getIsbn(), getPublisher(), getTotalStock()));
+        System.out.println(Session.getInstance().getCurrentSearch());
 
     }
     @FXML
     private Button searchResultsLoanButton;
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
-        UserModel currentUser = Context.getInstance().getCurrentUser();
-        LoanModel currentLoan = Context.getInstance().getCurrentLoan();
-        ItemModel currentSearch = Context.getInstance().getCurrentSearch();
+        UserModel currentUser = Session.getInstance().getCurrentUser();
+        ItemModel currentSearch = Session.getInstance().getCurrentSearch();
         if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (getSearchIsbn().equalsIgnoreCase(getIsbn()))){
+            InventoryModel.getInventoryDB();
+            Session.getInstance().setCurrentLoan(new LoanModel(currentUser.getIdUser(), InventoryModel.availableBarcode(currentSearch.getIdItem()), null, null));
+            System.out.println(Session.getInstance().getCurrentLoan());
             Scene sceneLoan = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/loan-view.fxml")));
             Stage stage = (Stage) searchResultsLoanButton.getScene().getWindow();
             stage.setScene(sceneLoan);
             stage.show();
-            InventoryModel.getInventoryDB();
-            Context.getInstance().setCurrentLoan(new LoanModel(currentUser.getIdUser(), InventoryModel.availableBarcode(currentSearch.getIdItem()), null, null));
-            System.out.println(currentLoan);
+            Session.getInstance().loanController.setSelectedLoanItemsLabel(new Label("Selected item: " + Session.getInstance().getCurrentLoan()));
         }
             else {
                 System.out.println("You need to be logged in to proceed.");

@@ -2,7 +2,7 @@ package com.javafxdemo.controller;
 
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
-import com.javafxdemo.Context;
+import com.javafxdemo.Session;
 import com.javafxdemo.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,8 +58,8 @@ public class StartpageController {
                     loginErrorLabel.setText("Welcome. Successful login.");
                     password = Integer.parseInt(passwordInput.getText());
                     setUpCurrUser();
-                        if(Context.getInstance().getCurrentUser().getUserType() == 1111 || Context.getInstance().getCurrentUser().getUserType() == 1112
-                            || Context.getInstance().getCurrentUser().getUserType() == 1113) {
+                        if(Session.getInstance().getCurrentUser().getUserType() == 1111 || Session.getInstance().getCurrentUser().getUserType() == 1112
+                            || Session.getInstance().getCurrentUser().getUserType() == 1113) {
                                 Scene sceneLoggedIn = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/startpageloggedin-view.fxml")));
                                 Stage stage = (Stage) loginButton.getScene().getWindow();
                                 stage.setScene(sceneLoggedIn);
@@ -67,7 +67,7 @@ public class StartpageController {
 
 
                 }
-                if(Context.getInstance().getCurrentUser().getUserType() == 1114 || Context.getInstance().getCurrentUser().getUserType() == 1115) {
+                if(Session.getInstance().getCurrentUser().getUserType() == 1114 || Session.getInstance().getCurrentUser().getUserType() == 1115) {
                     System.out.println("We have to create an admin page..");
 
                     }
@@ -91,9 +91,9 @@ public class StartpageController {
                                 //and also rename this one to something not so similar to the other getCurrentUser method
         for (com.javafxdemo.models.UserModel user : users) {
             if (password == user.getIdUser()) {
-                Context.getInstance().setCurrentUser(new UserModel(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getPhoneNumber(), user.getEmail(), user.getUserType(), Boolean.TRUE));
-                System.out.println("Current user information:" + Context.getInstance().getCurrentUser());
-                System.out.println(Context.getInstance().getCurrentUser().getFirstName());
+                Session.getInstance().setCurrentUser(new UserModel(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getPhoneNumber(), user.getEmail(), user.getUserType(), Boolean.TRUE));
+                System.out.println("Current user information:" + Session.getInstance().getCurrentUser());
+                System.out.println(Session.getInstance().getCurrentUser().getFirstName());
                 break;
             }
         }

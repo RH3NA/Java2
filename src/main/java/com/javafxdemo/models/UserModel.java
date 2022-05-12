@@ -46,7 +46,8 @@ public class UserModel {
                 " firstName = " + this.firstName +
                 " phoneNumber = " + this.phoneNumber +
                 " email = " + this.email +
-                " userType = " + this.userType;
+                " userType = " + this.userType +
+                " currentlyLoggedIn = " + this.currentlyLoggedIn;
     }
 
 
@@ -103,6 +104,7 @@ public class UserModel {
     public static void getUsersDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist,
                                                           // the only issue rn is that i didnt set any limits so if you run this method twice,
                                                         // there will be duplicates.. easy to fix probs :)
+        users.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
         Statement stm;

@@ -1,6 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.Context;
+import com.javafxdemo.Session;
 import com.javafxdemo.LibraryApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +32,15 @@ public class StartpageLoggedInController { //added a logged in startpage
     private Button backButton;
     @FXML
     private Button loanButton;
+
+    public static Label getWelcomeTextLabel() {
+        return welcomeTextLabel;
+    }
+
+    public static void setWelcomeTextLabel(Label welcomeTextLabel) {
+        StartpageLoggedInController.welcomeTextLabel = welcomeTextLabel;
+    }
+
     @FXML
     private static Label welcomeTextLabel;
 
@@ -53,9 +61,7 @@ public class StartpageLoggedInController { //added a logged in startpage
     public void onStartPageLoggedInLogOutButton(ActionEvent a) {
     }
 
-    public static void setWelcomeName(String s) {
-        welcomeTextLabel.setText("Welcome " + Context.getInstance().getCurrentUser().getFirstName() + "!");
-    }
+
 
 
 

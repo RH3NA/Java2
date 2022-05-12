@@ -1,5 +1,6 @@
 package com.javafxdemo;
 
+import com.javafxdemo.controller.*;
 import com.javafxdemo.models.UserModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,6 @@ import static com.javafxdemo.models.UserModel.getUsersDB;
 
 public class LibraryApplication extends Application {
 
-
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -24,5 +24,9 @@ public class LibraryApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
+
+    }
+    public static void main(String[] args) {
+        launch(args);
     }
 }
