@@ -74,6 +74,8 @@ public class StartpageController implements Initializable {
                     }
                     if (Session.getInstance().getCurrentUser().getUserType() == 1114 || Session.getInstance().getCurrentUser().getUserType() == 1115) {
                         System.out.println("We have to create an admin page..");
+                        AdminController.setSceneAdmin();
+
 
                     }
                 } else {

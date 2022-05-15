@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.AdminController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.AdminController">
     <bottom>
         <ButtonBar buttonMinWidth="50.0" prefHeight="70.0" prefWidth="84.0" BorderPane.alignment="CENTER">
             <buttons>
@@ -30,11 +30,14 @@
             <padding>
                 <Insets left="38.0" top="15.0" />
             </padding>
-            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="42.0" prefWidth="112.0" text="Search" />
+            <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Search" />
             <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
-            <Button fx:id="overviewLoansButton" mnemonicParsing="false" onAction="#onLoanButtonClick" prefHeight="42.0" prefWidth="112.0" text="Overview loans" />
-            <Button fx:id="overdueItemsButton" mnemonicParsing="false" onAction="#onReturnLoanButton" prefHeight="42.0" prefWidth="112.0" text="Overdue items" />
-            <Button fx:id="crudButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Add/update/delete/view" />
+            <Button fx:id="overviewLoansButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Overview loans" />
+            <Button fx:id="overdueItemsButton" mnemonicParsing="false"  prefHeight="42.0" prefWidth="112.0" text="Overdue items" />
+            <Button fx:id="crudButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Add/update item" />
+         <Button fx:id="loanButton1" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Delete item" />
+         <Button fx:id="loanButton11" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="View items" />
+         <Button fx:id="loanButton12" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="View users" />
         </VBox>
     </left>
     <center>
