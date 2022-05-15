@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.StartpageLoggedInController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.AdminController">
     <bottom>
         <ButtonBar buttonMinWidth="50.0" prefHeight="70.0" prefWidth="84.0" BorderPane.alignment="CENTER">
             <buttons>
@@ -31,21 +31,15 @@
                 <Insets left="38.0" top="15.0" />
             </padding>
             <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="42.0" prefWidth="112.0" text="Search" />
-            <Button fx:id="reservationButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Reservation" />
-            <Button fx:id="loanButton" mnemonicParsing="false" onAction="#onLoanButtonClick" prefHeight="42.0" prefWidth="112.0" text="Loan" />
-            <Button fx:id="loanReturnButton" mnemonicParsing="false" onAction="#onReturnLoanButton" prefHeight="42.0" prefWidth="112.0" text="Return Loan" />
-            <Button fx:id="paymentButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Payment" />
-            <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Profile" />
-            <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="History" />
+            <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
+            <Button fx:id="overviewLoansButton" mnemonicParsing="false" onAction="#onLoanButtonClick" prefHeight="42.0" prefWidth="112.0" text="Overview loans" />
+            <Button fx:id="overdueItemsButton" mnemonicParsing="false" onAction="#onReturnLoanButton" prefHeight="42.0" prefWidth="112.0" text="Overdue items" />
+            <Button fx:id="crudButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Add/update/delete/view" />
         </VBox>
     </left>
     <center>
         <VBox prefHeight="213.0" prefWidth="423.0" spacing="10.0" BorderPane.alignment="CENTER">
             <Label fx:id="welcomeTextLabel" style="-fx-padding:10;" text="Welcome, ##. " />
-            <Label fx:id="currentLoanStatusLabel" style="-fx-padding:10;" text="Your current Loan Status is $$." />
-            <Label fx:id="itemsOverdueLabel" style="-fx-padding:10;" text="Items Overdue:" />
-            <Label fx:id="reservedItemsLabel" style="-fx-padding:10;" text="Reserved Items:" />
-            <Label fx:id="itemsOnLoanLabel" style="-fx-padding:10;" text="Items on Loan:" />
             <BorderPane.margin>
                 <Insets right="20.0" top="20.0" />
             </BorderPane.margin>

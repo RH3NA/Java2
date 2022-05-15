@@ -7,6 +7,7 @@ import com.javafxdemo.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,21 +16,28 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
 import static com.javafxdemo.models.UserModel.*;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class StartpageController {
+public class StartpageController implements Initializable {
 
-    @FXML private Label welcomeText;
-    @FXML private Label loginErrorLabel;
-    @FXML TextField usernameInput;
-    @FXML PasswordField passwordInput;
-    @FXML Button loginButton;
+    @FXML
+    private Label welcomeText;
+    @FXML
+    private Label loginErrorLabel;
+    @FXML
+    TextField usernameInput;
+    @FXML
+    PasswordField passwordInput;
+    @FXML
+    Button loginButton;
     private int password;
 
     public void loginButtonOnAction(ActionEvent a) throws SQLException {
@@ -58,21 +66,17 @@ public class StartpageController {
                     loginErrorLabel.setText("Welcome. Successful login.");
                     password = Integer.parseInt(passwordInput.getText());
                     setUpCurrUser();
-                        if(Session.getInstance().getCurrentUser().getUserType() == 1111 || Session.getInstance().getCurrentUser().getUserType() == 1112
+                    if (Session.getInstance().getCurrentUser().getUserType() == 1111 || Session.getInstance().getCurrentUser().getUserType() == 1112
                             || Session.getInstance().getCurrentUser().getUserType() == 1113) {
-                                Scene sceneLoggedIn = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/startpageloggedin-view.fxml")));
-                                Stage stage = (Stage) loginButton.getScene().getWindow();
-                                stage.setScene(sceneLoggedIn);
-                                stage.show();
+                        Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
 
-
-                }
-                if(Session.getInstance().getCurrentUser().getUserType() == 1114 || Session.getInstance().getCurrentUser().getUserType() == 1115) {
-                    System.out.println("We have to create an admin page..");
 
                     }
-                }
-                else {
+                    if (Session.getInstance().getCurrentUser().getUserType() == 1114 || Session.getInstance().getCurrentUser().getUserType() == 1115) {
+                        System.out.println("We have to create an admin page..");
+
+                    }
+                } else {
                     loginErrorLabel.setText("Invalid login. Please try again or register.");
                     break;
 
@@ -87,12 +91,12 @@ public class StartpageController {
     }
 
     public void setUpCurrUser() { //method to compare the current user to the users in the stored arraylist, only problem rn is that this only works for 1 user
-                                //should probably make a global method that stores every user as well
-                                //and also rename this one to something not so similar to the other getCurrentUser method
+        //should probably make a global method that stores every user as well
+        //and also rename this one to something not so similar to the other getCurrentUser method
         for (com.javafxdemo.models.UserModel user : users) {
             if (password == user.getIdUser()) {
                 Session.getInstance().setCurrentUser(new UserModel(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getPhoneNumber(), user.getEmail(), user.getUserType(), Boolean.TRUE));
-                System.out.println("Current user information:" + Session.getInstance().getCurrentUser());
+                System.out.println("Current user information: " + Session.getInstance().getCurrentUser());
                 System.out.println(Session.getInstance().getCurrentUser().getFirstName());
                 break;
             }
@@ -120,8 +124,6 @@ public class StartpageController {
     }*/
 
 
-
-
     @FXML
     private Button registerButton;
 
@@ -144,10 +146,13 @@ public class StartpageController {
     private Button startPageSearchButton;
 
     public void onStartPageSearchButtonClick(ActionEvent a) throws IOException {
-        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
-        Stage stage = (Stage) startPageSearchButton.getScene().getWindow();
-        stage.setScene(sceneSearch);
-        stage.show();
+        Session.getInstance().getSearchController().setSceneSearch();
     }
+    @FXML
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+
+    }
 }

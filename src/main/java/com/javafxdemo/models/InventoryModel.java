@@ -106,19 +106,35 @@ public class InventoryModel {
         Statement stmt;
         ResultSet rs;
         stmt = conn.createStatement();
-        rs = stmt.executeQuery("Select Inventory_idBarcode\n" +
-                "From Loan\n" +
-                "left outer join Loanreturn ON Loan.idLoan = Loanreturn.Loan_idLoan\n" +
-                "Where returnDate is not null\n" +
-        "And Inventory_idBarcode = '" + idBarcode +
-        "'Order by expiryDate desc\n" +
-        "Limit 1;");
-
+        rs = stmt.executeQuery("Select idBarcode\n" +
+                "From Inventory\n" +
+                "Where idBarcode = '" + idBarcode +
+                "'AND idBarcode NOT IN (Select Inventory_idBarcode From Loan);");
         while (rs.next()) {
-            checkBarcode = rs.getInt("Inventory_idBarcode");
+            checkBarcode = rs.getInt("idBarcode");
+            }
+        if (checkBarcode > 0) {
+            return true;
         }
-        return checkBarcode > 0;
+        if (checkBarcode == 0) {
+            rs = stmt.executeQuery("Select Inventory_idBarcode\n" +
+                    "From Loan\n" +
+                    "left outer join Loanreturn ON Loan.idLoan = Loanreturn.Loan_idLoan\n" +
+                    "Where returnDate is not null\n" +
+                    "And Inventory_idBarcode = '" + idBarcode +
+                    "'Order by expiryDate desc\n" +
+                    "Limit 1;");
+
+            while (rs.next()) {
+                checkBarcode = rs.getInt("Inventory_idBarcode");
+            }
+            if (checkBarcode > 0) {
+                return true;
+            }
+        }
+        return false;
     }
+
 
 
 

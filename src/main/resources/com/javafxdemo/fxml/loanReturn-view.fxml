@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane prefHeight="308.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.StartpageController">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="350.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoanReturnController">
    <top>
       <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
           <padding>
               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
           </padding>
+         <Label fx:id="returnText" prefHeight="34.0" prefWidth="344.0" text="Please choose which item to return." />
       
           <Label fx:id="welcomeText" />
-          <Button fx:id="HelloButton" onAction="#onHelloButtonClick" text="Hello!" />
       </VBox>
    </top>
    <left>
-      <AnchorPane prefHeight="200.0" prefWidth="168.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="anchorPane1" prefHeight="217.0" prefWidth="375.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
-       <AnchorPane prefHeight="200.0" prefWidth="280.0" BorderPane.alignment="CENTER">
-           <Label fx:id="UserNameLabel" layoutX="27.0" layoutY="19.0" text="Username"/>
-           <Label fx:id="PasswordLabel" layoutX="27.0" layoutY="64.0" text="Password"/>
-           <PasswordField fx:id="PasswordInput" layoutX="101.0" layoutY="56.0" promptText="Enter User ID"/>
-           <TextField fx:id="UserNameInput" layoutX="101.0" layoutY="15.0" promptText="Enter email"/>
-           <Button fx:id="LoginButton" layoutX="65.0" layoutY="98.0" mnemonicParsing="false" prefHeight="30.0"
-                   prefWidth="151.0" text="Login"/>
-           <Button fx:id="registerButton" layoutX="141.0" layoutY="156.0" mnemonicParsing="false"
-                   onAction="#onRegisterButtonClick" prefHeight="30.0" prefWidth="104.0" text="Register"/>
-           <Label fx:id="RegisterLabel" layoutX="60.0" layoutY="162.0" text="No account?"/>
+       <AnchorPane fx:id="anchorPane2" prefHeight="252.0" prefWidth="144.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollBar fx:id="scrollBar" blockIncrement="0.0" layoutX="7.0" layoutY="14.0" max="50.0" orientation="VERTICAL" prefHeight="225.0" prefWidth="14.0" unitIncrement="10.0" />
+         </children>
        </AnchorPane>
    </right>
 </BorderPane>

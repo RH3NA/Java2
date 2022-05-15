@@ -3,10 +3,7 @@ package com.javafxdemo.models;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 import static com.javafxdemo.models.UserModel.users;
@@ -37,6 +34,7 @@ public class ItemModel {
         this.publisher = publisher;
         this.totalStock = totalStock;
     }
+
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
     {
@@ -56,8 +54,6 @@ public class ItemModel {
     public void setIdItem(int idItem) {
         this.idItem = idItem;
     }
-
-
 
 
     public int getNumberInStock() {
@@ -110,4 +106,28 @@ public class ItemModel {
         }
 
     }
+
+    /*public static void updateItem(int idItem) throws SQLException { // Till Astrid :)
+        getItemsDB();
+        for (int i = 0; items.size() > i; i++) {
+            if (idItem == items.get(i).getIdItem()) {
+                Session.getInstance().setCurrentUpdate(new ItemModel(items.get(i).idItem, items.get(i).numberInStock, items.get(i).title, items.get(i).isbn, items.get(i).publisher, items.get(i).totalStock));
+                System.out.println("Current user information: " + Session.getInstance().getCurrentUpdate());
+                System.out.println(Session.getInstance().getCurrentUpdate());
+
+                String query = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)"
+                        + " values (?, ?, ? , ? , ?, ?)";
+
+                // create the mysql insert preparedstatement
+                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                preparedStmt.setInt(1, Session.getInstance().getCurrentUpdate().idItem);
+                preparedStmt.setInt(2, idUser);
+                preparedStmt.setInt(3, idBarcode);
+                preparedStmt.setTimestamp(4, null);
+                preparedStmt.setTimestamp(5, null);
+                preparedStmt.execute();
+
+            }
+        }
+    }*/
 }
