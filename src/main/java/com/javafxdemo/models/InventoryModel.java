@@ -3,10 +3,7 @@ package com.javafxdemo.models;
 
 import com.javafxdemo.DBConnection;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class InventoryModel {
@@ -32,6 +29,7 @@ public class InventoryModel {
         this.category = category;
         this.available = available;
     }
+
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
     {
@@ -86,10 +84,9 @@ public class InventoryModel {
         rs = stmt.executeQuery("Select idBarcode\n" +
                 "From inventory\n" +
                 "Where idBarcode NOT IN (Select Inventory_idBarcode From Loan Where idLoan NOT IN (Select Loan_idLoan From Loanreturn)) AND Items_idItems = '" + idItem +
-                "'OR idBarcode NOT IN (Select Inventory_idBarcode From Loan) AND Items_idItems = '"+ idItem +
+                "'OR idBarcode NOT IN (Select Inventory_idBarcode From Loan) AND Items_idItems = '" + idItem +
                 "'Limit 1");
-        while (rs.next())
-        {
+        while (rs.next()) {
             availableBarcode = rs.getInt("idBarcode");
         }
         if (availableBarcode == 0) {
@@ -99,7 +96,7 @@ public class InventoryModel {
         return availableBarcode;
     }
 
-    public static Boolean checkAvailableBarcode (int idBarcode) throws SQLException {
+    public static Boolean checkAvailableBarcode(int idBarcode) throws SQLException {
         int checkBarcode = 0;
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -112,7 +109,7 @@ public class InventoryModel {
                 "'AND idBarcode NOT IN (Select Inventory_idBarcode From Loan);");
         while (rs.next()) {
             checkBarcode = rs.getInt("idBarcode");
-            }
+        }
         if (checkBarcode > 0) {
             return true;
         }
@@ -136,13 +133,27 @@ public class InventoryModel {
     }
 
 
-
-
     public int getItems_idItems() {
         return items_idItems;
     }
 
     public void setItems_idItems(int items_idItems) {
         this.items_idItems = items_idItems;
+    }
+
+    public static String getTitleFromBarcode(int idBarcode) throws SQLException {
+        ItemModel.getItemsDB();
+        getInventoryDB();
+        for (InventoryModel inventoryModel : inventory) {
+            if (idBarcode == inventoryModel.idBarcode) {
+                int idItem = inventoryModel.items_idItems;
+                for (int y = 0; ItemModel.items.size() > y; y++) {
+                    if (idItem == ItemModel.items.get(y).getIdItem()) {
+                        return ItemModel.items.get(y).getTitle();
+                    }
+                }
+            }
+        }
+        return "No title";
     }
 }

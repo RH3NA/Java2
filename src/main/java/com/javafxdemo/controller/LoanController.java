@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class LoanController implements Initializable {
@@ -78,7 +79,7 @@ public class LoanController implements Initializable {
 
 
     public static int createIdLoan() { //needs better algorithm since we dont have autoincrement
-        return ((Session.getInstance().getCurrentUser().getIdUser()) + (Session.getInstance().getCurrentLoan().getIdBarcode()));
+        return ((Session.getInstance().getCurrentUser().getIdUser()) + (Session.getInstance().getCurrentLoan().getIdBarcode()) + (LocalDateTime.now().getMinute()));
     }
 
     @FXML

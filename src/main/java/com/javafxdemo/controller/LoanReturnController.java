@@ -2,7 +2,9 @@ package com.javafxdemo.controller;
 
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.Session;
+import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.LoanModel;
+import com.javafxdemo.models.LoanreturnModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +20,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static javafx.scene.control.TextArea.DEFAULT_PREF_COLUMN_COUNT;
+import static com.javafxdemo.models.InventoryModel.getTitleFromBarcode;
 
 public class LoanReturnController implements Initializable {
     @FXML
     private Label returnText;
+
+    public static ArrayList<CheckBox> getCheckBoxes() {
+        return checkBoxes;
+    }
+
+    public static void setCheckBoxes(ArrayList<CheckBox> checkBoxes) {
+        LoanReturnController.checkBoxes = checkBoxes;
+    }
+
+    public static ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+    public static ArrayList<DialogPane> dialogPanes = new ArrayList<>();
 
     public TextArea getTextArea() {
         return textArea;
@@ -44,6 +57,8 @@ public class LoanReturnController implements Initializable {
     private AnchorPane anchorPane1;
     @FXML
     private AnchorPane anchorPane2;
+    @FXML
+    private Button confirmButton;
 
 
     @FXML
@@ -51,32 +66,49 @@ public class LoanReturnController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             LoanModel.getAllLoansIdUser(Session.getInstance().getCurrentUser().getIdUser());
-        } catch (SQLException e) {
+            LoanModel.getLoansDB();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        int textAreaIncreaseSizeY = 47;
-        int buttonAreaIncreaseSizeY = 64;
+         int dialogPaneIncreaseSizeY = 20;
+         int checkBoxIncreaseSizeY = 33;
         for (int i = 0; LoanModel.currentUserLoans.size() > i; i++) {
-            TextArea area = new TextArea();
-            area.setText(String.valueOf(LoanModel.currentUserLoans.get(i)));
-            area.setPrefColumnCount(DEFAULT_PREF_COLUMN_COUNT);
-            area.setPrefHeight(37);
-            area.setPrefWidth(353);
-            Button button = new Button();
-            button.setText("Return");
-            area.setLayoutY(textAreaIncreaseSizeY);
-            textAreaIncreaseSizeY = textAreaIncreaseSizeY + 47;
-            button.setLayoutY(buttonAreaIncreaseSizeY);
-            button.setLayoutX(53);
-            buttonAreaIncreaseSizeY = buttonAreaIncreaseSizeY + 47;
-            anchorPane1.getChildren().add(area);
-            anchorPane2.getChildren().add(button);
+            DialogPane dialogPane = new DialogPane();
+            try {
+                dialogPane.setContentText("Title = " + getTitleFromBarcode(LoanModel.currentUserLoans.get(i).getIdBarcode()) + " Loan ID = " + LoanModel.currentUserLoans.get(i).getIdLoan() + " Barcode = " + LoanModel.currentUserLoans.get(i).getIdBarcode() + " Expiry date = " + LoanModel.currentUserLoans.get(i).getExpiryDate());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            //dialogPane.setPrefColumnCount(DEFAULT_PREF_COLUMN_COUNT);
+           // dialogPane.setPrefHeight(53);
+           dialogPane.setPrefWidth(560);
+            CheckBox checkBox = new CheckBox();
+            checkBox.setText("Choose");
+            dialogPane.setLayoutY(dialogPaneIncreaseSizeY);
+            dialogPane.setLayoutX(3);
+            dialogPaneIncreaseSizeY = dialogPaneIncreaseSizeY + 60;
+            checkBox.setLayoutY(checkBoxIncreaseSizeY);
+            checkBox.setLayoutX(545);
+            checkBoxIncreaseSizeY = checkBoxIncreaseSizeY + 60;
+            anchorPane1.getChildren().add(dialogPane);
+            anchorPane1.getChildren().add(checkBox);
+            checkBoxes.add(checkBox);
+            dialogPanes.add(dialogPane);
         }
     }
 
-    public void onLoanReturnButton(ActionEvent a) throws SQLException {
+    public void onConfirmButton(ActionEvent a) throws SQLException {
         LoanModel.getAllLoansIdUser(Session.getInstance().getCurrentUser().getIdUser());
+        for (int i = 0; checkBoxes.size() > i; i++) {
+            System.out.println(dialogPanes.get(i).getContentText());
+            System.out.println("Title = " + getTitleFromBarcode(LoanModel.currentUserLoans.get(i).getIdBarcode()) + " Loan ID = " + LoanModel.currentUserLoans.get(i).getIdLoan() + " Barcode = " + LoanModel.currentUserLoans.get(i).getIdBarcode() + " Expiry date = " + LoanModel.currentUserLoans.get(i).getExpiryDate());
+            if (checkBoxes.get(i).isSelected()) {
+                LoanreturnModel.returnLoan(LoanModel.currentUserLoans.get(i).getIdLoan());
+                System.out.println("Returned loan = " + LoanModel.currentUserLoans.get(i).toString());
+                break;
+            }
         }
+    }
 
 
 

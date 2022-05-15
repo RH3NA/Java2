@@ -87,7 +87,8 @@ public class LoanModel {
         Connection conn = connectNow.getConnection();
         Statement stm;
         stm = conn.createStatement();
-        String sql = "Select * From Loan";
+        String sql = "Select * From Loan\n" +
+                "Where idLoan NOT IN (Select Loan_idLoan From Loanreturn);";
         ResultSet rst;
         rst = stm.executeQuery(sql);
         while (rst.next()) {
@@ -118,7 +119,8 @@ public class LoanModel {
             getLatestLoanDBidUser(idUser);
             conn.close();
         } catch (SQLException e) {
-            System.out.println("You have too many active loans. Return them before borrowing again.");
+            System.out.println("Something went wrong.");
+            System.out.println(e.getErrorCode());
         }
 
     }
@@ -133,7 +135,8 @@ public class LoanModel {
             String sql = "Select *\n" +
                     "From loan\n" +
                     "Where User_idUser = '" + idUser +
-                    "'Order by loanDate desc\n" +
+                    "'AND idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
+                    "Order by loanDate desc" +
                     "Limit 1;";
             ResultSet rst;
             rst = stm.executeQuery(sql);
@@ -157,7 +160,9 @@ public class LoanModel {
 
         String sql = "Select *\n" +
                 "From loan\n" +
-                "Where User_idUser = " + idUser;
+                "Where User_idUser = '" + idUser +
+        "'AND idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
+                "Order by loanDate desc";
         ResultSet rst;
         rst = stm.executeQuery(sql);
         while (rst.next()) {
