@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="685.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.CrudController">
     <bottom>
@@ -40,17 +41,44 @@
         <VBox prefHeight="258.0" prefWidth="450.0" spacing="10.0" BorderPane.alignment="CENTER">
          <AnchorPane prefHeight="412.0" prefWidth="557.0">
             <children>
-               <TextField layoutX="76.0" layoutY="25.0" text="457540" />
-               <TextField layoutX="75.0" layoutY="68.0" />
-               <TextField layoutX="75.0" layoutY="109.0" />
-               <Button fx:id="backButton1" layoutX="119.0" layoutY="295.0" mnemonicParsing="false" prefHeight="42.0" text="Confirm" />
-               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="21.0" prefHeight="33.0" prefWidth="54.0" text="ItemID" textAlignment="CENTER" />
-               <TextField layoutX="324.0" layoutY="25.0" prefHeight="25.0" prefWidth="155.0" />
-               <TextField layoutX="326.0" layoutY="66.0" prefHeight="25.0" prefWidth="154.0" />
-               <TextField layoutX="328.0" layoutY="105.0" prefHeight="25.0" prefWidth="154.0" />
-               <TextField layoutX="75.0" layoutY="151.0" />
-               <TextField layoutX="75.0" layoutY="186.0" />
-               <TextField layoutX="75.0" layoutY="221.0" />
+               <TextField fx:id="idItemInput" layoutX="263.0" layoutY="37.0" />
+               <TextField fx:id="inStockInput" layoutX="263.0" layoutY="74.0" />
+               <TextField fx:id="titleInput" layoutX="263.0" layoutY="117.0" />
+               <Button fx:id="confirmCRUDButton" onAction="#onupdateItemClick" layoutX="268.0" layoutY="302.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="Confirm" />
+
+                <Label fx:id="idItemLable" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="33.0" prefHeight="33.0" prefWidth="54.0" text="ItemID" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font></Label>
+               <TextField fx:id="isbnInput" layoutX="264.0" layoutY="156.0" />
+               <TextField fx:id="totalInStockInput" layoutX="263.0" layoutY="198.0" />
+               <TextField fx:id="publisherInput" layoutX="263.0" layoutY="241.0" prefHeight="17.0" prefWidth="161.0" />
+               <Label fx:id="inStockLable" alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" layoutY="74.0" prefHeight="33.0" prefWidth="116.0" text="Number in Stock" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
+               <Label fx:id="titleLable" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="117.0" prefHeight="33.0" prefWidth="54.0" text="Title" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
+               <Label fx:id="isbnLable" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="159.0" prefHeight="33.0" prefWidth="54.0" text="ISBN" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
+               <Label fx:id="totalInStockLable" alignment="CENTER" contentDisplay="CENTER" layoutX="165.0" layoutY="194.0" prefHeight="33.0" prefWidth="91.0" text="Total Stock" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
+               <Label fx:id="publisherLable" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="229.0" prefHeight="33.0" prefWidth="54.0" text="Publisher" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="-16.0" layoutY="20.0" maxHeight="-Infinity" prefHeight="14.0" style="-fx-padding: 0;" text="Please insert the item values." />
             </children>
          </AnchorPane>
             <HBox alignment="CENTER" prefHeight="214.0" prefWidth="753.0" spacing="8.0" />
@@ -60,7 +88,4 @@
             </BorderPane.margin>
         </VBox>
     </center>
-   <top>
-         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity" prefHeight="14.0" style="-fx-padding: 0;" text="Please insert the item values." BorderPane.alignment="CENTER" />
-   </top>
 </BorderPane>

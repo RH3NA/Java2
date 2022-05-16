@@ -107,8 +107,10 @@ public class ItemModel {
 
     }
 
-    /*public static void updateItem(int idItem) throws SQLException { // Till Astrid :)
+    public static void addItem(int idItem) throws SQLException {
         getItemsDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
         for (int i = 0; items.size() > i; i++) {
             if (idItem == items.get(i).getIdItem()) {
                 Session.getInstance().setCurrentUpdate(new ItemModel(items.get(i).idItem, items.get(i).numberInStock, items.get(i).title, items.get(i).isbn, items.get(i).publisher, items.get(i).totalStock));
@@ -121,13 +123,14 @@ public class ItemModel {
                 // create the mysql insert preparedstatement
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setInt(1, Session.getInstance().getCurrentUpdate().idItem);
-                preparedStmt.setInt(2, idUser);
-                preparedStmt.setInt(3, idBarcode);
-                preparedStmt.setTimestamp(4, null);
-                preparedStmt.setTimestamp(5, null);
+                preparedStmt.setInt(2,Session.getInstance().getCurrentUpdate().numberInStock);
+                preparedStmt.setInt(3, Integer.parseInt(Session.getInstance().getCurrentUpdate().title));
+                preparedStmt.setTimestamp(4, Timestamp.valueOf(Session.getInstance().getCurrentUpdate().isbn));
+                preparedStmt.setTimestamp(5, Timestamp.valueOf(Session.getInstance().getCurrentUpdate().publisher));
+                preparedStmt.setTimestamp(6, Timestamp.valueOf(String.valueOf(Session.getInstance().getCurrentUpdate().totalStock)));
                 preparedStmt.execute();
 
             }
         }
-    }*/
+    }
 }
