@@ -12,10 +12,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="629.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.DeleteController">
     <bottom>
-        <ButtonBar buttonMinWidth="50.0" prefHeight="70.0" prefWidth="84.0" BorderPane.alignment="CENTER">
+        <ButtonBar buttonMinWidth="50.0" prefHeight="0.0" prefWidth="614.0" BorderPane.alignment="CENTER">
             <buttons>
                 <ImageView fitHeight="94.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/LTULogo.jpg" />
@@ -37,15 +38,18 @@
         </VBox>
     </left>
     <center>
-        <VBox prefHeight="258.0" prefWidth="450.0" spacing="10.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="305.0" prefWidth="483.0" spacing="10.0" BorderPane.alignment="CENTER">
             <AnchorPane prefHeight="412.0" prefWidth="557.0">
                 <children>
-                    <TextField fx:id="barcodeInput" layoutX="76.0" layoutY="25.0" />
-                    <Button fx:id="deleteButton" layoutX="242.0" layoutY="17.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Delete?" />
-                    <Label fx:id="barcodeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="21.0" prefHeight="33.0" prefWidth="54.0" text="Barcode" textAlignment="CENTER" />
+                    <TextField fx:id="barcodeInput" layoutX="254.0" layoutY="150.0" />
+                    <Button fx:id="deleteButton" layoutX="440.0" layoutY="145.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Delete" />
+                    <Label fx:id="barcodeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="146.0" prefHeight="33.0" prefWidth="168.0" text="Enter barcode to delet item" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font></Label>
                 </children>
             </AnchorPane>
-            <HBox alignment="CENTER" prefHeight="214.0" prefWidth="753.0" spacing="8.0" />
+            <HBox alignment="CENTER" prefHeight="451.0" prefWidth="571.0" spacing="8.0" />
             <StackPane prefHeight="0.0" prefWidth="753.0" />
             <BorderPane.margin>
                 <Insets right="20.0" top="20.0" />
