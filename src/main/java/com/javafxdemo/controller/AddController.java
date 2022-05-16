@@ -8,9 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class CrudController {
+import java.sql.SQLException;
 
-    public Label errorCrudEntrys;
+public class AddController {
+
+
     @FXML
     private Label idItemLable;
     @FXML
@@ -37,19 +39,22 @@ public class CrudController {
     private Label publisherLable;
     @FXML
     TextField publisherInput;
+    @FXML
+    TextField authorInput;
+    @FXML
+    TextField categoryInput;
 
 
 
-    public void onupdateItemClick(ActionEvent actionEvent) {
+    public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
 
         if (idItemInput.getText().isBlank() && inStockInput.getText().isBlank()
                 && titleInput.getText().isBlank() && isbnInput.getText().isBlank() && totalInStockInput.getText().isBlank()
-                && publisherInput.getText().isBlank()) {
-            errorCrudEntrys.setText("All entrys needs values");
-        } else {
-            ItemModel.addItem(new ItemModel(idItemInput.getText(),idItemInput.getText(), inStockInput.getText(), titleInput.getText(),isbnInput.getText(), totalInStockInput.getText(), publisherInput.getText());
-        }
-
+                && publisherInput.getText().isBlank() && authorInput.getText().isBlank() && categoryInput.getText().isBlank() ) {
+           // errorCrudEntrys.setText("All entrys needs values");
+        } else
+            ItemModel.addItem((idItemInput, inStockInput, titleInput, isbnInput, totalInStockInput, publisherInput, );
+        // new ItemModel(idItemInput.getText(), idItemInput.getText(), inStockInput.getText(), titleInput.getText(), isbnInput.getText(), totalInStockInput.getText(), publisherInput.getText());
 
     }
 }

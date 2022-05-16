@@ -145,4 +145,6 @@ public class InventoryModel {
     public void setItems_idItems(int items_idItems) {
         this.items_idItems = items_idItems;
     }
+
+    //public static addBarcodeToIn
 }

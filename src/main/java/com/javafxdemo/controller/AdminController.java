@@ -53,10 +53,10 @@ public class AdminController implements Initializable {
 
     }
     @FXML
-    private Button crudButton;
+    private Button addItemButton;
     public void onCrudButtonClick(ActionEvent a) throws IOException {
-        Scene updateCrud = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/crud-view.fxml")));
-        Stage stage = (Stage) crudButton.getScene().getWindow();
+        Scene updateCrud = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/add-view.fxml")));
+        Stage stage = (Stage) addItemButton.getScene().getWindow();
         stage.setScene(updateCrud);
         stage.show();
     }

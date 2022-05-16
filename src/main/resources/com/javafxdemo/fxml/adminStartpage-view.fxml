@@ -34,7 +34,8 @@
             <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
             <Button fx:id="overviewLoansButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Overview loans" />
             <Button fx:id="overdueItemsButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Overdue items" />
-            <Button fx:id="crudButton" mnemonicParsing="false" onAction="#onCrudButtonClick" prefHeight="42.0" prefWidth="112.0" text="Add/update item" />
+            <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#onCrudButtonClick" prefHeight="42.0" prefWidth="112.0" text="Add Item" />
+         <Button fx:id="updateItemButton" mnemonicParsing="false" onAction="#onCrudButtonClick" prefHeight="42.0" prefWidth="112.0" text="Update Item" />
          <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Delete item" />
          <Button fx:id="viewItemsButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="View items" />
          <Button fx:id="viewUsersButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="View users" />
