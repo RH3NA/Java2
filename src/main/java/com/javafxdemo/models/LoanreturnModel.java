@@ -51,6 +51,7 @@ public class LoanreturnModel {
             preparedStmt.execute();
             conn.close();
             System.out.println("Success!");
+            Session.getInstance().getCurrentUser().setHasTooManyLoans(Boolean.FALSE);
         } catch (SQLException e) {
             System.out.println("Something went wrong.");
         }
