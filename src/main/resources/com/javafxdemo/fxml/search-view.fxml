@@ -9,26 +9,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.SearchController">
+<BorderPane prefHeight="592.0" prefWidth="840.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.SearchController">
    <center>
-      <AnchorPane prefHeight="322.0" prefWidth="611.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="466.0" prefWidth="765.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
-         <Button fx:id="searchForResultButton" alignment="CENTER" contentDisplay="CENTER" layoutX="507.0" layoutY="44.0" onAction="#onSearchForResultButton" prefHeight="42.0" prefWidth="64.0" text="Go!" />
+         <Button fx:id="searchForResultButton" alignment="CENTER" contentDisplay="CENTER" layoutX="742.0" layoutY="43.0" onAction="#onSearchForResultButton" prefHeight="42.0" prefWidth="64.0" text="Go!" />
          <ImageView fitHeight="52.0" fitWidth="60.0" layoutX="39.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../images/LTUSearchIcon.jpg" />
          </ImageView>
-         <TextField fx:id="searchTextInputField" layoutX="108.0" layoutY="52.0" prefHeight="26.0" prefWidth="389.0" promptText="Enter library search here..." />
-         <Label fx:id="searchResultsArea" layoutX="42.0" layoutY="130.0" prefHeight="296.0" prefWidth="504.0">
+         <TextField fx:id="searchTextInputField" layoutX="108.0" layoutY="52.0" prefHeight="26.0" prefWidth="624.0" promptText="Enter library search here..." />
+         <Label fx:id="searchResultsArea" layoutX="42.0" layoutY="130.0" prefHeight="473.0" prefWidth="694.0">
             <padding>
                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
          </Label>
-         <Button fx:id="searchResultsLoanButton" layoutX="562.0" layoutY="233.0" mnemonicParsing="false" onAction="#onSearchResultsLoanButton" text="Loan?" />
+         <Button fx:id="searchResultsLoanButton" layoutX="749.0" layoutY="227.0" mnemonicParsing="false" onAction="#onSearchResultsLoanButton" text="Loan?" />
+         <Label fx:id="isbnLabel" layoutX="52.0" layoutY="227.0" prefHeight="83.0" prefWidth="163.0" text="ISBN:" />
+         <Label fx:id="titleLabel" layoutX="224.0" layoutY="227.0" prefHeight="83.0" prefWidth="163.0" text="Title:" />
+         <Label fx:id="publisherLabel" layoutX="399.0" layoutY="227.0" prefHeight="83.0" prefWidth="163.0" text="Publisher" />
+         <Label fx:id="numberInStockLabel" layoutX="52.0" layoutY="325.0" prefHeight="83.0" prefWidth="163.0" text="No. in stock:" />
+         <Label fx:id="categoryLabel" layoutX="224.0" layoutY="327.0" prefHeight="83.0" prefWidth="163.0" text="Category: " />
+         <Label fx:id="authorLabel" layoutX="399.0" layoutY="325.0" prefHeight="83.0" prefWidth="163.0" text="Author:" />
       </AnchorPane>
    </center>
    <right>

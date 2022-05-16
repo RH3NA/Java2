@@ -6,6 +6,8 @@ import com.javafxdemo.Session;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static com.javafxdemo.models.UserModel.users;
+
 public class ItemModel {
     private int idItem;
     private int numberInStock;
@@ -105,35 +107,35 @@ public class ItemModel {
 
     }
 
-    public static void addItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher, String category, String author) throws SQLException {
+    /*public static void updateItem(int idItem) throws SQLException { // Till Astrid :)
         getItemsDB();
-        DBConnection connectNow = new DBConnection();
-        Connection conn = connectNow.getConnection();
         for (int i = 0; items.size() > i; i++) {
             if (idItem == items.get(i).getIdItem()) {
-                Session.getInstance().setCurrentAdd(new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock));
-                System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
-                System.out.println(Session.getInstance().getCurrentAdd());
+                Session.getInstance().setCurrentUpdate(new ItemModel(items.get(i).idItem, items.get(i).numberInStock, items.get(i).title, items.get(i).isbn, items.get(i).publisher, items.get(i).totalStock));
+                System.out.println("Current user information: " + Session.getInstance().getCurrentUpdate());
+                System.out.println(Session.getInstance().getCurrentUpdate());
 
                 String query = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)"
                         + " values (?, ?, ? , ? , ?, ?)";
 
                 // create the mysql insert preparedstatement
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
-                preparedStmt.setInt(1, Session.getInstance().getCurrentAdd().idItem);
-                preparedStmt.setInt(2, Session.getInstance().getCurrentAdd().numberInStock);
-                preparedStmt.setInt(3, Integer.parseInt(Session.getInstance().getCurrentAdd().title));
-                preparedStmt.setTimestamp(4, Timestamp.valueOf(Session.getInstance().getCurrentAdd().isbn));
-                preparedStmt.setTimestamp(5, Timestamp.valueOf(Session.getInstance().getCurrentAdd().publisher));
-                preparedStmt.setTimestamp(6, Timestamp.valueOf(String.valueOf(Session.getInstance().getCurrentAdd().totalStock)));
+                preparedStmt.setInt(1, Session.getInstance().getCurrentUpdate().idItem);
+                preparedStmt.setInt(2, idUser);
+                preparedStmt.setInt(3, idBarcode);
+                preparedStmt.setTimestamp(4, null);
+                preparedStmt.setTimestamp(5, null);
                 preparedStmt.execute();
-
-
 
             }
         }
+    }*/
+    public static Boolean isbnExists(String ISBN) {
+        for (ItemModel item : items) {
+            if (!item.getIsbn().equalsIgnoreCase(ISBN)) {
+                return false;
+            }
+        }
+        return true;
     }
-
-
-
 }

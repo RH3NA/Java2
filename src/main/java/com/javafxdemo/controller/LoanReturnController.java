@@ -98,7 +98,6 @@ public class LoanReturnController implements Initializable {
     }
 
     public void onConfirmButton(ActionEvent a) throws SQLException {
-        LoanModel.getAllLoansIdUser(Session.getInstance().getCurrentUser().getIdUser());
         for (int i = 0; checkBoxes.size() > i; i++) {
             System.out.println(dialogPanes.get(i).getContentText());
             System.out.println("Title = " + getTitleFromBarcode(LoanModel.currentUserLoans.get(i).getIdBarcode()) + " Loan ID = " + LoanModel.currentUserLoans.get(i).getIdLoan() + " Barcode = " + LoanModel.currentUserLoans.get(i).getIdBarcode() + " Expiry date = " + LoanModel.currentUserLoans.get(i).getExpiryDate());

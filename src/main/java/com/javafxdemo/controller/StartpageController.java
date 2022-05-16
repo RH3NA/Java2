@@ -97,7 +97,7 @@ public class StartpageController implements Initializable {
         //and also rename this one to something not so similar to the other getCurrentUser method
         for (com.javafxdemo.models.UserModel user : users) {
             if (password == user.getIdUser()) {
-                Session.getInstance().setCurrentUser(new UserModel(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getPhoneNumber(), user.getEmail(), user.getUserType(), Boolean.TRUE));
+                Session.getInstance().setCurrentUser(new UserModel(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getPhoneNumber(), user.getEmail(), user.getUserType(), Boolean.TRUE, Boolean.FALSE));
                 System.out.println("Current user information: " + Session.getInstance().getCurrentUser());
                 System.out.println(Session.getInstance().getCurrentUser().getFirstName());
                 break;

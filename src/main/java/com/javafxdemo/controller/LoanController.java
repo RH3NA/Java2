@@ -66,20 +66,30 @@ public class LoanController implements Initializable {
     private Button loanConfirmButton;
     @FXML
     private Label borrowingRulesBrokenLabel;
+    @FXML
+    private Label receiptLabel;
 
     public void onLoanConfirmButton(ActionEvent a) throws SQLException {
-        boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode());
-        if (barcodeIsAvailable) {
-            LoanModel.insertLoan(createIdLoan(), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null);
-        } else {
-            System.out.println("No objects to loan.");
-        }
+            boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode());
+            if (barcodeIsAvailable) {
+                int newLoanID = createIdLoan(Session.getInstance().getCurrentUser().getIdUser());
+                LoanModel.insertLoan(createIdLoan(Session.getInstance().getCurrentUser().getIdUser()), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null);
+                LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
+                    if (LoanModel.currentUserLatestLoan.get(0).getIdLoan() == newLoanID) {
+                        receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
+                            "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
+                }
+            }
+            if (Session.getInstance().getCurrentUser().getHasTooManyLoans() == Boolean.TRUE) {
+                receiptLabel.setText("You have too many active loans. Return a current loan before attempting to loan a new item.");
+            }
+            }
 
-    }
 
 
-    public static int createIdLoan() { //needs better algorithm since we dont have autoincrement
-        return ((Session.getInstance().getCurrentUser().getIdUser()) + (Session.getInstance().getCurrentLoan().getIdBarcode()) + (LocalDateTime.now().getMinute()));
+
+    public static int createIdLoan(int idUser) { //needs better algorithm since we dont have autoincrement
+        return ((idUser) + (Session.getInstance().getCurrentLoan().getIdBarcode()) + (LocalDateTime.now().getMinute()));
     }
 
     @FXML
@@ -96,6 +106,5 @@ public class LoanController implements Initializable {
         stage.show();
     }
 }
-
 
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoanController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="725.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoanController">
    <bottom>
       <ButtonBar buttonMinWidth="50.0" prefHeight="70.0" prefWidth="84.0" BorderPane.alignment="CENTER">
          <buttons>
@@ -47,7 +47,8 @@
             <VBox.margin>
                <Insets top="4.0" />
             </VBox.margin></Label>
-         <Label fx:id="selectedLoanItemsLabel" prefHeight="120.0" style="-fx-padding:10;" text="(Selected Loan Items):" />
+         <Label fx:id="selectedLoanItemsLabel" prefHeight="98.0" prefWidth="523.0" style="-fx-padding:10;" text="(Selected Loan Items):" />
+         <Label fx:id="receiptLabel" prefHeight="80.0" prefWidth="514.0" style="-fx-padding:10;" text="(Receipt)" />
          <HBox alignment="CENTER" prefHeight="21.0" prefWidth="403.0" spacing="8.0">
             <Label fx:id="borrowingRulesLabel" text="I agree to the borrowing rules and conditions." />
          </HBox>

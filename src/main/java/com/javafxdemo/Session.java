@@ -91,7 +91,8 @@ public class Session {
     private String email;
     private int userType;
     private Boolean currentlyLoggedIn;
-    private UserModel currentUser = new UserModel(idUser, lastName, firstName, phoneNumber, email, userType, currentlyLoggedIn); //constructor to create a constructed object (currentUser instance) from our usermodel constructor
+    private Boolean hasTooManyLoans;
+    private UserModel currentUser = new UserModel(idUser, lastName, firstName, phoneNumber, email, userType, currentlyLoggedIn, hasTooManyLoans); //constructor to create a constructed object (currentUser instance) from our usermodel constructor
 
     public UserModel getCurrentUser() { //getter to get the current user
         return currentUser;
@@ -118,15 +119,15 @@ public class Session {
         this.currentSearch = currentSearch;
     }
 
-    public ItemModel getCurrentAdd() {
-        return currentAdd;
+    public ItemModel getCurrentUpdate() {
+        return currentUpdate;
     }
 
-    public void setCurrentAdd(ItemModel currentAdd) {
-        this.currentAdd = currentAdd;
+    public void setCurrentUpdate(ItemModel currentUpdate) {
+        this.currentUpdate = currentUpdate;
     }
 
-    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+    private ItemModel currentUpdate = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
     private int idLoan;
     private int idBarcode;

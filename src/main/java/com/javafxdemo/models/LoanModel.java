@@ -13,11 +13,13 @@ public class LoanModel {
         return currentUserLoans;
     }
 
+
     public static void setCurrentUserLoans(ArrayList<LoanModel> currentUserLoans) {
         LoanModel.currentUserLoans = currentUserLoans;
     }
 
     public static ArrayList<LoanModel> currentUserLoans = new ArrayList<>();
+    public static ArrayList<LoanModel> currentUserLatestLoan = new ArrayList<>();
     private int idUser;
 
     public int getIdBarcode() {
@@ -119,14 +121,13 @@ public class LoanModel {
             getLatestLoanDBidUser(idUser);
             conn.close();
         } catch (SQLException e) {
-            System.out.println("Something went wrong.");
-            System.out.println(e.getErrorCode());
+            Session.getInstance().getCurrentUser().setHasTooManyLoans(Boolean.TRUE);
+            }
+
         }
 
-    }
 
-    public static String getLatestLoanDBidUser(int idUser) {
-        try {
+    public static void getLatestLoanDBidUser(int idUser) throws SQLException {
             DBConnection connectNow = new DBConnection();
             Connection conn = connectNow.getConnection();
             Statement stm;
@@ -136,21 +137,18 @@ public class LoanModel {
                     "From loan\n" +
                     "Where User_idUser = '" + idUser +
                     "'AND idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
-                    "Order by loanDate desc" +
+                    "Order by loanDate desc\n" +
                     "Limit 1;";
             ResultSet rst;
             rst = stm.executeQuery(sql);
             LoanModel loan = null;
             while (rst.next()) {
                 loan = new LoanModel(rst.getInt("User_idUser"), rst.getInt("Inventory_idBarcode"), rst.getTimestamp("loanDate"), rst.getTimestamp("expiryDate"), rst.getInt("idLoan"));
+                currentUserLatestLoan.add(loan);
+                break;
             }
-            assert loan != null;
-            return loan.toString();
-        } catch (SQLException e) {
-            System.out.println("You have too many active loans. Return them before you borrow again.");
         }
-        return "";
-    }
+
 
     public static void getAllLoansIdUser(int idUser) throws SQLException {
         DBConnection connectNow = new DBConnection();

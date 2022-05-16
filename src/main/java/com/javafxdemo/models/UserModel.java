@@ -28,7 +28,7 @@ public class UserModel {
 
     public static ArrayList<UserModel> users = new ArrayList<>();
 
-    public UserModel(int idUser, String lastName, String firstName, String phoneNumber, String email, int userType, Boolean currentlyLoggedIn) { //constructor for our usermodel
+    public UserModel(int idUser, String lastName, String firstName, String phoneNumber, String email, int userType, Boolean currentlyLoggedIn, Boolean hasTooManyLoans) { //constructor for our usermodel
         this.idUser = idUser;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -36,6 +36,7 @@ public class UserModel {
         this.email = email;
         this.userType = userType;
         this.currentlyLoggedIn = currentlyLoggedIn;
+        this.hasTooManyLoans = hasTooManyLoans;
     }
 
     @Override
@@ -101,9 +102,19 @@ public class UserModel {
         this.userType = userType;
     }
 
+    public Boolean getHasTooManyLoans() {
+        return hasTooManyLoans;
+    }
+
+    public void setHasTooManyLoans(Boolean hasTooManyLoans) {
+        this.hasTooManyLoans = hasTooManyLoans;
+    }
+
+    private Boolean hasTooManyLoans;
+
     public static void getUsersDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist,
-        // the only issue rn is that i didnt set any limits so if you run this method twice,
-        // there will be duplicates.. easy to fix probs :)
+                                                          // the only issue rn is that i didnt set any limits so if you run this method twice,
+                                                        // there will be duplicates.. easy to fix probs :)
         users.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -113,9 +124,11 @@ public class UserModel {
         ResultSet rst;
         rst = stm.executeQuery(sql);
         while (rst.next()) {
-            UserModel user = new UserModel(rst.getInt("idUser"), rst.getString("lastName"), rst.getString("firstName"), rst.getString("phoneNumber"), rst.getString("email"), rst.getInt("UserType_idUserType"), Boolean.FALSE);
+            UserModel user = new UserModel(rst.getInt("idUser"), rst.getString("lastName"), rst.getString("firstName"), rst.getString("phoneNumber"), rst.getString("email"), rst.getInt("UserType_idUserType"), Boolean.FALSE, Boolean.FALSE);
             users.add(user);
         }
 
+        }
     }
-}
+
+
