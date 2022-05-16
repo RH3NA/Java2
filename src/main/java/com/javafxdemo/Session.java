@@ -118,15 +118,15 @@ public class Session {
         this.currentSearch = currentSearch;
     }
 
-    public ItemModel getCurrentUpdate() {
-        return currentUpdate;
+    public ItemModel getCurrentAdd() {
+        return currentAdd;
     }
 
-    public void setCurrentUpdate(ItemModel currentUpdate) {
-        this.currentUpdate = currentUpdate;
+    public void setCurrentAdd(ItemModel currentAdd) {
+        this.currentAdd = currentAdd;
     }
 
-    private ItemModel currentUpdate = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
     private int idLoan;
     private int idBarcode;

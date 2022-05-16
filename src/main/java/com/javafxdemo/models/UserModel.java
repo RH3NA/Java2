@@ -102,8 +102,8 @@ public class UserModel {
     }
 
     public static void getUsersDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist,
-                                                          // the only issue rn is that i didnt set any limits so if you run this method twice,
-                                                        // there will be duplicates.. easy to fix probs :)
+        // the only issue rn is that i didnt set any limits so if you run this method twice,
+        // there will be duplicates.. easy to fix probs :)
         users.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -117,7 +117,5 @@ public class UserModel {
             users.add(user);
         }
 
-        }
     }
-
-
+}
