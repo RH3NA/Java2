@@ -2,6 +2,9 @@ package com.javafxdemo.models;
 
 
 import com.javafxdemo.DBConnection;
+import com.javafxdemo.Session;
+import com.javafxdemo.controller.AddController;
+import com.javafxdemo.controller.AdminController;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -146,5 +149,7 @@ public class InventoryModel {
         this.items_idItems = items_idItems;
     }
 
-    //public static addBarcodeToIn
+
+
+
 }

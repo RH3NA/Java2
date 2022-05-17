@@ -102,13 +102,16 @@ public class Session {
     }
 
     private int idItem;
+    private int idBarcode;
     private int numberInStock;
     private String title;
     private String isbn;
     private String publisher;
     private int totalStock;
+    private String category;
 
-    private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+
+    private ItemModel currentSearch = new ItemModel(idItem, idBarcode,numberInStock, title, isbn, publisher, totalStock,category,firstName,lastName);
 
     public ItemModel getCurrentSearch() {
         return currentSearch;
@@ -126,10 +129,9 @@ public class Session {
         this.currentAdd = currentAdd;
     }
 
-    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+    private ItemModel currentAdd = new ItemModel(idItem,idBarcode, numberInStock, title, isbn, publisher, totalStock, firstName, lastName, category);
 
     private int idLoan;
-    private int idBarcode;
     private Timestamp loanDate;
     private Timestamp expiryDate;
 
@@ -142,6 +144,8 @@ public class Session {
     public void setCurrentLoan(LoanModel currentLoan) {
         this.currentLoan = currentLoan;
     }
+
+
 
 
     /*public static void initializeSession() {

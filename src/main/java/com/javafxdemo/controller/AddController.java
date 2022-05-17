@@ -1,6 +1,5 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.Session;
 import com.javafxdemo.models.ItemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,20 +39,33 @@ public class AddController {
     @FXML
     TextField publisherInput;
     @FXML
-    TextField authorInput;
-    @FXML
     TextField categoryInput;
+    @FXML
+    private Label barcodeLable;
+    @FXML
+    TextField barcodeInput;
+    private Label authorLastnameLable;
+    @FXML
+    TextField authorLastnameInput;
+    private Label authorFirstnameLable;
+    @FXML
+    TextField authorFirstnameInput;
 
+
+
+    public int getIntFromTextField(TextField textField) {
+        String text = textField.getText();
+        return Integer.parseInt(text);
+    }
 
 
     public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
 
-        if (idItemInput.getText().isBlank() && inStockInput.getText().isBlank()
-                && titleInput.getText().isBlank() && isbnInput.getText().isBlank() && totalInStockInput.getText().isBlank()
-                && publisherInput.getText().isBlank() && authorInput.getText().isBlank() && categoryInput.getText().isBlank() ) {
-           // errorCrudEntrys.setText("All entrys needs values");
-        } else
-            ItemModel.addItem((idItemInput, inStockInput, titleInput, isbnInput, totalInStockInput, publisherInput, );
+
+
+            ItemModel.addItem(getIntFromTextField(barcodeInput),getIntFromTextField(barcodeInput),getIntFromTextField(inStockInput), titleInput.getText(), isbnInput.getText(), getIntFromTextField(totalInStockInput), publisherInput.getText(),authorFirstnameInput.getText(),authorLastnameInput.getText(),categoryInput.getText());
+
+
         // new ItemModel(idItemInput.getText(), idItemInput.getText(), inStockInput.getText(), titleInput.getText(), isbnInput.getText(), totalInStockInput.getText(), publisherInput.getText());
 
     }
