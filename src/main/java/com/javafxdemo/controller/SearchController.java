@@ -25,10 +25,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.javafxdemo.models.ItemModel.items;
 
-
-public class  SearchController implements Initializable {
+public class  SearchController extends ReusableButtonController implements Initializable {
 
     @FXML
     public TextField searchTextInputField;
@@ -102,12 +100,17 @@ public class  SearchController implements Initializable {
             // add redirect to startpage + error label with this error text in the actual gui
         }
 
-
     }
+    @FXML
+    private Button backButton;
+    public void onBackButtonClick() throws IOException {
+        backMethod(Session.getInstance().getPreviousScene());
+    }
+
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Session.getInstance().setCurrentScene("Search");
     }
 
     public void setSceneSearch() throws IOException {

@@ -21,12 +21,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-public class LoanController implements Initializable {
+public class LoanController extends ReusableButtonController implements Initializable {
 
     public LoanController() {
     }
 
-    ;
 
     @FXML
     private Button exitButton;
@@ -70,22 +69,20 @@ public class LoanController implements Initializable {
     private Label receiptLabel;
 
     public void onLoanConfirmButton(ActionEvent a) throws SQLException {
-            boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode());
-            if (barcodeIsAvailable) {
-                int newLoanID = createIdLoan(Session.getInstance().getCurrentUser().getIdUser());
-                LoanModel.insertLoan(createIdLoan(Session.getInstance().getCurrentUser().getIdUser()), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null);
-                LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
-                    if (LoanModel.currentUserLatestLoan.get(0).getIdLoan() == newLoanID) {
-                        receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
-                            "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
-                }
+        boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode());
+        if (barcodeIsAvailable) {
+            int newLoanID = createIdLoan(Session.getInstance().getCurrentUser().getIdUser());
+            LoanModel.insertLoan(createIdLoan(Session.getInstance().getCurrentUser().getIdUser()), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null);
+            LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
+            if (LoanModel.currentUserLatestLoan.get(0).getIdLoan() == newLoanID) {
+                receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
+                        "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
             }
-            if (Session.getInstance().getCurrentUser().getHasTooManyLoans() == Boolean.TRUE) {
-                receiptLabel.setText("You have too many active loans. Return a current loan before attempting to loan a new item.");
-            }
-            }
-
-
+        }
+        if (Session.getInstance().getCurrentUser().getHasTooManyLoans() == Boolean.TRUE) {
+            receiptLabel.setText("You have too many active loans. Return a current loan before attempting to loan a new item.");
+        }
+    }
 
 
     public static int createIdLoan(int idUser) { //needs better algorithm since we dont have autoincrement
@@ -96,6 +93,7 @@ public class LoanController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectedLoanItemsLabel.setText(Session.getInstance().getCurrentLoan().toString());
+        Session.getInstance().setCurrentScene("Loan");
 
     }
 
@@ -104,6 +102,15 @@ public class LoanController implements Initializable {
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneLoanReturn);
         stage.show();
+    }
+
+    public void onBackButtonClick(ActionEvent a) throws IOException {
+        backMethod(Session.getInstance().getPreviousScene());
+    }
+
+    public void onExitButtonClick() {
+        exit();
+
     }
 }
 

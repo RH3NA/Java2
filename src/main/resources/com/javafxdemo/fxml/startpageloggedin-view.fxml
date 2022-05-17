@@ -17,7 +17,7 @@
                     <Image url="@../images/LTULogo.jpg" />
                 </ImageView>
                 <Button mnemonicParsing="false" prefHeight="42.0" text="Exit" visible="false" />
-                <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="42.0" text="Exit" />
+                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="42.0" text="Exit" />
                 <Button fx:id="backButton" mnemonicParsing="false" prefHeight="42.0" text="Back" />
             </buttons>
             <BorderPane.margin>
@@ -31,20 +31,14 @@
                 <Insets left="38.0" top="15.0" />
             </padding>
             <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="42.0" prefWidth="112.0" text="Search" />
-            <Button fx:id="reservationButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Reservation" />
             <Button fx:id="loanButton" mnemonicParsing="false" onAction="#onLoanButtonClick" prefHeight="42.0" prefWidth="112.0" text="Loan" />
             <Button fx:id="loanReturnButton" mnemonicParsing="false" onAction="#onReturnLoanButton" prefHeight="42.0" prefWidth="112.0" text="Return Loan" />
-            <Button fx:id="paymentButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Payment" />
-            <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Profile" />
-            <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="History" />
         </VBox>
     </left>
     <center>
         <VBox prefHeight="213.0" prefWidth="423.0" spacing="10.0" BorderPane.alignment="CENTER">
             <Label fx:id="welcomeTextLabel" style="-fx-padding:10;" text="Welcome, ##. " />
-            <Label fx:id="currentLoanStatusLabel" style="-fx-padding:10;" text="Your current Loan Status is $$." />
             <Label fx:id="itemsOverdueLabel" style="-fx-padding:10;" text="Items Overdue:" />
-            <Label fx:id="reservedItemsLabel" style="-fx-padding:10;" text="Reserved Items:" />
             <Label fx:id="itemsOnLoanLabel" style="-fx-padding:10;" text="Items on Loan:" />
             <BorderPane.margin>
                 <Insets right="20.0" top="20.0" />

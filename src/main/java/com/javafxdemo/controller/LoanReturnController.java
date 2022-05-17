@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 import static com.javafxdemo.models.InventoryModel.getTitleFromBarcode;
 
-public class LoanReturnController implements Initializable {
+public class LoanReturnController extends ReusableButtonController implements Initializable {
     @FXML
     private Label returnText;
 
@@ -64,6 +64,7 @@ public class LoanReturnController implements Initializable {
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Session.getInstance().setCurrentScene("Loanreturn");
         try {
             LoanModel.getAllLoansIdUser(Session.getInstance().getCurrentUser().getIdUser());
             LoanModel.getLoansDB();
@@ -116,6 +117,10 @@ public class LoanReturnController implements Initializable {
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneLoanReturn);
         stage.show();
+    }
+
+    public void onBackButtonClick() throws IOException {
+        backMethod(Session.getInstance().getPreviousScene());
     }
 }
 

@@ -2,6 +2,7 @@ package com.javafxdemo.controller;
 
 import com.javafxdemo.Session;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.models.LoanModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class StartpageLoggedInController implements Initializable { //added a logged in startpage
+public class StartpageLoggedInController extends ReusableButtonController implements Initializable { //added a logged in startpage
 
     @FXML
     private Button searchButton;
@@ -35,8 +37,10 @@ public class StartpageLoggedInController implements Initializable { //added a lo
     private Button backButton;
     @FXML
     private Button loanButton;
-
-
+    @FXML
+    private Label itemsOverdueLabel;
+    @FXML
+    private Label itemsOnLoanLabel;
     @FXML
     private Label welcomeTextLabel;
 
@@ -46,6 +50,7 @@ public class StartpageLoggedInController implements Initializable { //added a lo
         Stage stage = (Stage) searchButton.getScene().getWindow();
         stage.setScene(sceneSearch);
         stage.show();
+        Session.getInstance().setPreviousScene("StartpageLoggedIn");
     }
 
     public void onLoanButtonClick(ActionEvent a) throws IOException {
@@ -53,6 +58,7 @@ public class StartpageLoggedInController implements Initializable { //added a lo
         Stage stage = (Stage) loanButton.getScene().getWindow();
         stage.setScene(sceneSearch);
         stage.show();
+        Session.getInstance().setPreviousScene("StartpageLoggedIn");
     }
 
     public void onStartPageLoggedInLogOutButton(ActionEvent a) {
@@ -60,6 +66,7 @@ public class StartpageLoggedInController implements Initializable { //added a lo
 
     public void onReturnLoanButton(ActionEvent a) throws IOException {
         Session.getInstance().getLoanReturnController().setSceneLoanReturn();
+        Session.getInstance().setPreviousScene("StartpageLoggedIn");
     }
 
 
@@ -67,6 +74,12 @@ public class StartpageLoggedInController implements Initializable { //added a lo
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         welcomeTextLabel.setText("Welcome " + Session.getInstance().getCurrentUser().getFirstName() + "!");
+        try {
+            itemsOnLoanLabel.setText("Active loans: " + LoanModel.getLoanCountIdUser(Session.getInstance().getCurrentUser().getIdUser()));
+            itemsOverdueLabel.setText("Items overdue: " + LoanModel.getOverdueLoansCount(Session.getInstance().getCurrentUser().getIdUser()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -75,6 +88,11 @@ public class StartpageLoggedInController implements Initializable { //added a lo
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneStartPageLoggedIn);
         stage.show();
+        Session.getInstance().setCurrentScene("StartpageLoggedIn");
+    }
+
+    public void onExitButtonClick() {
+        exit();
     }
 }
 

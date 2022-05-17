@@ -18,6 +18,7 @@ public class UserModel {
     private int userType;
     private Boolean currentlyLoggedIn;
 
+
     public Boolean getCurrentlyLoggedIn() {
         return currentlyLoggedIn;
     }
@@ -48,7 +49,8 @@ public class UserModel {
                 " phoneNumber = " + this.phoneNumber +
                 " email = " + this.email +
                 " userType = " + this.userType +
-                " currentlyLoggedIn = " + this.currentlyLoggedIn;
+                " currentlyLoggedIn = " + this.currentlyLoggedIn +
+                " hasTooManyLoans = " + this.hasTooManyLoans;
     }
 
 

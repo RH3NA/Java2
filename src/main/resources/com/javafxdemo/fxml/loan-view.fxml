@@ -19,8 +19,8 @@
                <Image url="@../images/LTULogo.jpg" />
             </ImageView>
             <Button mnemonicParsing="false" prefHeight="42.0" text="Exit" visible="false" />
-            <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="42.0" text="Exit" />
-            <Button fx:id="backButton" mnemonicParsing="false" prefHeight="42.0" text="Back" />
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="42.0" text="Exit" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="42.0" text="Back" />
          </buttons>
          <BorderPane.margin>
             <Insets bottom="15.0" right="15.0" top="15.0" />

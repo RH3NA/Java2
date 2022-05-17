@@ -34,7 +34,10 @@ public class LoanModel {
     private int idLoan;
     private Timestamp loanDate;
     private Timestamp expiryDate;
+    private int daysOverdue;
     public static ArrayList<LoanModel> loans = new ArrayList<>();
+    public static ArrayList<LoanModel> loansIncludingReturned = new ArrayList<>();
+    public static ArrayList<LoanModel> overdueLoans = new ArrayList<>();
 
     public LoanModel(int idUser, int idBarcode, Timestamp loanDate, Timestamp expiryDate) {
         this.idBarcode = idBarcode;
@@ -50,6 +53,14 @@ public class LoanModel {
         this.idUser = idUser;
         this.idLoan = idLoan;
     }
+    public LoanModel (int idLoan, int idUser, int idBarcode, Timestamp loanDate, Timestamp expiryDate, int daysOverdue) {
+        this.idLoan = idLoan;
+        this.idUser = idUser;
+        this.idBarcode = idBarcode;
+        this.loanDate = loanDate;
+        this.expiryDate = expiryDate;
+        this.daysOverdue = daysOverdue;
+    }
 
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
@@ -59,7 +70,6 @@ public class LoanModel {
                 " loanDate = " + this.loanDate +
                 " expiryDate = " + this.expiryDate;
     }
-
 
     public int getIdLoan() {
         return idLoan;
@@ -99,6 +109,21 @@ public class LoanModel {
         }
         conn.close();
     }
+    public static void getLoansDBIncludingReturned() throws SQLException {
+        loansIncludingReturned.clear();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+        Statement stm;
+        stm = conn.createStatement();
+        String sql = "Select * From Loan;";
+        ResultSet rst;
+        rst = stm.executeQuery(sql);
+        while (rst.next()) {
+            LoanModel loan = new LoanModel(rst.getInt("User_idUser"), rst.getInt("Inventory_idBarcode"), rst.getTimestamp("loanDate"), rst.getTimestamp("expiryDate"), rst.getInt("idLoan"));
+            loansIncludingReturned.add(loan);
+        }
+        conn.close();
+    }
 
     public static void insertLoan(int idLoan, int idUser, int idBarcode, Timestamp loanDate, Timestamp expiryDate) {
         try {
@@ -122,32 +147,32 @@ public class LoanModel {
             conn.close();
         } catch (SQLException e) {
             Session.getInstance().getCurrentUser().setHasTooManyLoans(Boolean.TRUE);
-            }
-
         }
+
+    }
 
 
     public static void getLatestLoanDBidUser(int idUser) throws SQLException {
-            DBConnection connectNow = new DBConnection();
-            Connection conn = connectNow.getConnection();
-            Statement stm;
-            stm = conn.createStatement();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+        Statement stm;
+        stm = conn.createStatement();
 
-            String sql = "Select *\n" +
-                    "From loan\n" +
-                    "Where User_idUser = '" + idUser +
-                    "'AND idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
-                    "Order by loanDate desc\n" +
-                    "Limit 1;";
-            ResultSet rst;
-            rst = stm.executeQuery(sql);
-            LoanModel loan = null;
-            while (rst.next()) {
-                loan = new LoanModel(rst.getInt("User_idUser"), rst.getInt("Inventory_idBarcode"), rst.getTimestamp("loanDate"), rst.getTimestamp("expiryDate"), rst.getInt("idLoan"));
-                currentUserLatestLoan.add(loan);
-                break;
-            }
+        String sql = "Select *\n" +
+                "From loan\n" +
+                "Where User_idUser = '" + idUser +
+                "'AND idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
+                "Order by loanDate desc\n" +
+                "Limit 1;";
+        ResultSet rst;
+        rst = stm.executeQuery(sql);
+        LoanModel loan = null;
+        while (rst.next()) {
+            loan = new LoanModel(rst.getInt("User_idUser"), rst.getInt("Inventory_idBarcode"), rst.getTimestamp("loanDate"), rst.getTimestamp("expiryDate"), rst.getInt("idLoan"));
+            currentUserLatestLoan.add(loan);
+            break;
         }
+    }
 
 
     public static void getAllLoansIdUser(int idUser) throws SQLException {
@@ -159,7 +184,7 @@ public class LoanModel {
         String sql = "Select *\n" +
                 "From loan\n" +
                 "Where User_idUser = '" + idUser +
-        "'AND idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
+                "'AND idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
                 "Order by loanDate desc";
         ResultSet rst;
         rst = stm.executeQuery(sql);
@@ -170,6 +195,57 @@ public class LoanModel {
         if (currentUserLoans.isEmpty()) {
             System.out.println("No active loans");
         }
+    }
+
+    public static void checkOverdueLoansDB() throws SQLException {
+        overdueLoans.clear();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+        CallableStatement statement = conn.prepareCall("{CALL ReminderTest()}");
+        ResultSet rst;
+        rst = statement.executeQuery();
+        while (rst.next()) {
+            LoanModel overdueLoan = new LoanModel(rst.getInt("idLoan"), rst.getInt("User_idUser"),
+                    rst.getInt("Inventory_idBarcode"), rst.getTimestamp("loanDate"), rst.getTimestamp("expiryDate"), rst.getInt("Days overdue"));
+            overdueLoans.add(overdueLoan);
+        }
+    }
+    public static int getLoanCountIdUser(int IdUser) throws SQLException {
+        int loanCount = 0;
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+        Statement stm;
+        stm = conn.createStatement();
+        String sql = "Select Count(idLoan) As 'Active Loans' From Loan\n" +
+                "Where idLoan NOT IN (Select Loan_idLoan From Loanreturn)\n" +
+                "And User_idUser = " + IdUser;
+        ResultSet rst;
+        rst = stm.executeQuery(sql);
+        while (rst.next()) {
+            loanCount = rst.getInt("Active Loans");
+        }
+        conn.close();
+        return loanCount;
+    }
+    public static int getOverdueLoansCount(int idUser) throws SQLException {
+        int overdueLoansCount = 0;
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+        Statement stm;
+        stm = conn.createStatement();
+        String sql = "SELECT Count(case when DATEDIFF(curDate(), expiryDate) > 0 then 1 end) as 'totalCount'\n" +
+                " FROM Loan\n" +
+                " WHERE idLoan NOT IN (SELECT Loan_idLoan FROM Loanreturn)\n" +
+                " And User_idUser = " + idUser + "\n" +
+                " Group by 'totalCount'\n" +
+                " ORDER BY (DATEDIFF(curDate(), expiryDate)) desc;";
+        ResultSet rst;
+        rst = stm.executeQuery(sql);
+        while (rst.next()) {
+            overdueLoansCount = rst.getInt("'Active Loans'");
+        }
+        conn.close();
+        return overdueLoansCount;
     }
 }
 

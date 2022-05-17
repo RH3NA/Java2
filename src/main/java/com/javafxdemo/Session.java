@@ -7,11 +7,12 @@ import com.javafxdemo.models.LoanModel;
 import com.javafxdemo.models.UserModel;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Session {
 
     private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
-                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController());
+                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -49,6 +50,15 @@ public class Session {
         return userController;
     }
 
+    public ReusableButtonController getReusableButtonController() {
+        return reusableButtonController;
+    }
+
+    public void setReusableButtonController(ReusableButtonController reusableButtonController) {
+        this.reusableButtonController = reusableButtonController;
+    }
+
+
     public void setUserController(UserController userController) {
         this.userController = userController;
     }
@@ -68,15 +78,39 @@ public class Session {
     private UserController userController;
     private LoanReturnController loanReturnController;
 
+    public OverviewController getOverviewController() {
+        return overviewController;
+    }
+
+    public void setOverviewController(OverviewController overviewController) {
+        this.overviewController = overviewController;
+    }
+
+    public AdminController getAdminController() {
+        return adminController;
+    }
+
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
+    }
+
+    private OverviewController overviewController;
+    private AdminController adminController;
+    private ReusableButtonController reusableButtonController;
+
 
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
-                   StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController) {
+                   StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController, OverviewController overviewController,
+                   AdminController adminController, ReusableButtonController reusableButtonController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
         this.startpageLoggedInController = startpageLoggedInController;
         this.userController = userController;
         this.loanReturnController = loanReturnController;
+        this.overviewController = overviewController;
+        this.adminController = adminController;
+        this.reusableButtonController = reusableButtonController;
     }
 
     public static Session getInstance() { //getter for our instance
@@ -92,6 +126,8 @@ public class Session {
     private int userType;
     private Boolean currentlyLoggedIn;
     private Boolean hasTooManyLoans;
+
+
     private UserModel currentUser = new UserModel(idUser, lastName, firstName, phoneNumber, email, userType, currentlyLoggedIn, hasTooManyLoans); //constructor to create a constructed object (currentUser instance) from our usermodel constructor
 
     public UserModel getCurrentUser() { //getter to get the current user
@@ -143,6 +179,26 @@ public class Session {
     public void setCurrentLoan(LoanModel currentLoan) {
         this.currentLoan = currentLoan;
     }
+
+    public String getPreviousScene() {
+        return previousScene;
+    }
+
+    public void setPreviousScene(String previousScene) {
+        this.previousScene = previousScene;
+    }
+
+    private String previousScene;
+
+    public String getCurrentScene() {
+        return currentScene;
+    }
+
+    public void setCurrentScene(String currentScene) {
+        this.currentScene = currentScene;
+    }
+
+    private String currentScene;
 
 
     /*public static void initializeSession() {

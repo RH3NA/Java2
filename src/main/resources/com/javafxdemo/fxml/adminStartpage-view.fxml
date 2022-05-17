@@ -17,8 +17,7 @@
                     <Image url="@../images/LTULogo.jpg" />
                 </ImageView>
                 <Button mnemonicParsing="false" prefHeight="42.0" text="Exit" visible="false" />
-                <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="42.0" text="Exit" />
-                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="42.0" text="Back" />
+                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="42.0" text="Exit" />
             </buttons>
             <BorderPane.margin>
                 <Insets bottom="15.0" right="15.0" top="15.0" />
@@ -32,12 +31,9 @@
             </padding>
             <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Search" />
             <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
-            <Button fx:id="overviewLoansButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Overview loans" />
-            <Button fx:id="overdueItemsButton" mnemonicParsing="false"  prefHeight="42.0" prefWidth="112.0" text="Overdue items" />
+            <Button fx:id="overviewButton" mnemonicParsing="false" onAction="#onOverviewButton" prefHeight="42.0" prefWidth="112.0" text="Library Overview" />
             <Button fx:id="crudButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Add/update item" />
          <Button fx:id="loanButton1" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Delete item" />
-         <Button fx:id="loanButton11" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="View items" />
-         <Button fx:id="loanButton12" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="View users" />
         </VBox>
     </left>
     <center>

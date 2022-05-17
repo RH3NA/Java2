@@ -73,8 +73,7 @@ public class StartpageController implements Initializable {
 
                     }
                     if (Session.getInstance().getCurrentUser().getUserType() == 1114 || Session.getInstance().getCurrentUser().getUserType() == 1115) {
-                        System.out.println("We have to create an admin page..");
-                        AdminController.setSceneAdmin();
+                        Session.getInstance().getAdminController().setSceneAdmin();
 
 
                     }
@@ -149,12 +148,11 @@ public class StartpageController implements Initializable {
 
     public void onStartPageSearchButtonClick(ActionEvent a) throws IOException {
         Session.getInstance().getSearchController().setSceneSearch();
+        Session.getInstance().setPreviousScene("Startpage");
     }
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
+        Session.getInstance().setCurrentScene("Startpage");
     }
 }
