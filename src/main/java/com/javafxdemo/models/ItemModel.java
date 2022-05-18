@@ -13,12 +13,15 @@ public class ItemModel {
     private int numberInStock;
     private String title;
     private String isbn;
-    private String firstName;
-    private String lastName;
     private String publisher;
     private int totalStock;
 
     public static ArrayList<ItemModel> items = new ArrayList<>();
+
+
+
+
+
 
     public int getTotalStock() {
         return totalStock;
@@ -28,7 +31,7 @@ public class ItemModel {
         this.totalStock = totalStock;
     }
 
-    public ItemModel(int idItem, int idBarcode, String title, String isbn, String publisher, int totalStock) {
+    public ItemModel(int idItem,int numberInStock, String title, String isbn, String publisher, int totalStock) {
         this.idItem = idItem;
         this.numberInStock = numberInStock;
         this.title = title;
@@ -117,7 +120,7 @@ public class ItemModel {
 
     }
 
-    public static void addItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException {
+    public static void insertItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException {
         getItemsDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -153,27 +156,7 @@ public class ItemModel {
     }
 
 
-    public static void insterBarcode(int idBarcode) throws SQLException {
 
-        getItemsDB();
-        DBConnection connectNow = new DBConnection();
-        Connection conn = connectNow.getConnection();
-
-
-
-                String queryToInventory = "insert into Inventory(idBarcode)" + " values (?)";
-
-                // create the mysql insert preparedstatement
-
-                PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
-                preparedStmtInventory.setInt(1,Integer.parseInt(String.valueOf(Session.getInstance().getCurrentAdd().idBarcode)));
-
-
-                preparedStmtInventory.execute();
-
-
-
-            }
 
 
 

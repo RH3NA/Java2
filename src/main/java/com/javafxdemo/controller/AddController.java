@@ -1,5 +1,7 @@
 package com.javafxdemo.controller;
 
+import com.javafxdemo.models.InventoryModel;
+import com.javafxdemo.models.ItemHasCreatorModel;
 import com.javafxdemo.models.ItemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,21 +55,33 @@ public class AddController {
 
 
 
+
+
+
     public int getIntFromTextField(TextField textField) {
         String text = textField.getText();
         return Integer.parseInt(text);
     }
 
+    public void addNewItemToDB() throws SQLException {
+
+
+        ItemModel.insertItem(getIntFromTextField(idItemInput),getIntFromTextField(inStockInput),titleInput.getText(),isbnInput.getText(),getIntFromTextField(totalInStockInput),publisherInput.getText());
+        InventoryModel.insertBarcode(getIntFromTextField(barcodeInput));
+        ItemHasCreatorModel.insertAuthorFirstname(authorFirstnameInput.getText());
+        ItemHasCreatorModel.insertAuthorLastname(authorLastnameInput.getText());
+
+    }
+
 
     public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
 
+        addNewItemToDB();
 
 
-            //ItemModel.addItem(getIntFromTextField(barcodeInput),getIntFromTextField(barcodeInput),getIntFromTextField(inStockInput), titleInput.getText(), isbnInput.getText(), getIntFromTextField(totalInStockInput), publisherInput.getText(),authorFirstnameInput.getText(),authorLastnameInput.getText(),categoryInput.getText());
-
-
-        // new ItemModel(idItemInput.getText(), idItemInput.getText(), inStockInput.getText(), titleInput.getText(), isbnInput.getText(), totalInStockInput.getText(), publisherInput.getText());
 
     }
+
+
 }
 

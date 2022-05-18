@@ -109,7 +109,7 @@ public class Session {
     private String category;
 
 
-    private ItemModel currentSearch = new ItemModel(idItem, idBarcode, numberInStock, title, isbn, publisher, totalStock, category, firstName, lastName);
+    private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
     public ItemModel getCurrentSearch() {
         return currentSearch;
@@ -146,6 +146,7 @@ public class Session {
     private int items_idItems;
     private int location_idLocation;
 
+    private Boolean available;
     private final InventoryModel currentInventory = new InventoryModel(idBarcode, items_idItems, location_idLocation, category, available);
 
     public InventoryModel getcurrentInventory() {
@@ -153,7 +154,7 @@ public class Session {
     }
 
     private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(firstName,lastName);
-    public  ItemHasCreatorModel getCurrentItemHasCreator() {return currentItemHasCreator};
+    public  ItemHasCreatorModel getCurrentItemHasCreator() {return currentItemHasCreator;}
 
 }
 
@@ -164,7 +165,7 @@ public class Session {
         Session session = new Session(new LoanController(), new SearchController(), new StartpageController(),
                 new StartpageLoggedInController(), new UserController());
     }*/
-}
+
 
 
    /*private String loggedInIdUser;

@@ -66,6 +66,11 @@ public class ItemHasCreatorModel {
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
 
+
+        //Session.getInstance().getCurrentItemHasCreator(new ItemHasCreatorModel(firstName));
+        //System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
+        //System.out.println(Session.getInstance().getCurrentAdd());
+
         String queryFristname = " insert into Item_Has_Creator(firstName)" + " values (?)";
 
         PreparedStatement preparedStmt = conn.prepareStatement(queryFristname);

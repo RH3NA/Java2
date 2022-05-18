@@ -158,10 +158,32 @@ public class InventoryModel {
         String queryCategogry = " insert into Inventory(category)" + " values (?)";
 
         PreparedStatement preparedStmt = conn.prepareStatement(queryCategogry);
-        preparedStmt.setString(1,Session.getInstance().getcurrentInventory().category;
+        preparedStmt.setString(1,Session.getInstance().getcurrentInventory().category);
 
 
         preparedStmt.execute();
+
+
+
+    }
+
+    public static void insertBarcode(int idBarcode) throws SQLException {
+
+        getInventoryDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+        //Session?
+
+        String queryToInventory = "insert into Inventory(idBarcode)" + " values (?)";
+
+        // create the mysql insert preparedstatement
+
+        PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
+        preparedStmtInventory.setInt(1,Integer.parseInt(String.valueOf(Session.getInstance().getcurrentInventory().idBarcode)));
+
+
+        preparedStmtInventory.execute();
 
 
 

@@ -121,28 +121,24 @@ public class  SearchController implements Initializable {
 
             while (resultSet.next()) {  //outputs the query result back to the search results area (label) on search page
                 setIdItem(resultSet.getInt("idItem"));
-                setIdBarcode(resultSet.getInt("IdBarcode"));
                 setTitle(resultSet.getString("title"));
                 setIsbn(resultSet.getString("isbn"));
                 setPublisher(resultSet.getString("publisher"));
                 setNumberInStock(resultSet.getInt("numberInStock"));
                 setTotalStock(resultSet.getInt(("totalStock")));
-                setCategory(resultSet.getString("category"));
-                searchResultsArea.setText("ISBN\t\t\t\t\tIdBarcode\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\tNo. in Stock\ncategory\t\t\t\t\tAuthor firstname\t\t\t\t\tAuthor lastname\t\t\t\t\t" +
+                searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\tNo. in Stock" +
                         getIsbn() + "   " +
-                        getIdBarcode() + "   " +
+
                         getTitle() + "\t\t" +
                         getPublisher() + "\t\t" +
                         //getIdItem() + "\t\t\t\t" +            removed iditem showing here since it's not of any importance to the clients, they only need the barcode and idloan
                         getNumberInStock());
-                        getCategory();
-                        getFirstName();
-                        getLastname();
+
             }
             hadResults = statement.getMoreResults(); // will loop until no more results available
         }
         statement.close(); // closes query
-        Session.getInstance().setCurrentSearch(new ItemModel(getIdItem(), getIdBarcode(),getNumberInStock(), getTitle(), getIsbn(), getPublisher(), getTotalStock(), getCategory(),getFirstName(),getLastname()));
+        Session.getInstance().setCurrentSearch(new ItemModel(getIdItem(),getNumberInStock(), getTitle(), getIsbn(), getPublisher(), getTotalStock()));
         System.out.println(Session.getInstance().getCurrentSearch());
 
     }
