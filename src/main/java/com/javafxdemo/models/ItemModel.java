@@ -3,6 +3,7 @@ package com.javafxdemo.models;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
 
+import java.security.cert.TrustAnchor;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -124,9 +125,10 @@ public class ItemModel {
         getItemsDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
-        for (int i = 0; items.size() > i; i++) {
-            if (idItem == items.get(i).getIdItem()) {
+
                 Session.getInstance().setCurrentAdd(new ItemModel(idItem,numberInStock, title, isbn, publisher, totalStock));
+
+
                 System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
                 System.out.println(Session.getInstance().getCurrentAdd());
 
@@ -138,13 +140,13 @@ public class ItemModel {
                 PreparedStatement preparedStmt = conn.prepareStatement(queryToItem);
                 preparedStmt.setInt(1, Session.getInstance().getCurrentAdd().idItem);
                 preparedStmt.setInt(2, Session.getInstance().getCurrentAdd().numberInStock);
-                preparedStmt.setInt(3, Integer.parseInt(Session.getInstance().getCurrentAdd().title));
-                preparedStmt.setTimestamp(4, Timestamp.valueOf(Session.getInstance().getCurrentAdd().isbn));
-                preparedStmt.setTimestamp(5, Timestamp.valueOf(Session.getInstance().getCurrentAdd().publisher));
-                preparedStmt.setTimestamp(6, Timestamp.valueOf(String.valueOf(Session.getInstance().getCurrentAdd().totalStock)));
+                preparedStmt.setString(3,Session.getInstance().getCurrentAdd().title);
+                preparedStmt.setString(4,Session.getInstance().getCurrentAdd().isbn);
+                preparedStmt.setString(5,Session.getInstance().getCurrentAdd().publisher);
+                preparedStmt.setInt(6,Session.getInstance().getCurrentAdd().totalStock);
 
 
-                preparedStmt.execute();
+                preparedStmt.executeUpdate();
 
 
 
@@ -152,16 +154,33 @@ public class ItemModel {
 
 
             }
+
+
+
+        public static boolean checkInsert(int idItem) throws SQLException {
+
+            DBConnection connectNow = new DBConnection();
+            Connection conn = connectNow.getConnection();
+            Statement stm;
+            stm = conn.createStatement();
+            int check = 0;
+            String sql = "Select idItem From item ORDER BY idItem DESC LIMIT 1";
+
+            ResultSet rst;
+
+            rst = stm.executeQuery(sql);
+
+            while(rst.next()) {
+                 check = rst.getInt(idItem);
+            }
+            if (check == idItem) {
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+
+
+            }
+
+
         }
-    }
-
-
-
-
-
-
-
-
-
-
 }

@@ -155,13 +155,13 @@ public class InventoryModel {
         Connection conn = connectNow.getConnection();
 
 
-        String queryCategogry = " insert into Inventory(category)" + " values (?)";
+        String queryCategogry = " insert into Inventory(category)"+ " values (" + category + ");";
 
         PreparedStatement preparedStmt = conn.prepareStatement(queryCategogry);
         preparedStmt.setString(1,Session.getInstance().getcurrentInventory().category);
 
 
-        preparedStmt.execute();
+        preparedStmt.executeUpdate();
 
 
 
@@ -175,7 +175,7 @@ public class InventoryModel {
 
         //Session?
 
-        String queryToInventory = "insert into Inventory(idBarcode)" + " values (?)";
+        String queryToInventory = "insert into Inventory(idBarcode)" + " values (" + idBarcode + ");";
 
         // create the mysql insert preparedstatement
 
@@ -183,7 +183,7 @@ public class InventoryModel {
         preparedStmtInventory.setInt(1,Integer.parseInt(String.valueOf(Session.getInstance().getcurrentInventory().idBarcode)));
 
 
-        preparedStmtInventory.execute();
+        preparedStmtInventory.executeUpdate();
 
 
 

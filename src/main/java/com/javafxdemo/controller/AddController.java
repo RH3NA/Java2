@@ -1,5 +1,6 @@
 package com.javafxdemo.controller;
 
+import com.javafxdemo.Session;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemHasCreatorModel;
 import com.javafxdemo.models.ItemModel;
@@ -52,6 +53,8 @@ public class AddController {
     private Label authorFirstnameLable;
     @FXML
     TextField authorFirstnameInput;
+    @FXML
+    private Label inserItemInfoLable;
 
 
 
@@ -68,16 +71,24 @@ public class AddController {
 
         ItemModel.insertItem(getIntFromTextField(idItemInput),getIntFromTextField(inStockInput),titleInput.getText(),isbnInput.getText(),getIntFromTextField(totalInStockInput),publisherInput.getText());
         InventoryModel.insertBarcode(getIntFromTextField(barcodeInput));
+        InventoryModel.insertCategory(categoryInput.getText());
         ItemHasCreatorModel.insertAuthorFirstname(authorFirstnameInput.getText());
         ItemHasCreatorModel.insertAuthorLastname(authorLastnameInput.getText());
+
 
     }
 
 
     public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
 
-        addNewItemToDB();
+        if(ItemModel.checkInsert(getIntFromTextField(idItemInput))== Boolean.TRUE){
 
+            inserItemInfoLable.setText("Insert Succses");
+
+        }else {
+
+            inserItemInfoLable.setText("Insert Fail");
+        }
 
 
     }

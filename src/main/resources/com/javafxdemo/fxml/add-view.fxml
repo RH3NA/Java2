@@ -101,6 +101,11 @@
                      <Font size="11.0" />
                   </font>
                </Label>
+               <Label fx:id="inserItemInfoLable" alignment="CENTER" contentDisplay="CENTER" layoutX="479.0" layoutY="113.0" prefHeight="33.0" prefWidth="87.0" text="Text TeXT Text" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
             </children>
          </AnchorPane>
             <HBox alignment="CENTER" prefHeight="0.0" prefWidth="113.0" spacing="8.0" />

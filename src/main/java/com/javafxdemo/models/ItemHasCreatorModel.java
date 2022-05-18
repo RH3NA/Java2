@@ -71,7 +71,7 @@ public class ItemHasCreatorModel {
         //System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
         //System.out.println(Session.getInstance().getCurrentAdd());
 
-        String queryFristname = " insert into Item_Has_Creator(firstName)" + " values (?)";
+        String queryFristname = " insert into Item_Has_Creator(firstName)" + " values (" + firstName + ");";
 
         PreparedStatement preparedStmt = conn.prepareStatement(queryFristname);
         preparedStmt.setString(1, Session.getInstance().getCurrentItemHasCreator().firstName);
@@ -88,13 +88,13 @@ public class ItemHasCreatorModel {
         Connection conn = connectNow.getConnection();
 
 
-        String queryLastname = " insert into Item_Has_Creator(lastName)" + " values (?)";
+        String queryLastname = " insert into Item_Has_Creator(lastName)" + " values (" + lastName + ");";
 
         PreparedStatement preparedStmt = conn.prepareStatement(queryLastname);
         preparedStmt.setString(1, Session.getInstance().getCurrentItemHasCreator().lastName);
 
 
-        preparedStmt.execute();
+        preparedStmt.executeUpdate();
 
     }
 
