@@ -101,15 +101,17 @@ public class LoanReturnController extends ReusableButtonController implements In
     public void onConfirmButton(ActionEvent a) throws SQLException {
         for (int i = 0; checkBoxes.size() > i; i++) {
             System.out.println(dialogPanes.get(i).getContentText());
-            System.out.println("Title = " + getTitleFromBarcode(LoanModel.currentUserLoans.get(i).getIdBarcode()) + " Loan ID = " + LoanModel.currentUserLoans.get(i).getIdLoan() + " Barcode = " + LoanModel.currentUserLoans.get(i).getIdBarcode() + " Expiry date = " + LoanModel.currentUserLoans.get(i).getExpiryDate());
+            //System.out.println("Title = " + getTitleFromBarcode(LoanModel.currentUserLoans.get(i).getIdBarcode()) + " Loan ID = " + LoanModel.currentUserLoans.get(i).getIdLoan() + " Barcode = " + LoanModel.currentUserLoans.get(i).getIdBarcode() + " Expiry date = " + LoanModel.currentUserLoans.get(i).getExpiryDate());
             if (checkBoxes.get(i).isSelected()) {
                 LoanreturnModel.returnLoan(LoanModel.currentUserLoans.get(i).getIdLoan());
                 System.out.println("Returned loan = " + LoanModel.currentUserLoans.get(i).toString());
+                successLabel.setText("Success!");
                 break;
             }
         }
     }
-
+    @FXML
+    private Label successLabel;
 
 
     public void setSceneLoanReturn() throws IOException {

@@ -153,6 +153,7 @@ public class LoanModel {
 
 
     public static void getLatestLoanDBidUser(int idUser) throws SQLException {
+        currentUserLatestLoan.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
         Statement stm;
@@ -176,6 +177,7 @@ public class LoanModel {
 
 
     public static void getAllLoansIdUser(int idUser) throws SQLException {
+        currentUserLoans.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
         Statement stm;
@@ -233,7 +235,7 @@ public class LoanModel {
         Connection conn = connectNow.getConnection();
         Statement stm;
         stm = conn.createStatement();
-        String sql = "SELECT Count(case when DATEDIFF(curDate(), expiryDate) > 0 then 1 end) as 'totalCount'\n" +
+        String sql = "SELECT Count(case when DATEDIFF(curDate(), expiryDate) > 0 then 1 end) as 'Total Count'\n" +
                 " FROM Loan\n" +
                 " WHERE idLoan NOT IN (SELECT Loan_idLoan FROM Loanreturn)\n" +
                 " And User_idUser = " + idUser + "\n" +
@@ -242,7 +244,7 @@ public class LoanModel {
         ResultSet rst;
         rst = stm.executeQuery(sql);
         while (rst.next()) {
-            overdueLoansCount = rst.getInt("'Active Loans'");
+            overdueLoansCount = rst.getInt("Total Count");
         }
         conn.close();
         return overdueLoansCount;

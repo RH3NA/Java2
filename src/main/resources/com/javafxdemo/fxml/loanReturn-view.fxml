@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="591.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoanReturnController">
+<BorderPane prefHeight="656.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.LoanReturnController">
    <top>
       <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
           <padding>
@@ -19,7 +19,7 @@
       </VBox>
    </top>
    <left>
-      <AnchorPane fx:id="anchorPane1" prefHeight="517.0" prefWidth="631.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="anchorPane1" prefHeight="582.0" prefWidth="758.0" BorderPane.alignment="CENTER">
          <children>
             <DialogPane layoutY="75.0" prefHeight="53.0" prefWidth="560.0" />
          </children></AnchorPane>
@@ -27,9 +27,10 @@
    <right>
        <AnchorPane fx:id="anchorPane2" prefHeight="459.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollBar fx:id="scrollBar" blockIncrement="0.0" layoutX="7.0" layoutY="28.0" max="50.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="14.0" unitIncrement="10.0" />
+            <ScrollBar fx:id="scrollBar" blockIncrement="0.0" layoutX="7.0" layoutY="28.0" max="50.0" orientation="VERTICAL" prefHeight="547.0" prefWidth="14.0" unitIncrement="10.0" />
             <Button fx:id="confirmButton" layoutX="49.0" layoutY="28.0" mnemonicParsing="false" onAction="#onConfirmButton" text="Confirm" />
             <Button fx:id="backButton" layoutX="59.0" layoutY="364.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Back" />
+            <Label fx:id="successLabel" alignment="CENTER" layoutX="42.0" layoutY="66.0" prefHeight="49.0" prefWidth="75.0" />
          </children>
        </AnchorPane>
    </right>
