@@ -63,7 +63,7 @@ public class AddController {
 
 
 
-            ItemModel.addItem(getIntFromTextField(barcodeInput),getIntFromTextField(barcodeInput),getIntFromTextField(inStockInput), titleInput.getText(), isbnInput.getText(), getIntFromTextField(totalInStockInput), publisherInput.getText(),authorFirstnameInput.getText(),authorLastnameInput.getText(),categoryInput.getText());
+            //ItemModel.addItem(getIntFromTextField(barcodeInput),getIntFromTextField(barcodeInput),getIntFromTextField(inStockInput), titleInput.getText(), isbnInput.getText(), getIntFromTextField(totalInStockInput), publisherInput.getText(),authorFirstnameInput.getText(),authorLastnameInput.getText(),categoryInput.getText());
 
 
         // new ItemModel(idItemInput.getText(), idItemInput.getText(), inStockInput.getText(), titleInput.getText(), isbnInput.getText(), totalInStockInput.getText(), publisherInput.getText());

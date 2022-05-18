@@ -6,10 +6,7 @@ import com.javafxdemo.Session;
 import com.javafxdemo.controller.AddController;
 import com.javafxdemo.controller.AdminController;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class InventoryModel {
@@ -148,6 +145,28 @@ public class InventoryModel {
     public void setItems_idItems(int items_idItems) {
         this.items_idItems = items_idItems;
     }
+
+
+
+    public static void insertCategory(String category) throws SQLException {
+
+        getInventoryDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+
+        String queryCategogry = " insert into Inventory(category)" + " values (?)";
+
+        PreparedStatement preparedStmt = conn.prepareStatement(queryCategogry);
+        preparedStmt.setString(1,Session.getInstance().getcurrentInventory().category;
+
+
+        preparedStmt.execute();
+
+
+
+    }
+
 
 
 

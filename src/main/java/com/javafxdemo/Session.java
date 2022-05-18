@@ -2,16 +2,14 @@ package com.javafxdemo;
 
 
 import com.javafxdemo.controller.*;
-import com.javafxdemo.models.ItemModel;
-import com.javafxdemo.models.LoanModel;
-import com.javafxdemo.models.UserModel;
+import com.javafxdemo.models.*;
 
 import java.sql.Timestamp;
 
 public class Session {
 
     private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
-                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController());
+            new StartpageLoggedInController(), new UserController(), new LoanReturnController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -111,7 +109,7 @@ public class Session {
     private String category;
 
 
-    private ItemModel currentSearch = new ItemModel(idItem, idBarcode,numberInStock, title, isbn, publisher, totalStock,category,firstName,lastName);
+    private ItemModel currentSearch = new ItemModel(idItem, idBarcode, numberInStock, title, isbn, publisher, totalStock, category, firstName, lastName);
 
     public ItemModel getCurrentSearch() {
         return currentSearch;
@@ -129,7 +127,7 @@ public class Session {
         this.currentAdd = currentAdd;
     }
 
-    private ItemModel currentAdd = new ItemModel(idItem,idBarcode, numberInStock, title, isbn, publisher, totalStock, firstName, lastName, category);
+    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
     private int idLoan;
     private Timestamp loanDate;
@@ -144,6 +142,20 @@ public class Session {
     public void setCurrentLoan(LoanModel currentLoan) {
         this.currentLoan = currentLoan;
     }
+
+    private int items_idItems;
+    private int location_idLocation;
+
+    private final InventoryModel currentInventory = new InventoryModel(idBarcode, items_idItems, location_idLocation, category, available);
+
+    public InventoryModel getcurrentInventory() {
+        return currentInventory;
+    }
+
+    private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(firstName,lastName);
+    public  ItemHasCreatorModel getCurrentItemHasCreator() {return currentItemHasCreator};
+
+}
 
 
 

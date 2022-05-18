@@ -7,9 +7,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ItemModel {
-    private final String category;
+
     private int idItem;
-    private final int idBarcode;
+
     private int numberInStock;
     private String title;
     private String isbn;
@@ -28,24 +28,22 @@ public class ItemModel {
         this.totalStock = totalStock;
     }
 
-    public ItemModel(int idItem, int idBarcode, int numberInStock, String title, String isbn, String publisher, int totalStock, String firstName,String lastName, String category) {
+    public ItemModel(int idItem, int idBarcode, String title, String isbn, String publisher, int totalStock) {
         this.idItem = idItem;
-        this.idBarcode = idBarcode;
         this.numberInStock = numberInStock;
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
         this.totalStock = totalStock;
-        this.category = category;
-        this.firstName = firstName;
-        this.lastName = lastName;
+
+
     }
 
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
     {
         return "idItem = " + this.idItem +
-                "idBarcode = " + this.idBarcode +
+
                 " numberInStock = " + this.numberInStock +
                 " title = " + this.title +
                 " isbn = " + this.isbn +
@@ -57,9 +55,7 @@ public class ItemModel {
     public int getIdItem() {
         return idItem;
     }
-    public int getIdBarcode() {
-        return idBarcode;
-    }
+
 
     public void setIdItem(int idItem) {
         this.idItem = idItem;
@@ -108,39 +104,32 @@ public class ItemModel {
         Statement stm;
         stm = conn.createStatement();
         String sql = "Select * From Item";
-        String sqlin = "Select idBarcode From Inventory";
-        String sqlauthorlastname = "Select lastName From Item_Has_Creator";
-        String sqlauthorfirstname = "SELECT firstName from Item_Has_Creator";
+
         ResultSet rst;
-        ResultSet rstin;
-        ResultSet rstitemhascreatorfirst;
-        ResultSet rstitemhascreatorlast;
+
+
         rst = stm.executeQuery(sql);
-        rstin = stm.executeQuery(sqlin);
-        rstitemhascreatorfirst = stm.executeQuery(sqlauthorfirstname);
-        rstitemhascreatorlast = stm.executeQuery(sqlauthorlastname);
 
         while (rst.next()) {
-            ItemModel item = new ItemModel(rst.getInt("idItem"), rstin.getInt("idBarcode"),rst.getInt("numberInStock"), rst.getString("title"), rst.getString("isbn"), rst.getString("publisher"), rst.getInt("totalStock"),rstitemhascreatorfirst.getString("firstName"), rstitemhascreatorlast.getString("lastName"),rstin.getString("category"));
+            ItemModel item = new ItemModel(rst.getInt("idItem"),rst.getInt("numberInStock"), rst.getString("title"), rst.getString("isbn"), rst.getString("publisher"), rst.getInt("totalStock"));
             items.add(item);
         }
 
     }
 
-    public static void addItem(int idItem, int idBarcode, int numberInStock, String title, String isbn, int totalStock, String publisher, String firstName,String lastName,String category) throws SQLException {
+    public static void addItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException {
         getItemsDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
         for (int i = 0; items.size() > i; i++) {
             if (idItem == items.get(i).getIdItem()) {
-                Session.getInstance().setCurrentAdd(new ItemModel(idItem, idBarcode,numberInStock, title, isbn, publisher, totalStock,firstName, lastName, category));
+                Session.getInstance().setCurrentAdd(new ItemModel(idItem,numberInStock, title, isbn, publisher, totalStock));
                 System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
                 System.out.println(Session.getInstance().getCurrentAdd());
 
                 String queryToItem = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)" + " values (?, ?, ? , ? , ?, ?)";
-                String queryToInventory = " insert into Inventory(idBarcode)";
-                String queryFristname = " insert into Item_Has_Creator(firstName)";
-                String queryLastname = " insert into Item_Has_Creator(lastName)";
+
+
 
                 // create the mysql insert preparedstatement
                 PreparedStatement preparedStmt = conn.prepareStatement(queryToItem);
@@ -151,23 +140,10 @@ public class ItemModel {
                 preparedStmt.setTimestamp(5, Timestamp.valueOf(Session.getInstance().getCurrentAdd().publisher));
                 preparedStmt.setTimestamp(6, Timestamp.valueOf(String.valueOf(Session.getInstance().getCurrentAdd().totalStock)));
 
-                PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
-                preparedStmtInventory.setInt(7,Integer.parseInt(String.valueOf(Session.getInstance().getCurrentAdd().idBarcode)));
-
-
-                PreparedStatement preparedStmtAuthorFirstName = conn.prepareStatement(queryFristname);
-                preparedStmtAuthorFirstName.setString(8, Session.getInstance().getCurrentAdd().firstName);
-
-
-
-                PreparedStatement preparedStmtAuthorLastName = conn.prepareStatement(queryLastname);
-                preparedStmtAuthorLastName.setString(9, Session.getInstance().getCurrentAdd().lastName);
-
 
                 preparedStmt.execute();
-                preparedStmtInventory.execute();
-                preparedStmtAuthorFirstName.execute();
-                preparedStmtAuthorLastName.execute();
+
+
 
 
 
@@ -175,6 +151,33 @@ public class ItemModel {
             }
         }
     }
+
+
+    public static void insterBarcode(int idBarcode) throws SQLException {
+
+        getItemsDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+
+
+                String queryToInventory = "insert into Inventory(idBarcode)" + " values (?)";
+
+                // create the mysql insert preparedstatement
+
+                PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
+                preparedStmtInventory.setInt(1,Integer.parseInt(String.valueOf(Session.getInstance().getCurrentAdd().idBarcode)));
+
+
+                preparedStmtInventory.execute();
+
+
+
+            }
+
+
+
+
 
 
 
