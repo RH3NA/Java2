@@ -180,7 +180,7 @@ public class InventoryModel {
         // create the mysql insert preparedstatement
 
         PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
-        preparedStmtInventory.setInt(1,Integer.parseInt(String.valueOf(Session.getInstance().getcurrentInventory().idBarcode)));
+        preparedStmtInventory.setInt(1,Session.getInstance().getcurrentInventory().idBarcode);
 
 
         preparedStmtInventory.executeUpdate();

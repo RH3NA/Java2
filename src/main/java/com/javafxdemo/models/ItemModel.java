@@ -157,30 +157,6 @@ public class ItemModel {
 
 
 
-        public static boolean checkInsert(int idItem) throws SQLException {
-
-            DBConnection connectNow = new DBConnection();
-            Connection conn = connectNow.getConnection();
-            Statement stm;
-            stm = conn.createStatement();
-            int check = 0;
-            String sql = "Select idItem From item ORDER BY idItem DESC LIMIT 1";
-
-            ResultSet rst;
-
-            rst = stm.executeQuery(sql);
-
-            while(rst.next()) {
-                 check = rst.getInt(idItem);
-            }
-            if (check == idItem) {
-                return Boolean.TRUE;
-            } else {
-                return Boolean.FALSE;
 
 
-            }
-
-
-        }
 }

@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
+import static com.javafxdemo.models.ItemModel.insertItem;
+
 public class AddController {
 
 
@@ -81,14 +83,10 @@ public class AddController {
 
     public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
 
-        if(ItemModel.checkInsert(getIntFromTextField(idItemInput))== Boolean.TRUE){
+        addNewItemToDB();
 
-            inserItemInfoLable.setText("Insert Succses");
 
-        }else {
 
-            inserItemInfoLable.setText("Insert Fail");
-        }
 
 
     }
