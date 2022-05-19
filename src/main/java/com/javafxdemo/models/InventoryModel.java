@@ -2,11 +2,11 @@ package com.javafxdemo.models;
 
 
 import com.javafxdemo.DBConnection;
+import com.javafxdemo.Session;
+import com.javafxdemo.controller.AddController;
+import com.javafxdemo.controller.AdminController;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class InventoryModel {
@@ -99,7 +99,7 @@ public class InventoryModel {
         return availableBarcode;
     }
 
-    public static Boolean checkAvailableBarcode(int idBarcode) throws SQLException {
+    public static Boolean checkAvailableBarcode (int idBarcode) throws SQLException {
         int checkBarcode = 0;
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -112,7 +112,7 @@ public class InventoryModel {
                 "'AND idBarcode NOT IN (Select Inventory_idBarcode From Loan);");
         while (rs.next()) {
             checkBarcode = rs.getInt("idBarcode");
-        }
+            }
         if (checkBarcode > 0) {
             return true;
         }
@@ -129,6 +129,9 @@ public class InventoryModel {
                 checkBarcode = rs.getInt("Inventory_idBarcode");
             }
             return checkBarcode > 0;
+            //if (checkBarcode > 0) {
+            //    return true;
+            //}
         }
         return false;
     }
@@ -157,4 +160,51 @@ public class InventoryModel {
         }
         return "No title";
     }
+
+
+    public static void insertCategory(String category) throws SQLException {
+
+        getInventoryDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+
+        String queryCategogry = " insert into Inventory(category)"+ " values (" + category + ");";
+
+        PreparedStatement preparedStmt = conn.prepareStatement(queryCategogry);
+        preparedStmt.setString(1,Session.getInstance().getcurrentInventory().category);
+
+
+        preparedStmt.executeUpdate();
+
+
+
+    }
+
+    public static void insertBarcode(int idBarcode) throws SQLException {
+
+        getInventoryDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+        //Session?
+
+        String queryToInventory = "insert into Inventory(idBarcode)" + " values (" + idBarcode + ");";
+
+        // create the mysql insert preparedstatement
+
+        PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
+        preparedStmtInventory.setInt(1,Session.getInstance().getcurrentInventory().idBarcode);
+
+
+        preparedStmtInventory.executeUpdate();
+
+
+
+    }
+
+
+
+
+
 }

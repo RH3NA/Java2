@@ -2,9 +2,7 @@ package com.javafxdemo;
 
 
 import com.javafxdemo.controller.*;
-import com.javafxdemo.models.ItemModel;
-import com.javafxdemo.models.LoanModel;
-import com.javafxdemo.models.UserModel;
+import com.javafxdemo.models.*;
 
 import java.sql.Timestamp;
 
@@ -24,7 +22,6 @@ public class Session {
     public DeleteController getDeleteController() {return deleteController;}
 
     public void setDeleteController(DeleteController deleteController) {this.deleteController = deleteController; }
-
 
 
     public SearchController getSearchController() {
@@ -62,7 +59,6 @@ public class Session {
     public void setReusableButtonController(ReusableButtonController reusableButtonController) {
         this.reusableButtonController = reusableButtonController;
     }
-
 
     public void setUserController(UserController userController) {
         this.userController = userController;
@@ -133,7 +129,6 @@ public class Session {
     private Boolean currentlyLoggedIn;
     private Boolean hasTooManyLoans;
 
-
     private UserModel currentUser = new UserModel(idUser, lastName, firstName, phoneNumber, email, userType, currentlyLoggedIn, hasTooManyLoans); //constructor to create a constructed object (currentUser instance) from our usermodel constructor
 
     public UserModel getCurrentUser() { //getter to get the current user
@@ -145,11 +140,14 @@ public class Session {
     }
 
     private int idItem;
+    private int idBarcode;
     private int numberInStock;
     private String title;
     private String isbn;
     private String publisher;
     private int totalStock;
+    private String category;
+
 
     private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
@@ -161,18 +159,17 @@ public class Session {
         this.currentSearch = currentSearch;
     }
 
-    public ItemModel getCurrentUpdate() {
-        return currentUpdate;
+    public ItemModel getCurrentAdd() {  // or getCurrentUpdate()
+        return currentAdd;
     }
 
-    public void setCurrentUpdate(ItemModel currentUpdate) {
-        this.currentUpdate = currentUpdate;
+    public void setCurrentAdd(ItemModel currentAdd) { // or setCurrentUpdate(ItemModel currentUpdate)
+        this.currentAdd = currentAdd; //or this.currentUpdate = currentUpdate;
     }
 
-    private ItemModel currentUpdate = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock); // or currentUpdate
 
     private int idLoan;
-    private int idBarcode;
     private Timestamp loanDate;
     private Timestamp expiryDate;
 
@@ -208,12 +205,29 @@ public class Session {
 
 
 
+    private int items_idItems;
+    private int location_idLocation;
+
+    private Boolean available;
+    private final InventoryModel currentInventory = new InventoryModel(idBarcode, items_idItems, location_idLocation, category, available);
+
+    public InventoryModel getcurrentInventory() {
+        return currentInventory;
+    }
+
+    private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(firstName,lastName);
+    public  ItemHasCreatorModel getCurrentItemHasCreator() {return currentItemHasCreator;}
+
+}
+
+
+
 
     /*public static void initializeSession() {
         Session session = new Session(new LoanController(), new SearchController(), new StartpageController(),
                 new StartpageLoggedInController(), new UserController());
     }*/
-}
+
 
 
    /*private String loggedInIdUser;
