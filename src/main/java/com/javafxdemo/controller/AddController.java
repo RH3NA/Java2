@@ -67,43 +67,30 @@ public class AddController extends ReusableButtonController implements Initializ
     @FXML
     private Label inserItemInfoLable;
 
-  /* @Override
-    public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
-    {
-        return "idItemInput = " + this.idItemInput +
-                " inStockInput = " + this.inStockInput +
-                " titleInput = " + this.titleInput +
-                " isbn = " + this.isbnInput +
-                " totalInStockInput = " + this.totalStockInput +
-                " publisherInput = " + this.publisherInput +
-                " barcodeInput = " + this.barcodeInput +
-                " categoryInput = " + this.categoryInput +
-                " authorFirstNameInput = " + this.authorFirstnameInput +
-                " authorLastNameInput = " + this.authorLastnameInput;
-    }*/
 
 
 
 
-    /*public int getIntFromTextField(TextField textField) {
+
+    public int getIntFromTextField(TextField textField) {
         String text = textField.getText();
         return Integer.parseInt(text);
-    }*/
 
-    public void addNewItemToDB() throws SQLException {
-
-
-        ItemModel newItem = new ItemModel(Integer.parseInt(String.valueOf(idItemInput.getText())),Integer.parseInt(String.valueOf(inStockInput.getText())), titleInput.getText(),isbnInput.getText(),Integer.parseInt(String.valueOf(totalInStockInput.getText())), publisherInput.getText());
-        System.out.println(newItem);
-        InventoryModel newInventory = new InventoryModel(Integer.parseInt(String.valueOf(barcodeInput)), newItem.getIdItem(),(Integer.parseInt(String.valueOf(barcodeInput)) + newItem.getIdItem()), categoryInput.getText(), Boolean.TRUE);
-        ItemModel.insertItem(newItem.getIdItem(), newItem.getNumberInStock(), newItem.getTitle(), newItem.getIsbn(), newItem.getTotalStock(), newItem.getPublisher());
-        //InventoryModel.insertInventory(newInventory.getItems_idItems(), newInventory.) skapa konstruktor för Inventory och ItemHasCreator
-        //InventoryModel.insertBarcode(Integer.parseInt(String.valueOf(barcodeInput)));
-        //InventoryModel.insertCategory(categoryInput.getText());
-        //ItemHasCreatorModel.insertAuthorFirstname(authorFirstnameInput.getText());
-        //ItemHasCreatorModel.insertAuthorLastname(authorLastnameInput.getText());
+        public void addNewItemToDB () throws SQLException {
 
 
+            ItemModel newItem = new ItemModel(Integer.parseInt(String.valueOf(idItemInput.getText())), Integer.parseInt(String.valueOf(inStockInput.getText())), titleInput.getText(), isbnInput.getText(), Integer.parseInt(String.valueOf(totalInStockInput.getText())), publisherInput.getText());
+            System.out.println(newItem);
+            InventoryModel newInventory = new InventoryModel(Integer.parseInt(String.valueOf(barcodeInput)), newItem.getIdItem(), (Integer.parseInt(String.valueOf(barcodeInput)) + newItem.getIdItem()), categoryInput.getText(), Boolean.TRUE);
+            ItemModel.insertItem(newItem.getIdItem(), newItem.getNumberInStock(), newItem.getTitle(), newItem.getIsbn(), newItem.getTotalStock(), newItem.getPublisher());
+            //InventoryModel.insertInventory(newInventory.getItems_idItems(), newInventory.) skapa konstruktor för Inventory och ItemHasCreator
+            //InventoryModel.insertBarcode(Integer.parseInt(String.valueOf(barcodeInput)));
+            //InventoryModel.insertCategory(categoryInput.getText());
+            //ItemHasCreatorModel.insertAuthorFirstname(authorFirstnameInput.getText());
+            //ItemHasCreatorModel.insertAuthorLastname(authorLastnameInput.getText());
+
+
+        }
     }
 
     @Override
