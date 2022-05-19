@@ -21,8 +21,8 @@
                     <Image url="@../images/LTULogo.jpg" />
                 </ImageView>
                 <Button mnemonicParsing="false" prefHeight="42.0" text="Exit" visible="false" />
-                <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="42.0" text="Exit" />
-                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="42.0" text="Back" />
+                <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="42.0" text="Exit" onAction="#onExitButtonClick" />
+                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="42.0" text="Back" onAction="#onBackButtonClick" />
             </buttons>
             <BorderPane.margin>
                 <Insets bottom="15.0" right="15.0" top="15.0" />
@@ -39,11 +39,14 @@
     <center>
         <VBox prefHeight="258.0" prefWidth="450.0" spacing="10.0" BorderPane.alignment="CENTER">
             <AnchorPane prefHeight="412.0" prefWidth="557.0">
-                <children>
-                    <TextField fx:id="barcodeInput" layoutX="76.0" layoutY="25.0" />
-                    <Button fx:id="deleteButton" layoutX="242.0" layoutY="17.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Delete?" />
-                    <Label fx:id="barcodeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="21.0" prefHeight="33.0" prefWidth="54.0" text="Barcode" textAlignment="CENTER" />
-                </children>
+                <TextField fx:id="barcodeInput" layoutX="76.0" layoutY="25.0" onAction="#onDeleteItemButtonClick"
+                           promptText="Item barcode"/>
+                <Button fx:id="deleteItemButton" layoutX="242.0" layoutY="17.0" mnemonicParsing="false"
+                        onAction="#onDeleteItemButtonClick" prefHeight="35.0" prefWidth="65.0" text="Confirm delete"/>
+                <Label fx:id="barcodeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="21.0"
+                       prefHeight="33.0" prefWidth="54.0" text="Barcode" textAlignment="CENTER"/>
+                <Label fx:id="deleteItemConfirmationLabel" layoutX="76.0" layoutY="76.0" prefHeight="19.0"
+                       prefWidth="416.0"/>
             </AnchorPane>
             <HBox alignment="CENTER" prefHeight="214.0" prefWidth="753.0" spacing="8.0" />
             <StackPane prefHeight="0.0" prefWidth="753.0" />

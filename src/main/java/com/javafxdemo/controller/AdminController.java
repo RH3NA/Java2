@@ -45,9 +45,8 @@ public class AdminController extends ReusableButtonController implements Initial
 
     public void onExitButtonClick() {
         exit();
-
-
     }
+
 }
 
 

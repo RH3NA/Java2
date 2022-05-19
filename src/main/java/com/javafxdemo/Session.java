@@ -7,12 +7,11 @@ import com.javafxdemo.models.LoanModel;
 import com.javafxdemo.models.UserModel;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 public class Session {
 
     private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
-                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController());
+                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new DeleteController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -21,6 +20,12 @@ public class Session {
     public void setLoanController(LoanController loanController) {
         this.loanController = loanController;
     }
+
+    public DeleteController getDeleteController() {return deleteController;}
+
+    public void setDeleteController(DeleteController deleteController) {this.deleteController = deleteController; }
+
+
 
     public SearchController getSearchController() {
         return searchController;
@@ -97,11 +102,12 @@ public class Session {
     private OverviewController overviewController;
     private AdminController adminController;
     private ReusableButtonController reusableButtonController;
+    private DeleteController deleteController;
 
 
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController, OverviewController overviewController,
-                   AdminController adminController, ReusableButtonController reusableButtonController) {
+                   AdminController adminController, ReusableButtonController reusableButtonController, DeleteController deleteController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
@@ -199,6 +205,8 @@ public class Session {
     }
 
     private String currentScene;
+
+
 
 
     /*public static void initializeSession() {

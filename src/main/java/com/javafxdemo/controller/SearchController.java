@@ -1,8 +1,8 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.Session;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.Session;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemModel;
 import com.javafxdemo.models.LoanModel;
@@ -83,8 +83,7 @@ public class  SearchController extends ReusableButtonController implements Initi
 
     }
 
-    @FXML
-    private Button searchResultsLoanButton;
+    @FXML private Button searchResultsLoanButton;
 
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
         UserModel currentUser = Session.getInstance().getCurrentUser();

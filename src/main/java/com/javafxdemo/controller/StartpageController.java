@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,7 +24,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-import static com.javafxdemo.models.UserModel.*;
+import static com.javafxdemo.models.UserModel.getUsersDB;
+import static com.javafxdemo.models.UserModel.users;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class StartpageController implements Initializable {
@@ -40,7 +42,7 @@ public class StartpageController implements Initializable {
     Button loginButton;
     private int password;
 
-    public void loginButtonOnAction(ActionEvent a) throws SQLException {
+    public void loginButtonOnAction(MouseEvent a) throws SQLException {
         if (passwordInput.getText().isBlank() && usernameInput.getText().isBlank()) {
             loginErrorLabel.setText("Fill in username and password.");
         } else {

@@ -3,7 +3,10 @@ package com.javafxdemo.models;
 
 import com.javafxdemo.DBConnection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class InventoryModel {
@@ -19,7 +22,7 @@ public class InventoryModel {
     private int items_idItems;
     private int idBarcode;
     private String category;
-    private Boolean available;
+    private final Boolean available;
     public static ArrayList<InventoryModel> inventory = new ArrayList<>();
 
     public InventoryModel(int idBarcode, int items_idItems, int location_idLocation, String category, Boolean available) {
@@ -125,9 +128,7 @@ public class InventoryModel {
             while (rs.next()) {
                 checkBarcode = rs.getInt("Inventory_idBarcode");
             }
-            if (checkBarcode > 0) {
-                return true;
-            }
+            return checkBarcode > 0;
         }
         return false;
     }

@@ -1,12 +1,12 @@
 package com.javafxdemo.models;
 
 import com.javafxdemo.DBConnection;
-import com.javafxdemo.Session;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-
-import static com.javafxdemo.models.UserModel.users;
 
 public class ItemModel {
     private int idItem;
