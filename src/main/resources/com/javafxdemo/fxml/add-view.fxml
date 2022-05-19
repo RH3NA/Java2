@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="685.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.AddController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="685.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.AddController">
     <bottom>
         <ButtonBar buttonMinWidth="50.0" prefHeight="70.0" prefWidth="84.0" BorderPane.alignment="CENTER">
             <buttons>
@@ -22,8 +14,8 @@
                     <Image url="@../images/LTULogo.jpg" />
                 </ImageView>
                 <Button mnemonicParsing="false" prefHeight="42.0" text="Exit" visible="false" />
-                <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="42.0" text="Exit" />
-                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="42.0" text="Back" />
+                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="42.0" text="Exit" />
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="42.0" text="Back" />
             </buttons>
             <BorderPane.margin>
                 <Insets bottom="15.0" right="15.0" top="15.0" />
@@ -42,7 +34,7 @@
          <AnchorPane prefHeight="473.0" prefWidth="693.0">
             <children>
                <TextField fx:id="idItemInput" layoutX="263.0" layoutY="37.0" />
-               <TextField fx:id="inStockInput" layoutX="263.0" layoutY="74.0" />
+               <TextField fx:id="LocationInputTextField" layoutX="263.0" layoutY="74.0" />
                <TextField fx:id="titleInput" layoutX="263.0" layoutY="117.0" />
 
                 <Label fx:id="idItemLable" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="33.0" prefHeight="33.0" prefWidth="54.0" text="ItemID" textAlignment="CENTER">
@@ -50,9 +42,8 @@
                      <Font size="11.0" />
                   </font></Label>
                <TextField fx:id="isbnInput" layoutX="263.0" layoutY="156.0" />
-               <TextField fx:id="totalInStockInput" layoutX="263.0" layoutY="198.0" />
                <TextField fx:id="publisherInput" layoutX="263.0" layoutY="241.0" prefHeight="17.0" prefWidth="161.0" />
-               <Label fx:id="inStockLable" alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" layoutY="74.0" prefHeight="33.0" prefWidth="116.0" text="Number in Stock" textAlignment="CENTER">
+               <Label fx:id="inStockLable" alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" layoutY="74.0" prefHeight="33.0" prefWidth="116.0" text="Location ID" textAlignment="CENTER">
                   <font>
                      <Font size="11.0" />
                   </font>
@@ -63,11 +54,6 @@
                   </font>
                </Label>
                <Label fx:id="isbnLable" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="159.0" prefHeight="33.0" prefWidth="54.0" text="ISBN" textAlignment="CENTER">
-                  <font>
-                     <Font size="11.0" />
-                  </font>
-               </Label>
-               <Label fx:id="totalInStockLable" alignment="CENTER" contentDisplay="CENTER" layoutX="165.0" layoutY="194.0" prefHeight="33.0" prefWidth="91.0" text="Total Stock" textAlignment="CENTER">
                   <font>
                      <Font size="11.0" />
                   </font>
@@ -101,7 +87,7 @@
                      <Font size="11.0" />
                   </font>
                </Label>
-               <Label fx:id="inserItemInfoLable" alignment="CENTER" contentDisplay="CENTER" layoutX="479.0" layoutY="113.0" prefHeight="33.0" prefWidth="87.0" text="Text TeXT Text" textAlignment="CENTER">
+               <Label fx:id="insertItemInfoLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="479.0" layoutY="113.0" prefHeight="33.0" prefWidth="87.0" textAlignment="CENTER">
                   <font>
                      <Font size="11.0" />
                   </font>
@@ -109,7 +95,7 @@
             </children>
          </AnchorPane>
             <HBox alignment="CENTER" prefHeight="0.0" prefWidth="113.0" spacing="8.0" />
-         <Button fx:id="confirmCRUDButton" mnemonicParsing="false" onAction="#onupdateItemClick" prefHeight="24.0" prefWidth="123.0" text="Confirm" />
+         <Button fx:id="confirmCRUDButton" alignment="CENTER" mnemonicParsing="false" onAction="#onupdateItemClick" prefHeight="25.0" prefWidth="184.0" text="Confirm add/update" />
             <StackPane prefHeight="0.0" prefWidth="753.0" />
             <BorderPane.margin>
                 <Insets right="20.0" top="20.0" />
@@ -117,6 +103,6 @@
         </VBox>
     </center>
    <top>
-         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity" prefHeight="14.0" style="-fx-padding: 0;" text="Please insert the item values." BorderPane.alignment="CENTER" />
+         <Label fx:id="addUpdateLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity" prefHeight="14.0" style="-fx-padding: 0;" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>

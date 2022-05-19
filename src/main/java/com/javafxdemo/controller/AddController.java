@@ -1,8 +1,8 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.Session;
+import com.javafxdemo.models.InventoryModel;
+import com.javafxdemo.models.ItemHasCreatorModel;
 import com.javafxdemo.models.ItemModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
-import static com.javafxdemo.models.ItemModel.insertItem;
 
 public class AddController extends ReusableButtonController implements Initializable {
 

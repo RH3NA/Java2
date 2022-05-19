@@ -64,7 +64,7 @@ public class  SearchController extends ReusableButtonController implements Initi
             ResultSet resultSet = statement.getResultSet(); // will run the query until all results collected
 
             while (resultSet.next()) {  //outputs the query result back to the search results area (label) on search page
-                Session.getInstance().setCurrentSearch(new ItemModel(resultSet.getInt("idItem"), resultSet.getInt("numberInStock"), resultSet.getString("title"), resultSet.getString("isbn"), resultSet.getString("publisher"), resultSet.getInt(("totalStock"))));
+                Session.getInstance().setCurrentSearch(new ItemModel(resultSet.getInt("idItem"), resultSet.getInt("numberInStock"), resultSet.getString("title"), resultSet.getString("isbn"), resultSet.getInt("totalStock"), resultSet.getString("publisher")));
                 ItemModel currentSearch = Session.getInstance().getCurrentSearch();
                 author = "" + ((resultSet.getString("firstName")) + " " +(resultSet.getString("lastName")));
                 category = resultSet.getString("category");

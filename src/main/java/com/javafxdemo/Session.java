@@ -5,25 +5,24 @@ import com.javafxdemo.controller.*;
 import com.javafxdemo.models.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 public class Session {
 
-    private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
-                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new UpdateController());
-                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new DeleteController());
+    private final static Session instance = new Session(new LoanController(), new SearchController(),
+            new StartpageController(), new StartpageLoggedInController(), new UserController(),
+            new LoanReturnController(), new OverviewController(), new AdminController(),
+            new ReusableButtonController(), new UpdateController(), new DeleteController());
 
     public LoanController getLoanController() {
         return loanController;
     }
-
     public void setLoanController(LoanController loanController) {
         this.loanController = loanController;
     }
 
-    public DeleteController getDeleteController() {return deleteController;}
+    public DeleteController getDeleteController() { return deleteController; }
 
-    public void setDeleteController(DeleteController deleteController) {this.deleteController = deleteController; }
+    public void setDeleteController(DeleteController deleteController) { this.deleteController = deleteController; }
 
 
     public SearchController getSearchController() {
@@ -116,7 +115,7 @@ public class Session {
 
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController, OverviewController overviewController,
-                   AdminController adminController, ReusableButtonController reusableButtonController, DeleteController deleteController) {
+                   AdminController adminController, ReusableButtonController reusableButtonController, UpdateController updateController, DeleteController deleteController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
@@ -127,6 +126,7 @@ public class Session {
         this.adminController = adminController;
         this.reusableButtonController = reusableButtonController;
         this.updateController = updateController;
+        this.deleteController = deleteController;
     }
 
     public static Session getInstance() { //getter for our instance
@@ -164,7 +164,7 @@ public class Session {
     private String category;
 
 
-    private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+    private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, totalStock, publisher);
 
     public ItemModel getCurrentSearch() {
         return currentSearch;
@@ -182,7 +182,7 @@ public class Session {
         this.currentAdd = currentAdd;
     }
 
-    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, totalStock, publisher);
 
     private int idLoan;
     private Timestamp loanDate;
@@ -228,33 +228,10 @@ public class Session {
         return currentInventory;
     }
 
-    private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(firstName,lastName);
-    public  ItemHasCreatorModel getCurrentItemHasCreator() {return currentItemHasCreator;}
+    private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(firstName, lastName);
+
+    public ItemHasCreatorModel getCurrentItemHasCreator() {
+        return currentItemHasCreator;
+    }
 
 }
-
-
-
-
-    /*public static void initializeSession() {
-        Session session = new Session(new LoanController(), new SearchController(), new StartpageController(),
-                new StartpageLoggedInController(), new UserController());
-    }*/
-
-
-
-   /*private String loggedInIdUser;
-    public String getLoggedInIdUser() {
-        return loggedInIdUser;
-    }
-    public void setLoggedInIdUser(String loggedInIdUser) {
-        this.loggedInIdUser = loggedInIdUser;
-    }
-    private String loggedInUserType;
-    public String getLoggedInUserType() {
-        return loggedInUserType;
-    }
-
-    public void setLoggedInUserType(String loggedInUserType) {
-        this.loggedInUserType = loggedInUserType;
-    }*/

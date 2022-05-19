@@ -3,12 +3,9 @@ package com.javafxdemo.models;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
 
-import java.security.cert.TrustAnchor;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
-import static com.javafxdemo.models.UserModel.users;
 
 public class ItemModel {
 
@@ -22,20 +19,14 @@ public class ItemModel {
 
     public static ArrayList<ItemModel> items = new ArrayList<>();
 
-
-
-
-
-
     public int getTotalStock() {
         return totalStock;
     }
-
     public void setTotalStock(int totalStock) {
         this.totalStock = totalStock;
     }
 
-    public ItemModel(int idItem, int numberInStock, String title, String isbn, String publisher, int totalStock) {
+    public ItemModel(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) {
         this.idItem = idItem;
         this.numberInStock = numberInStock;
         this.title = title;
@@ -53,8 +44,8 @@ public class ItemModel {
                 " numberInStock = " + this.numberInStock +
                 " title = " + this.title +
                 " isbn = " + this.isbn +
-                " publisher = " + this.publisher +
-                " totalStock = " + this.totalStock;
+                " totalStock = " + this.totalStock +
+                " publisher = " + this.publisher;
     }
 
 
@@ -109,10 +100,12 @@ public class ItemModel {
         Statement stm;
         stm = conn.createStatement();
         String sql = "Select * From Item";
+
         ResultSet rst;
         rst = stm.executeQuery(sql);
+
         while (rst.next()) {
-            ItemModel item = new ItemModel(rst.getInt("idItem"), rst.getInt("numberInStock"), rst.getString("title"), rst.getString("isbn"), rst.getString("publisher"), rst.getInt("totalStock"));
+            ItemModel item = new ItemModel(rst.getInt("idItem"), rst.getInt("numberInStock"), rst.getString("title"), rst.getString("isbn"), rst.getInt("totalStock"), rst.getString("publisher"));
             items.add(item);
         }
 
@@ -123,8 +116,7 @@ public class ItemModel {
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
 
-                Session.getInstance().setCurrentAdd(new ItemModel(idItem,numberInStock, title, isbn, publisher, totalStock));
-
+                Session.getInstance().setCurrentAdd(new ItemModel(idItem,numberInStock, title, isbn, totalStock, publisher));
 
                 System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
                 System.out.println(Session.getInstance().getCurrentAdd());
@@ -139,8 +131,13 @@ public class ItemModel {
                 preparedStmt.setInt(2, Session.getInstance().getCurrentAdd().numberInStock);
                 preparedStmt.setString(3,Session.getInstance().getCurrentAdd().title);
                 preparedStmt.setString(4,Session.getInstance().getCurrentAdd().isbn);
-                preparedStmt.setString(5,Session.getInstance().getCurrentAdd().publisher);
-                preparedStmt.setInt(6,Session.getInstance().getCurrentAdd().totalStock);
+                preparedStmt.setInt(5,Session.getInstance().getCurrentAdd().totalStock);
+                preparedStmt.setString(6,Session.getInstance().getCurrentAdd().publisher);
+
+                preparedStmt.executeUpdate();
+
+
+
 
 
                 preparedStmt.executeUpdate();
