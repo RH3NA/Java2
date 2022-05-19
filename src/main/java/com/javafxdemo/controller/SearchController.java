@@ -47,11 +47,22 @@ public class  SearchController extends ReusableButtonController implements Initi
     @FXML
     private Label authorLabel;
 
+    public Boolean getIsReference() {
+        return isReference;
+    }
+
+    public void setIsReference(Boolean isReference) {
+        this.isReference = isReference;
+    }
+
+    private Boolean isReference;
+
 
 
     public void onSearchForResultButton(ActionEvent a) throws Exception {  // throwing out exceptions so the system doesn't crash & also ensure connection and statement closes
         String author;
         String category;
+        errorLabel.setText("");
         DBConnection connectNow = new DBConnection();       //This initiates a new connection instance of 'conn' using the DBConnection Class
         Connection conn = connectNow.getConnection(); // THis opens a 'conn' connection using the DBConnection
 
@@ -66,7 +77,7 @@ public class  SearchController extends ReusableButtonController implements Initi
             while (resultSet.next()) {  //outputs the query result back to the search results area (label) on search page
                 Session.getInstance().setCurrentSearch(new ItemModel(resultSet.getInt("idItem"), resultSet.getInt("numberInStock"), resultSet.getString("title"), resultSet.getString("isbn"), resultSet.getInt("totalStock"), resultSet.getString("publisher")));
                 ItemModel currentSearch = Session.getInstance().getCurrentSearch();
-                author = "" + ((resultSet.getString("firstName")) + " " +(resultSet.getString("lastName")));
+                author = "" + ((resultSet.getString("firstName")) + " " + (resultSet.getString("lastName")));
                 category = resultSet.getString("category");
                 isbnLabel.setText("ISBN: " + currentSearch.getIsbn());
                 titleLabel.setText("Title: " + currentSearch.getTitle());
@@ -75,27 +86,64 @@ public class  SearchController extends ReusableButtonController implements Initi
                 categoryLabel.setText("Category: " + category);
                 authorLabel.setText("Author: " + author);
 
+                if (category.equalsIgnoreCase("Reference")) {
+                    setIsReference(Boolean.TRUE);
+                    System.out.println("Not available to loan");
+                } else {
+                    setIsReference(Boolean.FALSE);
+                }
+                if (Session.getInstance().getCurrentSearch().getNumberInStock() == 0) {
+                    setAvailableInStock(Boolean.FALSE);
+                } else {
+                    setAvailableInStock(Boolean.TRUE);
+                }
             }
-            hadResults = statement.getMoreResults(); // will loop until no more results available
-        }
-        statement.close(); // closes query
-        System.out.println(Session.getInstance().getCurrentSearch());
+                hadResults = statement.getMoreResults(); // will loop until no more results available
+            }
 
-    }
+            statement.close(); // closes query
+            System.out.println(Session.getInstance().getCurrentSearch());
+        }
+
+
+
+
 
     @FXML
     private Button searchResultsLoanButton;
+    @FXML
+    private Label errorLabel;
+
+    public Boolean getAvailableInStock() {
+        return isAvailableInStock;
+    }
+
+    public void setAvailableInStock(Boolean availableInStock) {
+        isAvailableInStock = availableInStock;
+    }
+
+    private Boolean isAvailableInStock;
 
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
+        errorLabel.setText("");
         UserModel currentUser = Session.getInstance().getCurrentUser();
         ItemModel currentSearch = Session.getInstance().getCurrentSearch();
-        if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (ItemModel.isbnExists(currentSearch.getIsbn()) == Boolean.TRUE)) {
+        if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (ItemModel.isbnExists(currentSearch.getIsbn()) == Boolean.TRUE) && (getIsReference() == Boolean.FALSE && getAvailableInStock() == Boolean.TRUE)) {
             InventoryModel.getInventoryDB();
             Session.getInstance().setCurrentLoan(new LoanModel(currentUser.getIdUser(), InventoryModel.availableBarcode(currentSearch.getIdItem()), null, null));
             System.out.println(Session.getInstance().getCurrentLoan());
             Session.getInstance().getLoanController().setSceneLoan();
-        } else {
+        }
+        if (getIsReference() == Boolean.TRUE && currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) {
+            System.out.println("You may not borrow reference literature.");
+            errorLabel.setText("You may not borrow reference literature.");
+        }
+        if (getAvailableInStock() == Boolean.FALSE && currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) {
+            errorLabel.setText("No items available in stock.");
+        }
+        if (getIsReference() == Boolean.FALSE && getAvailableInStock() == Boolean.TRUE) {
             System.out.println("You need to be logged in to proceed.");
+            errorLabel.setText("You need to be logged in to proceed.");
 
             // add redirect to startpage + error label with this error text in the actual gui
         }

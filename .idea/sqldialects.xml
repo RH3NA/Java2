@@ -5,4 +5,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/javafxdemo/models/InventoryModel.java" dialect="GenericSQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
+  <component name="SqlResolveMappings">
+    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;fa38dc8c-d2fb-4b45-9412-025d9e265bbf&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;d0005n&quot;      }     }    }   }  } }}" />
+  </component>
 </project>

@@ -36,6 +36,7 @@
          <Label fx:id="categoryLabel" layoutX="224.0" layoutY="327.0" prefHeight="83.0" prefWidth="163.0" text="Category: " />
          <Label fx:id="authorLabel" layoutX="399.0" layoutY="325.0" prefHeight="83.0" prefWidth="163.0" text="Author:" />
          <Button fx:id="backButton" layoutX="749.0" layoutY="483.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Back?" />
+         <Label fx:id="errorLabel" layoutX="591.0" layoutY="300.0" prefHeight="72.0" prefWidth="286.0" />
       </AnchorPane>
    </center>
    <right>

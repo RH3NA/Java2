@@ -72,9 +72,9 @@ public class AddController extends ReusableButtonController implements Initializ
 
 
 
-    public int getIntFromTextField(TextField textField) {
+    /*public int getIntFromTextField(TextField textField) {
         String text = textField.getText();
-        return Integer.parseInt(text);
+        return Integer.parseInt(text);*/
 
         public void addNewItemToDB () throws SQLException {
 
@@ -91,7 +91,7 @@ public class AddController extends ReusableButtonController implements Initializ
 
 
         }
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

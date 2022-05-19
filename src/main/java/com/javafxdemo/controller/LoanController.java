@@ -72,15 +72,18 @@ public class LoanController extends ReusableButtonController implements Initiali
             int newLoanID = createIdLoan(Session.getInstance().getCurrentUser().getIdUser());
             LoanModel.insertLoan(createIdLoan(Session.getInstance().getCurrentUser().getIdUser()), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null);
             LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
+            System.out.println(LoanModel.currentUserLatestLoan.get(0).getIdLoan());
+            if(LoanModel.currentUserLatestLoan.isEmpty()) {
+                System.out.println("No loans");
+            }
             if (LoanModel.currentUserLatestLoan.get(0).getIdLoan() == newLoanID) {
                 receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
                         "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
             }
-            if (LoanModel.currentUserLatestLoan.isEmpty()) {
-                LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
-                receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
-                        "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
-            }
+
+        }
+        if (!barcodeIsAvailable) {
+            receiptLabel.setText("No available items to loan.");
         }
         if (Session.getInstance().getCurrentUser().getHasTooManyLoans() == Boolean.TRUE) {
             receiptLabel.setText("You have too many active loans. Return a current loan before attempting to loan a new item.");
@@ -95,7 +98,7 @@ public class LoanController extends ReusableButtonController implements Initiali
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        selectedLoanItemsLabel.setText(Session.getInstance().getCurrentLoan().toString());
+        selectedLoanItemsLabel.setText("Selected barcode ID: "+ Session.getInstance().getCurrentLoan().getIdBarcode() + "");
         Session.getInstance().setCurrentScene("Loan");
 
     }
