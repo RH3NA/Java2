@@ -239,7 +239,8 @@ public class Session {
         return currentInventory;
     }
 
-    private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(firstName, lastName);
+    private int Item_idItem;
+    private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(Item_idItem, firstName, lastName);
 
     public ItemHasCreatorModel getCurrentItemHasCreator() {
         return currentItemHasCreator;

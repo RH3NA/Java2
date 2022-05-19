@@ -3,6 +3,7 @@ package com.javafxdemo.controller;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.Session;
 import com.javafxdemo.models.InventoryModel;
+import com.javafxdemo.models.ItemHasCreatorModel;
 import com.javafxdemo.models.LoanModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -98,7 +99,13 @@ public class LoanController extends ReusableButtonController implements Initiali
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        selectedLoanItemsLabel.setText("Selected barcode ID: "+ Session.getInstance().getCurrentLoan().getIdBarcode() + "");
+        try {
+            ItemHasCreatorModel.getItemHasCreatorDB();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode() + "");
+
         Session.getInstance().setCurrentScene("Loan");
 
     }

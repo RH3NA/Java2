@@ -8,6 +8,15 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ItemHasCreatorModel {
+    public int getItem_IdItem() {
+        return item_IdItem;
+    }
+
+    public void setItem_IdItem(int item_IdItem) {
+        this.item_IdItem = item_IdItem;
+    }
+
+    private int item_IdItem;
     private String firstName;
     private String lastName;
 
@@ -16,7 +25,10 @@ public class ItemHasCreatorModel {
     }
     public static ArrayList<ItemHasCreatorModel> creators = new ArrayList<>();
 
-    public ItemHasCreatorModel(String firstName, String lastName) {
+    public ItemHasCreatorModel(int Item_idItem, String firstName, String lastName) {
+        this.item_IdItem = Item_idItem;
+        this.firstName = firstName;
+        this.lastName = lastName;
 
     }
 
@@ -53,7 +65,7 @@ public class ItemHasCreatorModel {
         ResultSet rst;
         rst = stm.executeQuery(sql);
         while (rst.next()) {
-            ItemHasCreatorModel creator = new ItemHasCreatorModel(rst.getInt("firstName"), rst.getInt("lastName"));
+            ItemHasCreatorModel creator = new ItemHasCreatorModel(rst.getInt("Item_idItem"), rst.getString("firstName"), rst.getString("lastName"));
             creators.add(creator);
 
         }
@@ -95,6 +107,22 @@ public class ItemHasCreatorModel {
 
 
         preparedStmt.executeUpdate();
+
+    }
+    public static void insertItemHasCreator(int item_idItem, String firstName, String lastName) throws SQLException {
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+        String queryToItem = " insert into Item_has_Creator (item_idItem, firstName, lastName)" + " values (?, ?, ?)";
+
+
+        // create the mysql insert preparedstatement
+        PreparedStatement preparedStmt = conn.prepareStatement(queryToItem);
+        preparedStmt.setInt(1, item_idItem);
+        preparedStmt.setString(2, firstName);
+        preparedStmt.setString(3, lastName);
+        preparedStmt.executeUpdate();
+
 
     }
 

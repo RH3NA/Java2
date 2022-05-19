@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,6 +68,11 @@ public class AddController extends ReusableButtonController implements Initializ
     @FXML
     private Label inserItemInfoLable;
 
+    @FXML
+    TextField locationInput;
+    @FXML
+    Label successMessageLabel;
+
 
 
 
@@ -77,19 +83,47 @@ public class AddController extends ReusableButtonController implements Initializ
         return Integer.parseInt(text);*/
 
         public void addNewItemToDB () throws SQLException {
-
-
+            boolean inItems = false;
+            boolean inInventory = false;
+            boolean inCreators = false;
             ItemModel newItem = new ItemModel(Integer.parseInt(String.valueOf(idItemInput.getText())), Integer.parseInt(String.valueOf(inStockInput.getText())), titleInput.getText(), isbnInput.getText(), Integer.parseInt(String.valueOf(totalInStockInput.getText())), publisherInput.getText());
             System.out.println(newItem);
-            InventoryModel newInventory = new InventoryModel(Integer.parseInt(String.valueOf(barcodeInput)), newItem.getIdItem(), (Integer.parseInt(String.valueOf(barcodeInput)) + newItem.getIdItem()), categoryInput.getText(), Boolean.TRUE);
+
             ItemModel.insertItem(newItem.getIdItem(), newItem.getNumberInStock(), newItem.getTitle(), newItem.getIsbn(), newItem.getTotalStock(), newItem.getPublisher());
-            //InventoryModel.insertInventory(newInventory.getItems_idItems(), newInventory.) skapa konstruktor för Inventory och ItemHasCreator
-            //InventoryModel.insertBarcode(Integer.parseInt(String.valueOf(barcodeInput)));
-            //InventoryModel.insertCategory(categoryInput.getText());
-            //ItemHasCreatorModel.insertAuthorFirstname(authorFirstnameInput.getText());
-            //ItemHasCreatorModel.insertAuthorLastname(authorLastnameInput.getText());
+            System.out.println("" + Integer.parseInt(barcodeInput.getText()) + " " + newItem.getIdItem() + " " + Integer.parseInt(barcodeInput.getText()) + " " + newItem.getIdItem() + " " + categoryInput.getText());
+            System.out.println("" + newItem.getIdItem() + authorFirstnameInput.getText() + authorLastnameInput.getText());
 
+            InventoryModel.insertInventory(Integer.parseInt(barcodeInput.getText()), newItem.getIdItem(), 210211, categoryInput.getText());
+            ItemHasCreatorModel.insertItemHasCreator(newItem.getIdItem(), authorFirstnameInput.getText(), authorLastnameInput.getText());
 
+            ItemModel.getItemsDB();
+            ItemHasCreatorModel.getItemHasCreatorDB();
+            InventoryModel.getInventoryDB();
+
+            for (int i = 0; ItemModel.items.size() > 0; i++) {
+                if (newItem.getIdItem() == ItemModel.items.get(i).getIdItem()) {
+                    inItems = true;
+                    break;
+                }
+            }
+            for (int i = 0; ItemHasCreatorModel.creators.size() > 0; i++) {
+                if (newItem.getIdItem() == ItemHasCreatorModel.creators.get(i).getItem_IdItem()) {
+                    inCreators = true;
+                    break;
+                }
+            }
+            for (int i = 0; InventoryModel.inventory.size() > 0; i++) {
+                if (newItem.getIdItem() == InventoryModel.inventory.get(i).getItems_idItems()) {
+                    inInventory = true;
+                    break;
+                }
+            }
+            if (inItems && inInventory && inCreators) {
+                successMessageLabel.setText("Successfully added item!");
+            }
+            else {
+                successMessageLabel.setText("Something went wrong with your insert.");
+            }
         }
 
 
