@@ -3,11 +3,14 @@ package com.javafxdemo.models;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
 
+import java.security.cert.TrustAnchor;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class ItemModel {
+
     private int idItem;
+
     private int numberInStock;
     private String title;
     private String isbn;
@@ -15,6 +18,11 @@ public class ItemModel {
     private int totalStock;
 
     public static ArrayList<ItemModel> items = new ArrayList<>();
+
+
+
+
+
 
     public int getTotalStock() {
         return totalStock;
@@ -24,19 +32,22 @@ public class ItemModel {
         this.totalStock = totalStock;
     }
 
-    public ItemModel(int idItem, int numberInStock, String title, String isbn, String publisher, int totalStock) {
+    public ItemModel(int idItem,int numberInStock, String title, String isbn, String publisher, int totalStock) {
         this.idItem = idItem;
         this.numberInStock = numberInStock;
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
         this.totalStock = totalStock;
+
+
     }
 
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
     {
         return "idItem = " + this.idItem +
+
                 " numberInStock = " + this.numberInStock +
                 " title = " + this.title +
                 " isbn = " + this.isbn +
@@ -48,6 +59,7 @@ public class ItemModel {
     public int getIdItem() {
         return idItem;
     }
+
 
     public void setIdItem(int idItem) {
         this.idItem = idItem;
@@ -96,43 +108,54 @@ public class ItemModel {
         Statement stm;
         stm = conn.createStatement();
         String sql = "Select * From Item";
+
         ResultSet rst;
+
+
         rst = stm.executeQuery(sql);
+
         while (rst.next()) {
-            ItemModel item = new ItemModel(rst.getInt("idItem"), rst.getInt("numberInStock"), rst.getString("title"), rst.getString("isbn"), rst.getString("publisher"), rst.getInt("totalStock"));
+            ItemModel item = new ItemModel(rst.getInt("idItem"),rst.getInt("numberInStock"), rst.getString("title"), rst.getString("isbn"), rst.getString("publisher"), rst.getInt("totalStock"));
             items.add(item);
         }
 
     }
 
-    public static void addItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher, String category, String author) throws SQLException {
+    public static void insertItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException {
         getItemsDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
-        for (int i = 0; items.size() > i; i++) {
-            if (idItem == items.get(i).getIdItem()) {
-                Session.getInstance().setCurrentAdd(new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock));
+
+                Session.getInstance().setCurrentAdd(new ItemModel(idItem,numberInStock, title, isbn, publisher, totalStock));
+
+
                 System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
                 System.out.println(Session.getInstance().getCurrentAdd());
 
-                String query = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)"
-                        + " values (?, ?, ? , ? , ?, ?)";
+                String queryToItem = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)" + " values (?, ?, ? , ? , ?, ?)";
+
+
 
                 // create the mysql insert preparedstatement
-                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                PreparedStatement preparedStmt = conn.prepareStatement(queryToItem);
                 preparedStmt.setInt(1, Session.getInstance().getCurrentAdd().idItem);
                 preparedStmt.setInt(2, Session.getInstance().getCurrentAdd().numberInStock);
-                preparedStmt.setInt(3, Integer.parseInt(Session.getInstance().getCurrentAdd().title));
-                preparedStmt.setTimestamp(4, Timestamp.valueOf(Session.getInstance().getCurrentAdd().isbn));
-                preparedStmt.setTimestamp(5, Timestamp.valueOf(Session.getInstance().getCurrentAdd().publisher));
-                preparedStmt.setTimestamp(6, Timestamp.valueOf(String.valueOf(Session.getInstance().getCurrentAdd().totalStock)));
-                preparedStmt.execute();
+                preparedStmt.setString(3,Session.getInstance().getCurrentAdd().title);
+                preparedStmt.setString(4,Session.getInstance().getCurrentAdd().isbn);
+                preparedStmt.setString(5,Session.getInstance().getCurrentAdd().publisher);
+                preparedStmt.setInt(6,Session.getInstance().getCurrentAdd().totalStock);
+
+
+                preparedStmt.executeUpdate();
+
+
+
 
 
 
             }
-        }
-    }
+
+
 
 
 

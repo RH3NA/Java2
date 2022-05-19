@@ -23,6 +23,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -75,10 +76,14 @@ public class  SearchController implements Initializable {
     }
 
     private int idItem;
+    private int idBarcode;
     private String title;
     private String isbn;
     private String publisher;
     private int numberInStock;
+    private String firstName;
+    private String lastName;
+    private String category;
 
     public int getTotalStock() {
         return totalStock;
@@ -121,19 +126,46 @@ public class  SearchController implements Initializable {
                 setPublisher(resultSet.getString("publisher"));
                 setNumberInStock(resultSet.getInt("numberInStock"));
                 setTotalStock(resultSet.getInt(("totalStock")));
-                searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\tNo. in Stock\n" +
+                searchResultsArea.setText("ISBN\t\t\t\t\tTitle\t\t\t\t\tPublisher\t\t\tNo. in Stock" +
                         getIsbn() + "   " +
+
                         getTitle() + "\t\t" +
                         getPublisher() + "\t\t" +
                         //getIdItem() + "\t\t\t\t" +            removed iditem showing here since it's not of any importance to the clients, they only need the barcode and idloan
                         getNumberInStock());
+
             }
             hadResults = statement.getMoreResults(); // will loop until no more results available
         }
         statement.close(); // closes query
-        Session.getInstance().setCurrentSearch(new ItemModel(getIdItem(), getNumberInStock(), getTitle(), getIsbn(), getPublisher(), getTotalStock()));
+        Session.getInstance().setCurrentSearch(new ItemModel(getIdItem(),getNumberInStock(), getTitle(), getIsbn(), getPublisher(), getTotalStock()));
         System.out.println(Session.getInstance().getCurrentSearch());
 
+    }
+
+    private String getLastname() {
+        return lastName;
+    }
+
+    private String getFirstName() {
+        return firstName;
+    }
+
+    private String setCategory(String category) {
+        return category;
+    }
+
+    private int setIdBarcode(int idBarcode) {
+        return idBarcode;
+    }
+
+    private int getIdBarcode() {
+        return idBarcode;
+
+    }
+
+    private String getCategory(){
+        return category;
     }
 
     @FXML
@@ -162,7 +194,7 @@ public class  SearchController implements Initializable {
     }
 
     public void setSceneSearch() throws IOException {
-        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
+        Scene sceneSearch = new Scene(FXMLLoader.load(Objects.requireNonNull(LibraryApplication.class.getResource("fxml/search-view.fxml"))));
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneSearch);
         stage.show();

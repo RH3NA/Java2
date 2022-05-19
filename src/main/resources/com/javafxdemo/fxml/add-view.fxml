@@ -77,27 +77,46 @@
                      <Font size="11.0" />
                   </font>
                </Label>
-                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="14.0" layoutY="5.0" maxHeight="-Infinity" prefHeight="14.0" style="-fx-padding: 0;" text="Please insert the item values." />
-               <TextField fx:id="categoryInput" layoutX="263.0" layoutY="325.0" prefHeight="17.0" prefWidth="161.0" />
-               <TextField fx:id="authorInput" layoutX="263.0" layoutY="285.0" prefHeight="17.0" prefWidth="161.0" />
-               <Label fx:id="authorLable" alignment="CENTER" contentDisplay="CENTER" layoutX="190.0" layoutY="281.0" prefHeight="33.0" prefWidth="54.0" text="Author" textAlignment="CENTER">
+               <TextField fx:id="categoryInput" layoutX="263.0" layoutY="358.0" prefHeight="17.0" prefWidth="161.0" />
+               <TextField fx:id="authorFirstnameInput" layoutX="263.0" layoutY="285.0" prefHeight="17.0" prefWidth="161.0" />
+               <Label fx:id="authorFirstnameLable" alignment="CENTER" contentDisplay="CENTER" layoutX="129.0" layoutY="281.0" prefHeight="33.0" prefWidth="115.0" text="Author Firstname" textAlignment="CENTER">
                   <font>
                      <Font size="11.0" />
                   </font>
                </Label>
-               <Label fx:id="categoryLable" alignment="CENTER" contentDisplay="CENTER" layoutX="169.0" layoutY="321.0" prefHeight="33.0" prefWidth="87.0" text="Category" textAlignment="CENTER">
+               <Label fx:id="categoryLable" alignment="CENTER" contentDisplay="CENTER" layoutX="167.0" layoutY="354.0" prefHeight="33.0" prefWidth="87.0" text="Category" textAlignment="CENTER">
                   <font>
                      <Font size="11.0" />
                   </font>
                </Label>
-               <Button fx:id="confirmCRUDButton" layoutX="282.0" layoutY="379.0" mnemonicParsing="false" onAction="#onupdateItemClick" prefHeight="24.0" prefWidth="123.0" text="Confirm" />
+               <TextField fx:id="barcodeInput" layoutX="263.0" layoutY="-7.0" prefHeight="17.0" prefWidth="161.0" />
+               <Label fx:id="barcodeLable" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="-11.0" prefHeight="33.0" prefWidth="54.0" text="Barcode" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="authorLastnameInput" layoutX="263.0" layoutY="322.0" prefHeight="17.0" prefWidth="161.0" />
+               <Label fx:id="authorLastnameLable" alignment="CENTER" contentDisplay="CENTER" layoutX="113.0" layoutY="318.0" prefHeight="33.0" prefWidth="143.0" text="Author Lastname" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
+               <Label fx:id="inserItemInfoLable" alignment="CENTER" contentDisplay="CENTER" layoutX="479.0" layoutY="113.0" prefHeight="33.0" prefWidth="87.0" text="Text TeXT Text" textAlignment="CENTER">
+                  <font>
+                     <Font size="11.0" />
+                  </font>
+               </Label>
             </children>
          </AnchorPane>
             <HBox alignment="CENTER" prefHeight="0.0" prefWidth="113.0" spacing="8.0" />
+         <Button fx:id="confirmCRUDButton" mnemonicParsing="false" onAction="#onupdateItemClick" prefHeight="24.0" prefWidth="123.0" text="Confirm" />
             <StackPane prefHeight="0.0" prefWidth="753.0" />
             <BorderPane.margin>
                 <Insets right="20.0" top="20.0" />
             </BorderPane.margin>
         </VBox>
     </center>
+   <top>
+         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity" prefHeight="14.0" style="-fx-padding: 0;" text="Please insert the item values." BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>
