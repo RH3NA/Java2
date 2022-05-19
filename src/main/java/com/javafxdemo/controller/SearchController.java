@@ -79,7 +79,6 @@ public class  SearchController extends ReusableButtonController implements Initi
             hadResults = statement.getMoreResults(); // will loop until no more results available
         }
         statement.close(); // closes query
-        Session.getInstance().setCurrentSearch(new ItemModel(getIdItem(), getNumberInStock(), getTitle(), getIsbn(), getPublisher(), getTotalStock()));
         System.out.println(Session.getInstance().getCurrentSearch());
 
     }

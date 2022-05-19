@@ -11,7 +11,6 @@ public class Session {
 
     private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
                                             new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new UpdateController());
-            new StartpageLoggedInController(), new UserController(), new LoanReturnController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -179,7 +178,6 @@ public class Session {
     private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
     private int idLoan;
-    private int idBarcode;
     private Timestamp loanDate;
     private Timestamp expiryDate;
 
@@ -235,7 +233,7 @@ public class Session {
         Session session = new Session(new LoanController(), new SearchController(), new StartpageController(),
                 new StartpageLoggedInController(), new UserController());
     }*/
-}
+
 
 
    /*private String loggedInIdUser;

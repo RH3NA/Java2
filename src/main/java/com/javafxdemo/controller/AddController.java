@@ -6,15 +6,18 @@ import com.javafxdemo.models.ItemHasCreatorModel;
 import com.javafxdemo.models.ItemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import static com.javafxdemo.models.ItemModel.insertItem;
 
-public class AddController {
+public class AddController extends ReusableButtonController implements Initializable {
 
 
     @FXML
@@ -80,6 +83,11 @@ public class AddController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
 
     //public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
 
@@ -91,5 +99,5 @@ public class AddController {
     }
 
 
-}
+
 

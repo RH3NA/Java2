@@ -140,8 +140,8 @@ public class ItemModel {
 
 
             }
-        }
-    }*/
+
+
     public static Boolean isbnExists(String ISBN) {
         for (ItemModel item : items) {
             if (!item.getIsbn().equalsIgnoreCase(ISBN)) {
