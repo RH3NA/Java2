@@ -3,8 +3,6 @@ package com.javafxdemo.models;
 
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
-import com.javafxdemo.controller.AddController;
-import com.javafxdemo.controller.AdminController;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,8 +44,9 @@ public class InventoryModel {
         return idBarcode;
     }
 
-    public void setIdBarcode(int idBarcode) {
+    public int setIdBarcode(int idBarcode) {
         this.idBarcode = idBarcode;
+        return idBarcode;
     }
 
 
