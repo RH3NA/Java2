@@ -5,10 +5,12 @@ import com.javafxdemo.controller.*;
 import com.javafxdemo.models.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Session {
 
     private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
+                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new UpdateController());
                                             new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new DeleteController());
 
     public LoanController getLoanController() {
@@ -60,6 +62,7 @@ public class Session {
         this.reusableButtonController = reusableButtonController;
     }
 
+
     public void setUserController(UserController userController) {
         this.userController = userController;
     }
@@ -100,6 +103,16 @@ public class Session {
     private ReusableButtonController reusableButtonController;
     private DeleteController deleteController;
 
+    public UpdateController getUpdateController() {
+        return updateController;
+    }
+
+    public void setUpdateController(UpdateController updateController) {
+        this.updateController = updateController;
+    }
+
+    private UpdateController updateController;
+
 
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController, OverviewController overviewController,
@@ -113,6 +126,7 @@ public class Session {
         this.overviewController = overviewController;
         this.adminController = adminController;
         this.reusableButtonController = reusableButtonController;
+        this.updateController = updateController;
     }
 
     public static Session getInstance() { //getter for our instance
@@ -128,6 +142,7 @@ public class Session {
     private int userType;
     private Boolean currentlyLoggedIn;
     private Boolean hasTooManyLoans;
+
 
     private UserModel currentUser = new UserModel(idUser, lastName, firstName, phoneNumber, email, userType, currentlyLoggedIn, hasTooManyLoans); //constructor to create a constructed object (currentUser instance) from our usermodel constructor
 
@@ -159,15 +174,15 @@ public class Session {
         this.currentSearch = currentSearch;
     }
 
-    public ItemModel getCurrentAdd() {  // or getCurrentUpdate()
+    public ItemModel getCurrentAdd() {
         return currentAdd;
     }
 
-    public void setCurrentAdd(ItemModel currentAdd) { // or setCurrentUpdate(ItemModel currentUpdate)
-        this.currentAdd = currentAdd; //or this.currentUpdate = currentUpdate;
+    public void setCurrentAdd(ItemModel currentAdd) {
+        this.currentAdd = currentAdd;
     }
 
-    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock); // or currentUpdate
+    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
     private int idLoan;
     private Timestamp loanDate;
@@ -202,8 +217,6 @@ public class Session {
     }
 
     private String currentScene;
-
-
 
     private int items_idItems;
     private int location_idLocation;

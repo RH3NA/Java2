@@ -32,8 +32,8 @@
             <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Search" />
             <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
             <Button fx:id="overviewButton" mnemonicParsing="false" onAction="#onOverviewButton" prefHeight="42.0" prefWidth="112.0" text="Library Overview" />
-            <Button fx:id="crudButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Add/update item" />
-         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="42.0" prefWidth="112.0" text="Delete item" />
+            <Button fx:id="crudButton" mnemonicParsing="false" onAction="#onCrudButton" prefHeight="42.0" prefWidth="112.0" text="Add/update item" />
+         <Button fx:id="loanButton1" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Delete item" />
         </VBox>
     </left>
     <center>

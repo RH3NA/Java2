@@ -78,6 +78,11 @@ public class LoanController extends ReusableButtonController implements Initiali
                 receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
                         "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
             }
+            if (LoanModel.currentUserLatestLoan.isEmpty()) {
+                LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
+                receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
+                        "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
+            }
         }
         if (Session.getInstance().getCurrentUser().getHasTooManyLoans() == Boolean.TRUE) {
             receiptLabel.setText("You have too many active loans. Return a current loan before attempting to loan a new item.");
@@ -110,7 +115,6 @@ public class LoanController extends ReusableButtonController implements Initiali
 
     public void onExitButtonClick() {
         exit();
-
     }
 }
 

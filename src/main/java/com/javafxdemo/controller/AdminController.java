@@ -26,7 +26,7 @@ public class AdminController extends ReusableButtonController implements Initial
     private Button overviewButton;
     @FXML
     Button exitButton;
-
+    @FXML Button crudButton;
     @FXML
     private Label isbnLable;
     @FXML
@@ -49,16 +49,8 @@ public class AdminController extends ReusableButtonController implements Initial
         Session.getInstance().setCurrentScene("Admin");
     }
 
-    public void setSceneLoanReturn() throws IOException {
-        Scene sceneLoanReturn = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/adminStartpage-view.fxml")));
-        Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
-        stage.setScene(sceneLoanReturn);
-        stage.show();
-    }
-
-
-    public static void setSceneAdmin() throws IOException {
-        Scene sceneAdmin = new Scene(FXMLLoader.load(Objects.requireNonNull(LibraryApplication.class.getResource("fxml/adminStartpage-view.fxml"))));
+    public void setSceneAdmin() throws IOException {
+        Scene sceneAdmin = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/adminStartpage-view.fxml")));
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneAdmin);
         stage.show();
@@ -69,10 +61,16 @@ public class AdminController extends ReusableButtonController implements Initial
         Session.getInstance().getOverviewController().setSceneOverview();
     }
 
-    public void onExitButtonClick() {
-        exit();
+    public void onCrudButton(ActionEvent a) throws IOException {
+        Session.getInstance().setPreviousScene(("Admin"));
+        Session.getInstance().getUpdateController().setSceneUpdate();
     }
 
+    public void onExitButtonClick() {
+        exit();
+
+
+    }
 }
 
 

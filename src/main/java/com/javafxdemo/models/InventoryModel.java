@@ -30,7 +30,6 @@ public class InventoryModel {
         this.category = category;
         this.available = available;
     }
-
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
     {
@@ -134,6 +133,8 @@ public class InventoryModel {
         }
         return false;
     }
+
+
 
 
     public int getItems_idItems() {
