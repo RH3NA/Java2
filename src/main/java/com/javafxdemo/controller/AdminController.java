@@ -61,9 +61,14 @@ public class AdminController extends ReusableButtonController implements Initial
         Session.getInstance().getOverviewController().setSceneOverview();
     }
 
-    public void onCrudButton(ActionEvent a) throws IOException {
+    public void onUpdateButtonClick(ActionEvent a) throws IOException {
         Session.getInstance().setPreviousScene(("Admin"));
         Session.getInstance().getUpdateController().setSceneUpdate();
+    }
+
+    public void onAddButtonClick(ActionEvent a) throws IOException {
+        Session.getInstance().setPreviousScene(("Admin"));
+        Session.getInstance().getAddController().setAddScene();
     }
 
     public void onExitButtonClick() {
@@ -71,6 +76,13 @@ public class AdminController extends ReusableButtonController implements Initial
 
 
     }
+    public void onDeleteButtonClick(ActionEvent a) throws IOException {
+        Scene sceneDeleteItem = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/delete-view.fxml")));
+        Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
+        stage.setScene(sceneDeleteItem);
+        stage.show();
+    }
+
 }
 
 

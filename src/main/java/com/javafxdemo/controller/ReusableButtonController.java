@@ -34,11 +34,4 @@ public class ReusableButtonController {
         }
     }
 
-    public void onDeleteButtonClick(ActionEvent a) throws IOException {
-        Scene sceneDeleteItem = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/delete-view.fxml")));
-        Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
-        stage.setScene(sceneDeleteItem);
-        stage.show();
-    }
-
 }

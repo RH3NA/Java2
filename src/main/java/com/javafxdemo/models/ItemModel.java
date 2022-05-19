@@ -121,7 +121,7 @@ public class ItemModel {
                 System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
                 System.out.println(Session.getInstance().getCurrentAdd());
 
-                String queryToItem = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)" + " values (?, ?, ? , ? , ?, ?)";
+                String queryToItem = " insert into Item (idItem, numberInStock, title, isbn, totalstock, publisher)" + " values (?, ?, ? , ? , ?, ?)";
 
 
 
@@ -133,12 +133,6 @@ public class ItemModel {
                 preparedStmt.setString(4,Session.getInstance().getCurrentAdd().isbn);
                 preparedStmt.setInt(5,Session.getInstance().getCurrentAdd().totalStock);
                 preparedStmt.setString(6,Session.getInstance().getCurrentAdd().publisher);
-
-                preparedStmt.executeUpdate();
-
-
-
-
 
                 preparedStmt.executeUpdate();
 

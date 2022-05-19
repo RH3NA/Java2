@@ -11,7 +11,7 @@ public class Session {
     private final static Session instance = new Session(new LoanController(), new SearchController(),
             new StartpageController(), new StartpageLoggedInController(), new UserController(),
             new LoanReturnController(), new OverviewController(), new AdminController(),
-            new ReusableButtonController(), new UpdateController(), new DeleteController());
+            new ReusableButtonController(), new UpdateController(), new DeleteController(), new AddController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -115,7 +115,7 @@ public class Session {
 
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController, OverviewController overviewController,
-                   AdminController adminController, ReusableButtonController reusableButtonController, UpdateController updateController, DeleteController deleteController) {
+                   AdminController adminController, ReusableButtonController reusableButtonController, UpdateController updateController, DeleteController deleteController, AddController addController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
@@ -127,7 +127,18 @@ public class Session {
         this.reusableButtonController = reusableButtonController;
         this.updateController = updateController;
         this.deleteController = deleteController;
+        this.addController = addController;
     }
+
+    public AddController getAddController() {
+        return addController;
+    }
+
+    public void setAddController(AddController addController) {
+        this.addController = addController;
+    }
+
+    private AddController addController;
 
     public static Session getInstance() { //getter for our instance
         return instance;
