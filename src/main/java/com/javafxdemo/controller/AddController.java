@@ -3,6 +3,7 @@ package com.javafxdemo.controller;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemHasCreatorModel;
 import com.javafxdemo.models.ItemModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -58,10 +59,6 @@ public class AddController extends ReusableButtonController implements Initializ
     private Label inserItemInfoLable;
 
 
-
-
-
-
     public int getIntFromTextField(TextField textField) {
         String text = textField.getText();
         return Integer.parseInt(text);
@@ -70,7 +67,7 @@ public class AddController extends ReusableButtonController implements Initializ
     public void addNewItemToDB() throws SQLException {
 
 
-        ItemModel.insertItem(getIntFromTextField(idItemInput),getIntFromTextField(inStockInput),titleInput.getText(),isbnInput.getText(),getIntFromTextField(totalInStockInput),publisherInput.getText());
+        ItemModel.insertItem(getIntFromTextField(idItemInput), getIntFromTextField(inStockInput), titleInput.getText(), isbnInput.getText(), getIntFromTextField(totalInStockInput), publisherInput.getText());
         InventoryModel.insertBarcode(getIntFromTextField(barcodeInput));
         InventoryModel.insertCategory(categoryInput.getText());
         ItemHasCreatorModel.insertAuthorFirstname(authorFirstnameInput.getText());
@@ -85,15 +82,14 @@ public class AddController extends ReusableButtonController implements Initializ
     }
 
 
-    //public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
+    public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
 
 
-
-
+        addNewItemToDB();
 
 
     }
 
 
-
+}
 
