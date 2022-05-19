@@ -110,7 +110,6 @@ public class LoanController extends ReusableButtonController implements Initiali
 
     public void onExitButtonClick() {
         exit();
-
     }
 }
 

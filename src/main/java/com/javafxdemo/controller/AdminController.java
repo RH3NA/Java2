@@ -23,6 +23,7 @@ public class AdminController extends ReusableButtonController implements Initial
     private Button overviewButton;
     @FXML
     Button exitButton;
+    @FXML Button crudButton;
 
     @FXML
     @Override
@@ -41,6 +42,11 @@ public class AdminController extends ReusableButtonController implements Initial
     public void onOverviewButton(ActionEvent a) throws IOException {
         Session.getInstance().setPreviousScene("Admin");
         Session.getInstance().getOverviewController().setSceneOverview();
+    }
+
+    public void onCrudButton(ActionEvent a) throws IOException {
+        Session.getInstance().setPreviousScene(("Admin"));
+        Session.getInstance().getUpdateController().setSceneUpdate();
     }
 
     public void onExitButtonClick() {

@@ -5,6 +5,7 @@ import com.javafxdemo.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import static com.javafxdemo.models.UserModel.users;
 
@@ -138,4 +139,28 @@ public class ItemModel {
         }
         return true;
     }
+
+    public static void updateItem(int idItem, String attribute, String value) throws SQLException {
+        if(isNumeric(value) == Boolean.FALSE) {
+            value = '"' + value + '"';
+        }
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+        Statement stm;
+        stm = conn.createStatement();
+        String query = "UPDATE item\n" +
+                "SET " + attribute + " = " + value + "\n" +
+                "WHERE idItem = " + idItem;
+        stm.executeUpdate(query);
+        System.out.println(query);
+    }
+    private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        return pattern.matcher(strNum).matches();
+    }
 }
+

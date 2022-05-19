@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Session {
 
     private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
-                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController());
+                                            new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new UpdateController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -98,10 +98,20 @@ public class Session {
     private AdminController adminController;
     private ReusableButtonController reusableButtonController;
 
+    public UpdateController getUpdateController() {
+        return updateController;
+    }
+
+    public void setUpdateController(UpdateController updateController) {
+        this.updateController = updateController;
+    }
+
+    private UpdateController updateController;
+
 
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController, OverviewController overviewController,
-                   AdminController adminController, ReusableButtonController reusableButtonController) {
+                   AdminController adminController, ReusableButtonController reusableButtonController, UpdateController updateController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
@@ -111,6 +121,7 @@ public class Session {
         this.overviewController = overviewController;
         this.adminController = adminController;
         this.reusableButtonController = reusableButtonController;
+        this.updateController = updateController;
     }
 
     public static Session getInstance() { //getter for our instance
