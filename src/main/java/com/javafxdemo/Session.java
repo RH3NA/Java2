@@ -2,9 +2,7 @@ package com.javafxdemo;
 
 
 import com.javafxdemo.controller.*;
-import com.javafxdemo.models.ItemModel;
-import com.javafxdemo.models.LoanModel;
-import com.javafxdemo.models.UserModel;
+import com.javafxdemo.models.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -13,6 +11,7 @@ public class Session {
 
     private final static Session instance = new Session(new LoanController(), new SearchController(), new StartpageController(),
                                             new StartpageLoggedInController(), new UserController(), new LoanReturnController(), new OverviewController(), new AdminController(), new ReusableButtonController(), new UpdateController());
+            new StartpageLoggedInController(), new UserController(), new LoanReturnController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -150,11 +149,14 @@ public class Session {
     }
 
     private int idItem;
+    private int idBarcode;
     private int numberInStock;
     private String title;
     private String isbn;
     private String publisher;
     private int totalStock;
+    private String category;
+
 
     private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
@@ -166,15 +168,15 @@ public class Session {
         this.currentSearch = currentSearch;
     }
 
-    public ItemModel getCurrentUpdate() {
-        return currentUpdate;
+    public ItemModel getCurrentAdd() {
+        return currentAdd;
     }
 
-    public void setCurrentUpdate(ItemModel currentUpdate) {
-        this.currentUpdate = currentUpdate;
+    public void setCurrentAdd(ItemModel currentAdd) {
+        this.currentAdd = currentAdd;
     }
 
-    private ItemModel currentUpdate = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
+    private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, publisher, totalStock);
 
     private int idLoan;
     private int idBarcode;
@@ -210,6 +212,23 @@ public class Session {
     }
 
     private String currentScene;
+
+    private int items_idItems;
+    private int location_idLocation;
+
+    private Boolean available;
+    private final InventoryModel currentInventory = new InventoryModel(idBarcode, items_idItems, location_idLocation, category, available);
+
+    public InventoryModel getcurrentInventory() {
+        return currentInventory;
+    }
+
+    private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(firstName,lastName);
+    public  ItemHasCreatorModel getCurrentItemHasCreator() {return currentItemHasCreator;}
+
+}
+
+
 
 
     /*public static void initializeSession() {

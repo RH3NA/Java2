@@ -1,7 +1,6 @@
 package com.javafxdemo.controller;
 
 import com.javafxdemo.LibraryApplication;
-import com.javafxdemo.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +34,7 @@ public class AdminController extends ReusableButtonController implements Initial
     public void setSceneAdmin() throws IOException {
         Scene sceneLoanReturn = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/adminStartpage-view.fxml")));
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
-        stage.setScene(sceneLoanReturn);
+        stage.setScene(sceneAdmin);
         stage.show();
     }
 

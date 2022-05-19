@@ -2,6 +2,7 @@ package com.javafxdemo.models;
 
 
 import com.javafxdemo.DBConnection;
+import com.javafxdemo.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class InventoryModel {
         this.category = category;
         this.available = available;
     }
-
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
     {
@@ -44,8 +44,9 @@ public class InventoryModel {
         return idBarcode;
     }
 
-    public void setIdBarcode(int idBarcode) {
+    public int setIdBarcode(int idBarcode) {
         this.idBarcode = idBarcode;
+        return idBarcode;
     }
 
 
@@ -133,6 +134,8 @@ public class InventoryModel {
     }
 
 
+
+
     public int getItems_idItems() {
         return items_idItems;
     }
@@ -156,4 +159,51 @@ public class InventoryModel {
         }
         return "No title";
     }
+
+
+    public static void insertCategory(String category) throws SQLException {
+
+        getInventoryDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+
+        String queryCategogry = " insert into Inventory(category)"+ " values (" + category + ");";
+
+        PreparedStatement preparedStmt = conn.prepareStatement(queryCategogry);
+        preparedStmt.setString(1,Session.getInstance().getcurrentInventory().category);
+
+
+        preparedStmt.executeUpdate();
+
+
+
+    }
+
+    public static void insertBarcode(int idBarcode) throws SQLException {
+
+        getInventoryDB();
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+        //Session?
+
+        String queryToInventory = "insert into Inventory(idBarcode)" + " values (" + idBarcode + ");";
+
+        // create the mysql insert preparedstatement
+
+        PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
+        preparedStmtInventory.setInt(1,Session.getInstance().getcurrentInventory().idBarcode);
+
+
+        preparedStmtInventory.executeUpdate();
+
+
+
+    }
+
+
+
+
+
 }

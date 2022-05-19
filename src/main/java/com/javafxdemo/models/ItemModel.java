@@ -3,6 +3,7 @@ package com.javafxdemo.models;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
 
+import java.security.cert.TrustAnchor;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -108,25 +109,35 @@ public class ItemModel {
 
     }
 
-    /*public static void updateItem(int idItem) throws SQLException { // Till Astrid :)
+    public static void insertItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException {
         getItemsDB();
-        for (int i = 0; items.size() > i; i++) {
-            if (idItem == items.get(i).getIdItem()) {
-                Session.getInstance().setCurrentUpdate(new ItemModel(items.get(i).idItem, items.get(i).numberInStock, items.get(i).title, items.get(i).isbn, items.get(i).publisher, items.get(i).totalStock));
-                System.out.println("Current user information: " + Session.getInstance().getCurrentUpdate());
-                System.out.println(Session.getInstance().getCurrentUpdate());
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
 
-                String query = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)"
-                        + " values (?, ?, ? , ? , ?, ?)";
+                Session.getInstance().setCurrentAdd(new ItemModel(idItem,numberInStock, title, isbn, publisher, totalStock));
+
+
+                System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
+                System.out.println(Session.getInstance().getCurrentAdd());
+
+                String queryToItem = " insert into Item (idItem, numberInStock, title, isbn, publisher, totalstock)" + " values (?, ?, ? , ? , ?, ?)";
+
+
 
                 // create the mysql insert preparedstatement
-                PreparedStatement preparedStmt = conn.prepareStatement(query);
-                preparedStmt.setInt(1, Session.getInstance().getCurrentUpdate().idItem);
-                preparedStmt.setInt(2, idUser);
-                preparedStmt.setInt(3, idBarcode);
-                preparedStmt.setTimestamp(4, null);
-                preparedStmt.setTimestamp(5, null);
-                preparedStmt.execute();
+                PreparedStatement preparedStmt = conn.prepareStatement(queryToItem);
+                preparedStmt.setInt(1, Session.getInstance().getCurrentAdd().idItem);
+                preparedStmt.setInt(2, Session.getInstance().getCurrentAdd().numberInStock);
+                preparedStmt.setString(3,Session.getInstance().getCurrentAdd().title);
+                preparedStmt.setString(4,Session.getInstance().getCurrentAdd().isbn);
+                preparedStmt.setString(5,Session.getInstance().getCurrentAdd().publisher);
+                preparedStmt.setInt(6,Session.getInstance().getCurrentAdd().totalStock);
+
+
+                preparedStmt.executeUpdate();
+
+
+
 
             }
         }
