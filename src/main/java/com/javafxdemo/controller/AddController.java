@@ -81,8 +81,8 @@ public class AddController {
     }
 
 
-    public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
-        
+    //public void onupdateItemClick(ActionEvent actionEvent) throws SQLException {
+
 
 
 
