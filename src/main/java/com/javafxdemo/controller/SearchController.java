@@ -1,8 +1,8 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.Session;
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.Session;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemModel;
 import com.javafxdemo.models.LoanModel;
@@ -46,18 +46,17 @@ public class  SearchController extends ReusableButtonController implements Initi
     private Label categoryLabel;
     @FXML
     private Label authorLabel;
+    @FXML
+    private Button searchResultsLoanButton;
+    @FXML
+    private Label errorLabel;
+    @FXML Button loginRedirectButton;
 
-    public Boolean getIsReference() {
-        return isReference;
-    }
-
-    public void setIsReference(Boolean isReference) {
-        this.isReference = isReference;
-    }
-
+    private Boolean isAvailableInStock;
     private Boolean isReference;
 
-
+    public Boolean getIsReference() { return isReference; }
+    public void setIsReference(Boolean isReference) { this.isReference = isReference; }
 
     public void onSearchForResultButton(ActionEvent a) throws Exception {  // throwing out exceptions so the system doesn't crash & also ensure connection and statement closes
         String author;
@@ -109,10 +108,6 @@ public class  SearchController extends ReusableButtonController implements Initi
 
 
 
-    @FXML
-    private Button searchResultsLoanButton;
-    @FXML
-    private Label errorLabel;
 
     public Boolean getAvailableInStock() {
         return isAvailableInStock;
@@ -122,7 +117,7 @@ public class  SearchController extends ReusableButtonController implements Initi
         isAvailableInStock = availableInStock;
     }
 
-    private Boolean isAvailableInStock;
+
 
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
         errorLabel.setText("");
@@ -145,8 +140,14 @@ public class  SearchController extends ReusableButtonController implements Initi
         else if (currentUser.getIdUser() == 0) {
             System.out.println("You need to be logged in to proceed.");
             errorLabel.setText("You need to be logged in to proceed.");
+            loginRedirectButton.setVisible(true);
         }
     }
+
+    public void onLoginRedirectButtonClick (ActionEvent e) throws IOException {
+        LibraryApplication.setSceneStartPage();
+    }
+
     @FXML
     private Button backButton;
     public void onBackButtonClick() throws IOException {
@@ -157,6 +158,7 @@ public class  SearchController extends ReusableButtonController implements Initi
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Session.getInstance().setCurrentScene("Search");
+        //loginRedirectButton.setVisible(false);
     }
 
     public void setSceneSearch() throws IOException {
