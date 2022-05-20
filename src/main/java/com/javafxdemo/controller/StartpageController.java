@@ -71,26 +71,18 @@ public class StartpageController implements Initializable {
                     if (Session.getInstance().getCurrentUser().getUserType() == 1111 || Session.getInstance().getCurrentUser().getUserType() == 1112
                             || Session.getInstance().getCurrentUser().getUserType() == 1113) {
                         Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
-
-
                     }
                     if (Session.getInstance().getCurrentUser().getUserType() == 1114 || Session.getInstance().getCurrentUser().getUserType() == 1115) {
                         Session.getInstance().getAdminController().setSceneAdmin();
-
-
                     }
                 } else {
                     loginErrorLabel.setText("Invalid login. Please try again or register.");
                     break;
-
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void setUpCurrUser() { //method to compare the current user to the users in the stored arraylist, only problem rn is that this only works for 1 user
@@ -105,27 +97,6 @@ public class StartpageController implements Initializable {
             }
         }
     }
-
-    /*public void setUserType() throws SQLException {
-        DBConnection connectNow = new DBConnection();
-        Connection conn = connectNow.getConnection();
-        String checkUserType = "select UserType_idUserType from D0005N.User where idUser = '" + passwordInput.getText() + "'";
-
-
-        try {
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(checkUserType);
-
-
-            while (resultSet.next()) {
-                setLoggedInUserType(String.valueOf(resultSet.getInt("UserType_idUserType")));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("id user = " + getLoggedInIdUser() + " user type = " + getLoggedInUserType());
-    }*/
-
 
     @FXML
     private Button registerButton;
@@ -145,12 +116,10 @@ public class StartpageController implements Initializable {
         welcomeTextLabel.setText("Welcome to Ruminski Library! Search, login or register below...");
     }
 
-    @FXML
-    private Button startPageSearchButton;
-
     public void onStartPageSearchButtonClick(ActionEvent a) throws IOException {
         Session.getInstance().getSearchController().setSceneSearch();
         Session.getInstance().setPreviousScene("Startpage");
+
     }
     @FXML
     @Override
