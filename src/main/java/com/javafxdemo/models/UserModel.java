@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+//this class is based on the User table from the database
 public class UserModel {
     private int idUser;
     private String lastName;
@@ -21,7 +22,7 @@ public class UserModel {
 
     public Boolean getCurrentlyLoggedIn() {
         return currentlyLoggedIn;
-    }
+    } //boolean to control whether this user is actually logged in right now or not
 
     public void setCurrentlyLoggedIn(Boolean currentlyLoggedIn) {
         this.currentlyLoggedIn = currentlyLoggedIn;
@@ -112,11 +113,9 @@ public class UserModel {
         this.hasTooManyLoans = hasTooManyLoans;
     }
 
-    private Boolean hasTooManyLoans;
+    private Boolean hasTooManyLoans; //boolean to control if the user is blocked from creating any new loans due to too many active loans
 
-    public static void getUsersDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist,
-                                                          // the only issue rn is that i didnt set any limits so if you run this method twice,
-                                                        // there will be duplicates.. easy to fix probs :)
+    public static void getUsersDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist
         users.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();

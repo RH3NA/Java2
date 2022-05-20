@@ -2,6 +2,7 @@ package com.javafxdemo.models;
 
 import java.io.Serializable;
 
+//this class is based on the itemkeyword table in the database, however we haven't worked with this one since we had to limit our project to the project requirements.
 public class ItemKeywordModelPK implements Serializable {
     private int idItemKeyword;
     private int itemIdItem;

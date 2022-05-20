@@ -1,11 +1,6 @@
 package com.javafxdemo.models;
 
-
-import com.javafxdemo.DBConnection;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+//This class is based on our Location table in the database, however we haven't worked with this one since we had to limit our project to the project requirements.
 
 public class LocationModel {
     private int idLocation;

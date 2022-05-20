@@ -7,6 +7,7 @@ import com.javafxdemo.Session;
 import java.sql.*;
 import java.util.ArrayList;
 
+//this class is the Inventory Model and stores the database objects
 public class InventoryModel {
     public int getLocation_idLocation() {
         return location_idLocation;
@@ -21,9 +22,9 @@ public class InventoryModel {
     private int idBarcode;
     private String category;
     private final Boolean available;
-    public static ArrayList<InventoryModel> inventory = new ArrayList<>();
+    public static ArrayList<InventoryModel> inventory = new ArrayList<>(); //list that stores all the objects from the database in the application
 
-    public InventoryModel(int idBarcode, int items_idItems, int location_idLocation, String category, Boolean available) {
+    public InventoryModel(int idBarcode, int items_idItems, int location_idLocation, String category, Boolean available) { //constructor
         this.idBarcode = idBarcode;
         this.items_idItems = items_idItems;
         this.location_idLocation = location_idLocation;
@@ -59,9 +60,7 @@ public class InventoryModel {
         this.category = category;
     }
 
-    public static void getInventoryDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist,
-        // the only issue rn is that i didnt set any limits so if you run this method twice,
-        // there will be duplicates.. easy to fix probs :)
+    public static void getInventoryDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist
         inventory.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -70,35 +69,35 @@ public class InventoryModel {
         String sql = "Select * From Inventory";
         ResultSet rst;
         rst = stm.executeQuery(sql);
-        while (rst.next()) {
+        while (rst.next()) { //creates a new Inventory Model object for each row in the database
             InventoryModel inventoryModel = new InventoryModel(rst.getInt("idBarcode"), rst.getInt("Items_idItems"), rst.getInt("Location_idLocation"), rst.getString("category"), checkAvailableBarcode(rst.getInt("idBarcode")));
             inventory.add(inventoryModel);
         }
     }
 
-    public static int availableBarcode(int idItem) throws SQLException {
+    public static int availableBarcode(int idItem) throws SQLException { //checks if there's an available barcode for the item you're searching for
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
         Statement stmt;
         ResultSet rs;
-        int availableBarcode = 0;
+        int availableBarcode = 0; //initialising the value to be 0 for easy error handling
         stmt = conn.createStatement();
-        rs = stmt.executeQuery("Select idBarcode\n" +
+        rs = stmt.executeQuery("Select idBarcode\n" + //a nested query to check for barcodes with a limit on 1 so we only get one value to return
                 "From inventory\n" +
                 "Where idBarcode NOT IN (Select Inventory_idBarcode From Loan Where idLoan NOT IN (Select Loan_idLoan From Loanreturn)) AND Items_idItems = '" + idItem +
                 "'OR idBarcode NOT IN (Select Inventory_idBarcode From Loan) AND Items_idItems = '" + idItem +
                 "'Limit 1");
-        while (rs.next()) {
+        while (rs.next()) { //error handling
             availableBarcode = rs.getInt("idBarcode");
         }
         if (availableBarcode == 0) {
             System.out.println("No items available to loan");
         }
         System.out.println(availableBarcode);
-        return availableBarcode;
+        return availableBarcode; //returns the first available barcode
     }
 
-    public static Boolean checkAvailableBarcode(int idBarcode) throws SQLException {
+    public static Boolean checkAvailableBarcode(int idBarcode) throws SQLException { //another method to check if the barcode is available, which first checks if it's ever been present in a loan, and then checks if it's been in loan and loanreturn and ready to be loaned again.
         int checkBarcode = 0;
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -113,7 +112,7 @@ public class InventoryModel {
             checkBarcode = rs.getInt("idBarcode");
         }
         if (checkBarcode > 0) {
-            return true;
+            return true; //breaks here if the barcode's never been present in a loan
         }
         if (checkBarcode == 0) {
             rs = stmt.executeQuery("Select Inventory_idBarcode\n" +
@@ -128,9 +127,6 @@ public class InventoryModel {
                 checkBarcode = rs.getInt("Inventory_idBarcode");
             }
             return checkBarcode > 0;
-            //if (checkBarcode > 0) {
-            //    return true;
-            //}
         }
         return false;
     }
@@ -144,7 +140,7 @@ public class InventoryModel {
         this.items_idItems = items_idItems;
     }
 
-    public static String getTitleFromBarcode(int idBarcode) throws SQLException {
+    public static String getTitleFromBarcode(int idBarcode) throws SQLException { //gets the title from the barcode value to find a match
         ItemModel.getItemsDB();
         getInventoryDB();
         for (InventoryModel inventoryModel : inventory) {
@@ -161,7 +157,7 @@ public class InventoryModel {
     }
 
 
-    public static void insertCategory(String category) throws SQLException {
+    public static void insertCategory(String category) throws SQLException { //inserts a category
 
         getInventoryDB();
         DBConnection connectNow = new DBConnection();
@@ -179,13 +175,12 @@ public class InventoryModel {
 
     }
 
-    public static void insertBarcode(int idBarcode) throws SQLException {
+    public static void insertBarcode(int idBarcode) throws SQLException { //inserts a barcode
 
         getInventoryDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
 
-        //Session?
 
         String queryToInventory = "insert into Inventory(idBarcode)" + " values (" + idBarcode + ");";
 
@@ -200,8 +195,8 @@ public class InventoryModel {
 
     }
 
-    public static void insertInventory(int idBarcode, int items_idItems, int location_idLocation, String category) throws SQLException {
-        inventory.clear();
+    public static void insertInventory(int idBarcode, int items_idItems, int location_idLocation, String category) throws SQLException { //insert method for a new item
+        inventory.clear(); //refreshes the stored list first to check for any updates
         getInventoryDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();

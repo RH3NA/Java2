@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+// this class is based on the Item table in the database
 public class ItemModel {
 
     private int idItem;
@@ -26,7 +27,7 @@ public class ItemModel {
         this.totalStock = totalStock;
     }
 
-    public ItemModel(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) {
+    public ItemModel(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) { //constructor
         this.idItem = idItem;
         this.numberInStock = numberInStock;
         this.title = title;
@@ -91,9 +92,7 @@ public class ItemModel {
         this.publisher = publisher;
     }
 
-    public static void getItemsDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist,
-        // the only issue rn is that i didnt set any limits so if you run this method twice,
-        // there will be duplicates.. easy to fix probs :)
+    public static void getItemsDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist
         items.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -111,14 +110,14 @@ public class ItemModel {
 
     }
 
-    public static void insertItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException {
+    public static void insertItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException { //inserts an item
         getItemsDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
 
                 Session.getInstance().setCurrentAdd(new ItemModel(idItem,numberInStock, title, isbn, totalStock, publisher));
 
-                System.out.println("Current user information: " + Session.getInstance().getCurrentAdd());
+                System.out.println("Current add information: " + Session.getInstance().getCurrentAdd());
                 System.out.println(Session.getInstance().getCurrentAdd());
 
                 String queryToItem = " insert into Item (idItem, numberInStock, title, isbn, totalstock, publisher)" + " values (?, ?, ? , ? , ?, ?)";
@@ -142,7 +141,7 @@ public class ItemModel {
             }
 
 
-    public static Boolean isbnExists(String ISBN) {
+    public static Boolean isbnExists(String ISBN) { //checks if the ISBN exists in the database
         for (ItemModel item : items) {
             if (!item.getIsbn().equalsIgnoreCase(ISBN)) {
                 return false;
@@ -151,23 +150,25 @@ public class ItemModel {
         return true;
     }
 
-    public static void updateItem(int idItem, String attribute, String value) throws SQLException {
-        if(isNumeric(value) == Boolean.FALSE) {
+    public static void updateItem(int idItem, String attribute, String value) throws SQLException { //updates an attribute value in any table based on the input parameters
+        if(isNumeric(value) == Boolean.FALSE) { //checks if it's a string or an int, if it's not an int it adds the quotation marks in order to work as a SQL query
             value = '"' + value + '"';
         }
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
         Statement stm;
         stm = conn.createStatement();
+
+        //builds the query based on what the input parameters are
         String query = "UPDATE item\n" +
                 "SET " + attribute + " = " + value + "\n" +
                 "WHERE idItem = " + idItem;
         stm.executeUpdate(query);
-        System.out.println(query);
+        System.out.println(query); //prints the query in the console to check for any SQL syntax error
     }
-    private static final Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+    private static final Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?"); //regex pattern
 
-    public static boolean isNumeric(String strNum) {
+    public static boolean isNumeric(String strNum) { //method to check if the String contains numbers or not
         if (strNum == null) {
             return false;
         }

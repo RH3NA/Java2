@@ -9,11 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import static com.javafxdemo.models.LoanModel.getLatestLoanDBidUser;
-
+//this class is based on the LoanReturn table in the database
 public class LoanreturnModel {
 
-    public LoanreturnModel (int loanIdLoan) {
+    public LoanreturnModel (int loanIdLoan) { //constructor
         this.loanIdLoan = loanIdLoan;
     }
     private int loanIdLoan;
@@ -37,7 +36,7 @@ public class LoanreturnModel {
         this.returnDate = returnDate;
     }
 
-    public static void returnLoan(int idLoan) {
+    public static void returnLoan(int idLoan) { //method to return a single loan
         try {
             DBConnection connectNow = new DBConnection();
             Connection conn = connectNow.getConnection();
@@ -51,7 +50,7 @@ public class LoanreturnModel {
             preparedStmt.execute();
             conn.close();
             System.out.println("Success!");
-            Session.getInstance().getCurrentUser().setHasTooManyLoans(Boolean.FALSE);
+            Session.getInstance().getCurrentUser().setHasTooManyLoans(Boolean.FALSE); //makes the user able to loan again if they were previously blocked
         } catch (SQLException e) {
             System.out.println("Something went wrong.");
         }

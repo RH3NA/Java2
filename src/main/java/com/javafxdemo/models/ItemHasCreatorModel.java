@@ -7,6 +7,7 @@ import com.javafxdemo.Session;
 import java.sql.*;
 import java.util.ArrayList;
 
+//this class is the model of everything in the ItemHasCreator table in the database
 public class ItemHasCreatorModel {
     public int getItem_IdItem() {
         return item_IdItem;
@@ -25,7 +26,7 @@ public class ItemHasCreatorModel {
     }
     public static ArrayList<ItemHasCreatorModel> creators = new ArrayList<>();
 
-    public ItemHasCreatorModel(int Item_idItem, String firstName, String lastName) {
+    public ItemHasCreatorModel(int Item_idItem, String firstName, String lastName) { //constructor
         this.item_IdItem = Item_idItem;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,9 +54,7 @@ public class ItemHasCreatorModel {
 
 
 
-    public static void getItemHasCreatorDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist,
-        // the only issue rn is that i didnt set any limits so if you run this method twice,
-        // there will be duplicates.. easy to fix probs :)
+    public static void getItemHasCreatorDB() throws SQLException { //added a method to get and store the authors from the DB in a static arraylist
         creators.clear();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -73,7 +72,7 @@ public class ItemHasCreatorModel {
 
 
 
-    public static void insertAuthorFirstname(String firstName) throws SQLException {
+    public static void insertAuthorFirstname(String firstName) throws SQLException { //inserts the author first name
         getItemHasCreatorDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -94,7 +93,7 @@ public class ItemHasCreatorModel {
 
     }
 
-    public static void insertAuthorLastname(String lastName) throws SQLException {
+    public static void insertAuthorLastname(String lastName) throws SQLException { //inserts the authors last name
         getItemHasCreatorDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
@@ -109,7 +108,7 @@ public class ItemHasCreatorModel {
         preparedStmt.executeUpdate();
 
     }
-    public static void insertItemHasCreator(int item_idItem, String firstName, String lastName) throws SQLException {
+    public static void insertItemHasCreator(int item_idItem, String firstName, String lastName) throws SQLException { //inserts a new row in the table in the database
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
 
