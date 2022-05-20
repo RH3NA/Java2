@@ -19,6 +19,8 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+//this controller controlls the Delete function and its view
+
 public class DeleteController extends ReusableButtonController implements Initializable {
     @FXML
     TextField barcodeInput;
@@ -51,24 +53,12 @@ public class DeleteController extends ReusableButtonController implements Initia
 
         int rowsDeleted = statement.executeUpdate();
 
-        System.out.println(rowsDeleted + " records deleted.\n");
+        System.out.println(rowsDeleted + " records deleted.\n"); //checking if the item was successfully deleted and setting the text based on it
         if (rowsDeleted >0) {
             deleteItemConfirmationLabel.setText(rowsDeleted + " record successfully deleted.");
         } else{
             deleteItemConfirmationLabel.setText("No record found. No record deleted.");
         }
-
-
-        /* String sqlDelete = "DELETE FROM inventory where idBarcode=?";
-
-        PreparedStatement statement;
-        statement = conn.prepareStatement(sqlDelete);
-        statement.setString(1, barcodeInput.getText());
-        System.out.println("The SQL statement is: " + sqlDelete + "\n");  // Echo for debugging
-
-        int countDeleted = statement.executeUpdate(sqlDelete);
-        System.out.println(countDeleted + " records deleted.\n"); */
-
     }
 
     public void onBackButtonClick(ActionEvent a) throws IOException {

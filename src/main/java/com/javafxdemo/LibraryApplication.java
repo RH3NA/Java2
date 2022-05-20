@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+//the main class, which contains the main method and the start method where it builds the primary stage as well
 public class LibraryApplication extends Application {
     private static Stage stage;
 

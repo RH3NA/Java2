@@ -25,7 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-
+//this controller controls everything related to the search function and its view
 public class  SearchController extends ReusableButtonController implements Initializable {
 
     @FXML
@@ -55,18 +55,6 @@ public class  SearchController extends ReusableButtonController implements Initi
 
     private Boolean isAvailableInStock;
     private Boolean isReference;
-
-
- /*    @FXML
-    private Button searchButton;
-
-   public void setSceneSearch() throws IOException {
-        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
-        Stage stage = (Stage) searchButton.getScene().getWindow();
-        stage.setScene(sceneSearch);
-        stage.show();
-        Session.getInstance().setPreviousScene("StartpageLoggedIn");
-    }*/
 
     @FXML
     @Override
@@ -134,10 +122,10 @@ public class  SearchController extends ReusableButtonController implements Initi
 
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
         errorLabel.setText("");
-        UserModel currentUser = Session.getInstance().getCurrentUser();
+        UserModel currentUser = Session.getInstance().getCurrentUser(); //simplifying the long calls
         ItemModel currentSearch = Session.getInstance().getCurrentSearch();
-        if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (ItemModel.isbnExists(currentSearch.getIsbn()) == Boolean.TRUE) && (getIsReference() == Boolean.FALSE) && (getAvailableInStock() == Boolean.TRUE)) {
-            InventoryModel.getInventoryDB();
+        if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (ItemModel.isbnExists(currentSearch.getIsbn()) == Boolean.TRUE) && (getIsReference() == Boolean.FALSE) && (getAvailableInStock() == Boolean.TRUE)) { //some error handling
+            InventoryModel.getInventoryDB(); //refreshing the inventory list
             Session.getInstance().setCurrentLoan(new LoanModel(currentUser.getIdUser(), InventoryModel.availableBarcode(currentSearch.getIdItem()), null, null));
             System.out.println(Session.getInstance().getCurrentLoan());
             Session.getInstance().getLoanController().setSceneLoan();
@@ -153,7 +141,7 @@ public class  SearchController extends ReusableButtonController implements Initi
         else if (currentUser.getIdUser() == 0) {
             System.out.println("You need to be logged in to proceed.");
             errorLabel.setText("You need to be logged in to proceed.");
-            loginRedirectButton.setVisible(true);
+            loginRedirectButton.setVisible(true); //prompting a log in
         }
     }
 

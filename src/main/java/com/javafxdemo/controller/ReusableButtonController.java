@@ -6,13 +6,14 @@ import java.io.IOException;
 
 import static com.javafxdemo.LibraryApplication.setSceneStartPage;
 
+//this controller controls everything that's reusable in the code, and acts as a helper class
 public class ReusableButtonController {
 
     public void exit() {
         System.exit(0);
-    }
+    } //reusable exit method
 
-    public void backMethod(String previousScene) throws IOException {
+    public void backMethod(String previousScene) throws IOException { //reusable back method, although very simple
         if (previousScene.equalsIgnoreCase("StartpageLoggedIn") && Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
             Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
         }
