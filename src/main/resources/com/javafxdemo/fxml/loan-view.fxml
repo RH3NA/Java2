@@ -27,28 +27,20 @@
          </BorderPane.margin>
       </ButtonBar>
    </bottom>
-   <left>
-      <VBox prefHeight="213.0" prefWidth="177.0" spacing="4.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets left="38.0" top="15.0" />
-         </padding>
-         <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Search" />
-         <Button fx:id="reservationButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Reservation" />
-         <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
-         <Button fx:id="roomBookingButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Room Booking" />
-         <Button fx:id="paymentButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Payment" />
-         <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Profile" />
-         <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="History" />
-      </VBox>
-   </left>
    <center>
-      <VBox prefHeight="258.0" prefWidth="450.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="354.0" prefWidth="606.0" spacing="10.0" BorderPane.alignment="CENTER">
          <Label maxHeight="-Infinity" prefHeight="14.0" style="-fx-padding: 0;" text="Loan items selected:">
             <VBox.margin>
-               <Insets top="4.0" />
+               <Insets left="40.0" top="4.0" />
             </VBox.margin></Label>
-         <Label fx:id="selectedLoanItemsLabel" prefHeight="98.0" prefWidth="523.0" style="-fx-padding:10;" />
-         <Label fx:id="receiptLabel" prefHeight="80.0" prefWidth="514.0" style="-fx-padding:10;" />
+         <Label fx:id="selectedLoanItemsLabel" prefHeight="98.0" prefWidth="523.0" style="-fx-padding:10;">
+            <VBox.margin>
+               <Insets left="40.0" />
+            </VBox.margin></Label>
+         <Label fx:id="receiptLabel" prefHeight="80.0" prefWidth="514.0" style="-fx-padding:10;">
+            <VBox.margin>
+               <Insets left="40.0" />
+            </VBox.margin></Label>
          <HBox alignment="CENTER" prefHeight="21.0" prefWidth="403.0" spacing="8.0">
             <Label fx:id="borrowingRulesLabel" text="I agree to the borrowing rules and conditions." />
          </HBox>

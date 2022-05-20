@@ -114,7 +114,10 @@
             </children>
          </AnchorPane>
             <HBox alignment="CENTER" prefHeight="0.0" prefWidth="113.0" spacing="8.0" />
-         <Button fx:id="confirmCRUDButton" alignment="CENTER" mnemonicParsing="false" onAction="#onupdateItemClick" prefHeight="25.0" prefWidth="184.0" text="Confirm add/update" />
+         <Button fx:id="confirmCRUDButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onupdateItemClick" prefHeight="25.0" prefWidth="184.0" text="Confirm add/update">
+            <VBox.margin>
+               <Insets left="100.0" />
+            </VBox.margin></Button>
             <StackPane prefHeight="0.0" prefWidth="753.0" />
             <BorderPane.margin>
                 <Insets right="20.0" top="20.0" />
