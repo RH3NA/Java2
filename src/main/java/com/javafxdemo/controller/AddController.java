@@ -14,12 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+//This controller controls the Add function and its view.
 
 public class AddController extends ReusableButtonController implements Initializable {
 
@@ -75,13 +76,8 @@ public class AddController extends ReusableButtonController implements Initializ
 
 
 
-
-
-
-    /*public int getIntFromTextField(TextField textField) {
-        String text = textField.getText();
-        return Integer.parseInt(text);*/
-
+// This method adds the new item to the DB. We also first stored it in the application as a currentAdd in case we needed to do some other operations
+    // on the same values. We later decided to not implement this for the other CRUD operations.
         public void addNewItemToDB () throws SQLException {
             boolean inItems = false;
             boolean inInventory = false;
@@ -96,11 +92,11 @@ public class AddController extends ReusableButtonController implements Initializ
             InventoryModel.insertInventory(Integer.parseInt(barcodeInput.getText()), newItem.getIdItem(), 210211, categoryInput.getText());
             ItemHasCreatorModel.insertItemHasCreator(newItem.getIdItem(), authorFirstnameInput.getText(), authorLastnameInput.getText());
 
-            ItemModel.getItemsDB();
+            ItemModel.getItemsDB(); //refreshing all of the lists with objects from the database
             ItemHasCreatorModel.getItemHasCreatorDB();
             InventoryModel.getInventoryDB();
 
-            for (int i = 0; ItemModel.items.size() > 0; i++) {
+            for (int i = 0; ItemModel.items.size() > 0; i++) { //trying to find a match between the database object and the new object
                 if (newItem.getIdItem() == ItemModel.items.get(i).getIdItem()) {
                     inItems = true;
                     break;

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
+//this controller controls everything with the logged in startpage and its view
 public class StartpageLoggedInController extends ReusableButtonController implements Initializable { //added a logged in startpage
 
     @FXML
@@ -30,7 +30,7 @@ public class StartpageLoggedInController extends ReusableButtonController implem
 
     @FXML
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle) { //setting some pre-determined values when you enter the page
         Session.getInstance().setPreviousScene("Startpage");
         welcomeTextLabel.setText("Welcome " + Session.getInstance().getCurrentUser().getFirstName() + "!");
         try {
@@ -56,10 +56,6 @@ public class StartpageLoggedInController extends ReusableButtonController implem
 
     public void onLoanButtonClick(ActionEvent a) throws IOException {
         Session.getInstance().getSearchController().setSceneSearch();
-       /* Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
-        Stage stage = (Stage) loanButton.getScene().getWindow();
-        stage.setScene(sceneSearch);
-        stage.show();*/
         Session.getInstance().setPreviousScene("StartpageLoggedIn");
     }
 

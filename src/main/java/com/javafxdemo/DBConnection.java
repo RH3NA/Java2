@@ -3,6 +3,7 @@ package com.javafxdemo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+//this class handles the connection to the database
 public class DBConnection {
 
     public Connection conn;             // 1. declaring DBConnection class's Connection class variable 'conn' to hold the new connection

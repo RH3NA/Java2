@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//this controller controls everything on the Admin startpage and its view
+
 public class AdminController extends ReusableButtonController implements Initializable {
 
     @FXML
@@ -42,12 +44,12 @@ public class AdminController extends ReusableButtonController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        welcomeTextLabel.setText("Welcome " + Session.getInstance().getCurrentUser().getFirstName() + "!  Choose what you would like to do.");
+        welcomeTextLabel.setText("Welcome " + Session.getInstance().getCurrentUser().getFirstName() + "!  Choose what you would like to do."); //overriding and initializing the view to include a welcome text based on the users firstname
         Session.getInstance().setCurrentScene("Admin");
         Session.getInstance().setPreviousScene("Startpage");
     }
 
-    public void setSceneAdmin() throws IOException {
+    public void setSceneAdmin() throws IOException { //building the scene method to get to the admin startpage
         Scene sceneAdmin = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/adminStartpage-view.fxml")));
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneAdmin);

@@ -26,6 +26,7 @@ import static com.javafxdemo.models.ItemModel.getItemsDB;
 import static com.javafxdemo.models.LoanModel.*;
 import static com.javafxdemo.models.UserModel.getUsersDB;
 
+//this controller controls the overview function and its view
 public class OverviewController extends ReusableButtonController implements Initializable {
     @FXML
     private TextArea textArea;
@@ -35,11 +36,11 @@ public class OverviewController extends ReusableButtonController implements Init
     private Button backButton;
     @FXML
     private ChoiceBox<String> choiceBox;
-    private final String[] choices = {"Overview loans", "Overview users", "Overview items", "Overview overdue loans"};
+    private final String[] choices = {"Overview loans", "Overview users", "Overview items", "Overview overdue loans"}; //setting the choices in the choicebox
     @FXML
     private TableView tableView;
     @FXML
-    private final ObservableList<String> choiceList = FXCollections.observableArrayList(choices);
+    private final ObservableList<String> choiceList = FXCollections.observableArrayList(choices); //setting the choicelist into an observable list
 
     private ObservableList<ObservableList> data;
 
@@ -50,7 +51,7 @@ public class OverviewController extends ReusableButtonController implements Init
         stage.show();
     }
 
-    public void onChoiceBoxSelection(ChoiceBox<String> choiceBox) throws SQLException {
+    public void onChoiceBoxSelection(ChoiceBox<String> choiceBox) throws SQLException { //building the page based on what option you select with a select query that goes into the build data method
         if ((choiceBox.getSelectionModel().getSelectedIndex()) == 0) {
         buildData("Select * From Loan");
         }
@@ -67,7 +68,7 @@ public class OverviewController extends ReusableButtonController implements Init
 
     @FXML
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle) { //refreshing all lists
         Session.getInstance().setPreviousScene("Admin");
         Session.getInstance().setCurrentScene("Overview");
         try {
@@ -78,7 +79,7 @@ public class OverviewController extends ReusableButtonController implements Init
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        choiceBox.setItems(choiceList);
+        choiceBox.setItems(choiceList); //building the choicebox
         choiceBox.setOnAction(e -> {
             try {
                 onChoiceBoxSelection(choiceBox);
@@ -88,7 +89,7 @@ public class OverviewController extends ReusableButtonController implements Init
         });
     }
 
-    public void buildData(String s){
+    public void buildData(String s){ //building the data based on the choice picked
         tableView.getItems().clear();
         tableView.getColumns().clear();
         tableView.refresh();
@@ -96,7 +97,7 @@ public class OverviewController extends ReusableButtonController implements Init
         try{
             DBConnection connectNow = new DBConnection();
             Connection conn = connectNow.getConnection();
-            ResultSet rs = conn.createStatement().executeQuery(s);
+            ResultSet rs = conn.createStatement().executeQuery(s); //preparing the query based on the choice selected
 
             for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
                 final int j = i;
@@ -104,7 +105,7 @@ public class OverviewController extends ReusableButtonController implements Init
                 col.setCellValueFactory((Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>) param -> new SimpleStringProperty(param.getValue().get(j).toString()));
 
                 tableView.getColumns().addAll(col);
-                System.out.println("Column ["+i+"] ");
+                System.out.println("Column ["+i+"] "); //building the columns
             }
 
             while(rs.next()){
@@ -112,12 +113,12 @@ public class OverviewController extends ReusableButtonController implements Init
                 for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
                     row.add(rs.getString(i));
                 }
-                System.out.println("Row [1] added "+row );
+                System.out.println("Row [1] added "+row ); //building the rows
                 data.add(row);
 
             }
 
-            tableView.setItems(data);
+            tableView.setItems(data); //setting the items
         }catch(Exception e){
             e.printStackTrace();
             System.out.println("Error on Building Data");

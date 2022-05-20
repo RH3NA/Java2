@@ -6,10 +6,14 @@ import com.javafxdemo.models.*;
 
 import java.sql.Timestamp;
 
+//this is our context class that handles what is connected to for example the current session, the current user, the current loan, the current add or the current search,
+//so that we can easily reuse stored values in for example other classes as well as keeping track of what's going on right now in this session of the application.
+
 public class Session {
 
+    //creates an object of the Session class
     private final static Session instance = new Session(new LoanController(), new SearchController(),
-            new StartpageController(), new StartpageLoggedInController(), new UserController(),
+            new StartpageController(), new StartpageLoggedInController(),
             new LoanReturnController(), new OverviewController(), new AdminController(),
             new ReusableButtonController(), new UpdateController(), new DeleteController(), new AddController());
 
@@ -49,9 +53,7 @@ public class Session {
         this.startpageLoggedInController = startpageLoggedInController;
     }
 
-    public UserController getUserController() {
-        return userController;
-    }
+
 
     public ReusableButtonController getReusableButtonController() {
         return reusableButtonController;
@@ -61,10 +63,6 @@ public class Session {
         this.reusableButtonController = reusableButtonController;
     }
 
-
-    public void setUserController(UserController userController) {
-        this.userController = userController;
-    }
 
     public LoanReturnController getLoanReturnController() {
         return loanReturnController;
@@ -78,7 +76,6 @@ public class Session {
     private SearchController searchController;
     private StartpageController startpageController;
     private StartpageLoggedInController startpageLoggedInController;
-    private UserController userController;
     private LoanReturnController loanReturnController;
 
     public OverviewController getOverviewController() {
@@ -112,15 +109,14 @@ public class Session {
 
     private UpdateController updateController;
 
-
+//constructor for the Session class
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
-                   StartpageLoggedInController startpageLoggedInController, UserController userController, LoanReturnController loanReturnController, OverviewController overviewController,
+                   StartpageLoggedInController startpageLoggedInController, LoanReturnController loanReturnController, OverviewController overviewController,
                    AdminController adminController, ReusableButtonController reusableButtonController, UpdateController updateController, DeleteController deleteController, AddController addController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
         this.startpageLoggedInController = startpageLoggedInController;
-        this.userController = userController;
         this.loanReturnController = loanReturnController;
         this.overviewController = overviewController;
         this.adminController = adminController;
@@ -142,10 +138,10 @@ public class Session {
 
     public static Session getInstance() { //getter for our instance
         return instance;
-    }
+    } //getter to get the instance
 
 
-    private int idUser; //idk why these variables are greyed out still..
+    private int idUser;
     private String lastName;
     private String firstName;
     private String phoneNumber;
@@ -154,7 +150,7 @@ public class Session {
     private Boolean currentlyLoggedIn;
     private Boolean hasTooManyLoans;
 
-
+//creating an object of UserModel as the current user
     private UserModel currentUser = new UserModel(idUser, lastName, firstName, phoneNumber, email, userType, currentlyLoggedIn, hasTooManyLoans); //constructor to create a constructed object (currentUser instance) from our usermodel constructor
 
     public UserModel getCurrentUser() { //getter to get the current user
@@ -174,7 +170,7 @@ public class Session {
     private int totalStock;
     private String category;
 
-
+    //creating an object of ItemModel as the current search
     private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, totalStock, publisher);
 
     public ItemModel getCurrentSearch() {
@@ -193,12 +189,14 @@ public class Session {
         this.currentAdd = currentAdd;
     }
 
+    //creating an object of ItemModel as the current add
     private ItemModel currentAdd = new ItemModel(idItem, numberInStock, title, isbn, totalStock, publisher);
 
     private int idLoan;
     private Timestamp loanDate;
     private Timestamp expiryDate;
 
+    //creating an object of LoanModel as the current loan
     private LoanModel currentLoan = new LoanModel(idUser, idBarcode, loanDate, expiryDate);
 
     public LoanModel getCurrentLoan() {
@@ -209,6 +207,7 @@ public class Session {
         this.currentLoan = currentLoan;
     }
 
+    //setters and getters for the previous and current scenes
     public String getPreviousScene() {
         return previousScene;
     }
@@ -233,6 +232,8 @@ public class Session {
     private int location_idLocation;
 
     private Boolean available;
+
+    //creating a new object of InventoryModel as the current inventory
     private final InventoryModel currentInventory = new InventoryModel(idBarcode, items_idItems, location_idLocation, category, available);
 
     public InventoryModel getcurrentInventory() {
@@ -240,6 +241,8 @@ public class Session {
     }
 
     private int Item_idItem;
+
+    //creating a new object of ItemHasCreatorModel as the current item has creator
     private final ItemHasCreatorModel currentItemHasCreator = new ItemHasCreatorModel(Item_idItem, firstName, lastName);
 
     public ItemHasCreatorModel getCurrentItemHasCreator() {

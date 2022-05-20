@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 import static com.javafxdemo.models.UserModel.getUsersDB;
 import static com.javafxdemo.models.UserModel.users;
-
+//this class controls everything related to the startpage and its view
 @SuppressWarnings("SpellCheckingInspection")
 public class StartpageController implements Initializable {
 
@@ -62,11 +62,11 @@ public class StartpageController implements Initializable {
             ResultSet resultSet = statement.executeQuery(verifyLogin);
 
             while (resultSet.next()) {
-                if (resultSet.getInt(1) == 1) {
+                if (resultSet.getInt(1) == 1) { //checks for a match in the log in details in the database
                     loginErrorLabel.setText("Welcome. Successful login.");
                     password = Integer.parseInt(passwordInput.getText());
                     setUpCurrUser();
-                    if (Session.getInstance().getCurrentUser().getUserType() == 1111 || Session.getInstance().getCurrentUser().getUserType() == 1112
+                    if (Session.getInstance().getCurrentUser().getUserType() == 1111 || Session.getInstance().getCurrentUser().getUserType() == 1112 //redirects to the proper startpage based on if they're normal customers or admins/staff
                             || Session.getInstance().getCurrentUser().getUserType() == 1113) {
                         Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
                     }
@@ -83,9 +83,7 @@ public class StartpageController implements Initializable {
         }
     }
 
-    public void setUpCurrUser() { //method to compare the current user to the users in the stored arraylist, only problem rn is that this only works for 1 user
-        //should probably make a global method that stores every user as well
-        //and also rename this one to something not so similar to the other getCurrentUser method
+    public void setUpCurrUser() { //method to compare the current user to the users in the stored arraylist from the database to create the current user
         for (com.javafxdemo.models.UserModel user : users) {
             if (password == user.getIdUser()) {
                 Session.getInstance().setCurrentUser(new UserModel(user.getIdUser(), user.getLastName(), user.getFirstName(), user.getPhoneNumber(), user.getEmail(), user.getUserType(), Boolean.TRUE, Boolean.FALSE));

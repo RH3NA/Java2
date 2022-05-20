@@ -19,9 +19,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
+//this controller controls everything with the loan function and its views
 public class LoanController extends ReusableButtonController implements Initializable {
-
     public LoanController() {
     }
 
@@ -71,7 +70,7 @@ public class LoanController extends ReusableButtonController implements Initiali
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode());
+        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode()); //creating the loan view with the selected barcode from loan
         Session.getInstance().setCurrentScene("Loan");
     }
 
@@ -83,16 +82,16 @@ public class LoanController extends ReusableButtonController implements Initiali
     }
 
     public void onLoanConfirmButton(ActionEvent a) throws SQLException {
-        boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode());
-        LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
+        boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode()); //checks if the barcode is available
+        LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser()); //gets the latest loan from the currentuser
         if (barcodeIsAvailable) {
-            int newLoanID = createIdLoan(Session.getInstance().getCurrentUser().getIdUser());
-            LoanModel.insertLoan(createIdLoan(Session.getInstance().getCurrentUser().getIdUser()), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null);
-            System.out.println(LoanModel.currentUserLatestLoan.get(0).getIdLoan());
-            if(LoanModel.currentUserLatestLoan.isEmpty()) {
+            int newLoanID = createIdLoan(Session.getInstance().getCurrentUser().getIdUser()); //creates new IDloan
+            LoanModel.insertLoan(createIdLoan(Session.getInstance().getCurrentUser().getIdUser()), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null); //finally inserts the loan into the database
+            System.out.println(LoanModel.currentUserLatestLoan.get(0).getIdLoan()); //gets the latest current user loan at index 0
+            if(LoanModel.currentUserLatestLoan.isEmpty()) { //some error handling
                 receiptLabel.setText("No loan could be created. Please try again.");
             }
-            if (LoanModel.currentUserLatestLoan.get(0).getIdLoan() == newLoanID) {
+            if (LoanModel.currentUserLatestLoan.get(0).getIdLoan() == newLoanID) { //if the new loan ID matches the latest loan created for the user, it's a success
                 receiptLabel.setText("Success! Loan ID: " + LoanModel.currentUserLatestLoan.get(0).getIdLoan() + "\nLoandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
                         "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
             }
@@ -105,7 +104,7 @@ public class LoanController extends ReusableButtonController implements Initiali
         }
     }
 
-    public static int createIdLoan(int idUser) { //needs better algorithm since we dont have autoincrement
+    public static int createIdLoan(int idUser) { //simple fix for forgetting to implement autoincrement on our primary key in loan, but could be better since it's still possible to fail with this combination
         return ((idUser) + (Session.getInstance().getCurrentLoan().getIdBarcode()) + (LocalDateTime.now().getMinute()));
     }
 
