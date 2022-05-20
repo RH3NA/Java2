@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.OverviewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="866.0" stylesheets="@../LibraryStylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafxdemo.controller.OverviewController">
     <bottom>
         <ButtonBar buttonMinWidth="50.0" prefHeight="78.0" prefWidth="997.0" BorderPane.alignment="CENTER">
             <buttons>
@@ -32,10 +32,10 @@
     <left>
         <VBox alignment="CENTER_LEFT" prefHeight="376.0" prefWidth="177.0" spacing="4.0" BorderPane.alignment="TOP_LEFT">
             <padding>
-                <Insets left="38.0" top="15.0" />
+                <Insets left="10.0" top="15.0" />
             </padding>
-         <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" text="What do you want to do?" />
-         <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="131.0" />
+         <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" prefHeight="38.0" prefWidth="163.0" text="What do you want to do?" wrapText="true" />
+         <ChoiceBox fx:id="choiceBox" prefHeight="27.0" prefWidth="154.0" />
         </VBox>
     </left>
     <center>

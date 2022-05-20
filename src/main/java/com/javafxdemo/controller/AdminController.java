@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AdminController extends ReusableButtonController implements Initializable {
@@ -39,14 +37,14 @@ public class AdminController extends ReusableButtonController implements Initial
     private Label publisherLable;
     @FXML
     TextField publisherInput;
-
-
-
+    @FXML
+    Button SearchButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        welcomeTextLabel.setText("Welcome " + Session.getInstance().getCurrentUser().getFirstName() + "!");
+        welcomeTextLabel.setText("Welcome " + Session.getInstance().getCurrentUser().getFirstName() + "!  Choose what you would like to do.");
         Session.getInstance().setCurrentScene("Admin");
+        Session.getInstance().setPreviousScene("Startpage");
     }
 
     public void setSceneAdmin() throws IOException {
@@ -54,6 +52,7 @@ public class AdminController extends ReusableButtonController implements Initial
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneAdmin);
         stage.show();
+
     }
 
     public void onOverviewButton(ActionEvent a) throws IOException {
@@ -73,14 +72,32 @@ public class AdminController extends ReusableButtonController implements Initial
 
     public void onExitButtonClick() {
         exit();
-
-
     }
+
     public void onDeleteButtonClick(ActionEvent a) throws IOException {
         Scene sceneDeleteItem = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/delete-view.fxml")));
         Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
         stage.setScene(sceneDeleteItem);
         stage.show();
+    }
+
+    public void onSearchButtonClick(ActionEvent a) throws IOException {
+        Session.getInstance().getSearchController().setSceneSearch();
+        Session.getInstance().setPreviousScene("Admin");
+    }
+
+    public void onReturnLoanButton(ActionEvent a) throws IOException {
+        Session.getInstance().getLoanReturnController().setSceneLoanReturn();
+        Session.getInstance().setPreviousScene("Admin");
+    }
+
+    public void onLoanButtonClick(ActionEvent a) throws IOException {
+        Session.getInstance().getSearchController().setSceneSearch();
+        Session.getInstance().setPreviousScene("Admin");
+    }
+
+    public void onBackButtonClick() throws IOException {
+        backMethod(Session.getInstance().getPreviousScene());
     }
 
 }

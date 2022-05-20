@@ -37,8 +37,11 @@ public class OverviewController extends ReusableButtonController implements Init
     private ChoiceBox<String> choiceBox;
     private final String[] choices = {"Overview loans", "Overview users", "Overview items", "Overview overdue loans"};
     @FXML
+    private TableView tableView;
+    @FXML
     private final ObservableList<String> choiceList = FXCollections.observableArrayList(choices);
 
+    private ObservableList<ObservableList> data;
 
     public void setSceneOverview() throws IOException {
         Scene sceneOverview = new Scene(FXMLLoader.load(LibraryApplication.class.getResource(("fxml/overview-view.fxml"))));
@@ -62,10 +65,10 @@ public class OverviewController extends ReusableButtonController implements Init
         }
     }
 
-
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Session.getInstance().setPreviousScene("Admin");
         Session.getInstance().setCurrentScene("Overview");
         try {
             checkOverdueLoansDB();
@@ -83,18 +86,7 @@ public class OverviewController extends ReusableButtonController implements Init
                 throw new RuntimeException(ex);
             }
         });
-
-        /*choiceBox.getItems().add(LoanModel.loans);
-        choiceBox.getItems().add(UserModel.users);
-        choiceBox.getItems().add(LoanModel.overdueLoans);
-        choiceBox.getItems().add(ItemModel.items);*/
-
     }
-
-    private ObservableList<ObservableList> data;
-    @FXML
-    private TableView tableView;
-
 
     public void buildData(String s){
         tableView.getItems().clear();
@@ -141,6 +133,3 @@ public class OverviewController extends ReusableButtonController implements Init
         exit();
     }
 }
-
-
-

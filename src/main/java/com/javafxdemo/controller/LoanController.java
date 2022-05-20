@@ -25,7 +25,6 @@ public class LoanController extends ReusableButtonController implements Initiali
     public LoanController() {
     }
 
-
     @FXML
     private Button exitButton;
     @FXML
@@ -44,16 +43,6 @@ public class LoanController extends ReusableButtonController implements Initiali
     private Button profileButton;
     @FXML
     private Button historyButton;
-
-
-    public Label getSelectedLoanItemsLabel() {
-        return selectedLoanItemsLabel;
-    }
-
-    public void setSelectedLoanItemsLabel(Label selectedLoanItemsLabel) {
-        this.selectedLoanItemsLabel = selectedLoanItemsLabel;
-    }
-
     @FXML
     private Label selectedLoanItemsLabel;
     @FXML
@@ -66,6 +55,32 @@ public class LoanController extends ReusableButtonController implements Initiali
     private Label borrowingRulesBrokenLabel;
     @FXML
     private Label receiptLabel;
+
+    public Label getSelectedLoanItemsLabel() {
+        return selectedLoanItemsLabel;
+    }
+    public void setSelectedLoanItemsLabel(Label selectedLoanItemsLabel) {
+        this.selectedLoanItemsLabel = selectedLoanItemsLabel;
+    }
+
+    @FXML
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            ItemHasCreatorModel.getItemHasCreatorDB();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode());
+        Session.getInstance().setCurrentScene("Loan");
+    }
+
+    public void setSceneLoan() throws IOException {
+        Scene sceneLoanReturn = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/loan-view.fxml")));
+        Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
+        stage.setScene(sceneLoanReturn);
+        stage.show();
+    }
 
     public void onLoanConfirmButton(ActionEvent a) throws SQLException {
         boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode());
@@ -90,29 +105,8 @@ public class LoanController extends ReusableButtonController implements Initiali
         }
     }
 
-
     public static int createIdLoan(int idUser) { //needs better algorithm since we dont have autoincrement
         return ((idUser) + (Session.getInstance().getCurrentLoan().getIdBarcode()) + (LocalDateTime.now().getMinute()));
-    }
-
-    @FXML
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            ItemHasCreatorModel.getItemHasCreatorDB();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode());
-        Session.getInstance().setCurrentScene("Loan");
-
-    }
-
-    public void setSceneLoan() throws IOException {
-        Scene sceneLoanReturn = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/loan-view.fxml")));
-        Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
-        stage.setScene(sceneLoanReturn);
-        stage.show();
     }
 
     public void onBackButtonClick(ActionEvent a) throws IOException {

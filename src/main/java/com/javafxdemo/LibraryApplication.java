@@ -1,28 +1,21 @@
 package com.javafxdemo;
 
-import com.javafxdemo.controller.*;
-import com.javafxdemo.models.UserModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
-import static com.javafxdemo.models.UserModel.getUsersDB;
 
 public class LibraryApplication extends Application {
+    private static Stage stage;
+
     public static Stage getStage() {
         return stage;
     }
-
     public static void setStage(Stage stage) {
         LibraryApplication.stage = stage;
     }
-
-    private static Stage stage;
-
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -35,6 +28,7 @@ public class LibraryApplication extends Application {
         stage.setScene(scene);
         stage.show();
         }
+
     public static void setSceneStartPage() throws IOException {
         Scene sceneStartPage = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/startpage-view.fxml")));
         sceneStartPage.getStylesheets().add(LibraryApplication.class.getResource("LibraryStylesheet.css").toExternalForm());

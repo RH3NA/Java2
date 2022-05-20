@@ -20,22 +20,6 @@ import java.util.ResourceBundle;
 public class StartpageLoggedInController extends ReusableButtonController implements Initializable { //added a logged in startpage
 
     @FXML
-    private Button searchButton;
-    @FXML
-    private Button reservationButton;
-    @FXML
-    private Button loanReturnButton;
-    @FXML
-    private Button paymentButton;
-    @FXML
-    private Button profileButton;
-    @FXML
-    private Button historyButton;
-    @FXML
-    private Button exitButton;
-    @FXML
-    private Button backButton;
-    @FXML
     private Button loanButton;
     @FXML
     private Label itemsOverdueLabel;
@@ -44,35 +28,10 @@ public class StartpageLoggedInController extends ReusableButtonController implem
     @FXML
     private Label welcomeTextLabel;
 
-
-    public void onSearchButtonClick(ActionEvent a) throws IOException {
-        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
-        Stage stage = (Stage) searchButton.getScene().getWindow();
-        stage.setScene(sceneSearch);
-        stage.show();
-        Session.getInstance().setPreviousScene("StartpageLoggedIn");
-    }
-
-    public void onLoanButtonClick(ActionEvent a) throws IOException {
-        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
-        Stage stage = (Stage) loanButton.getScene().getWindow();
-        stage.setScene(sceneSearch);
-        stage.show();
-        Session.getInstance().setPreviousScene("StartpageLoggedIn");
-    }
-
-    public void onStartPageLoggedInLogOutButton(ActionEvent a) {
-    }
-
-    public void onReturnLoanButton(ActionEvent a) throws IOException {
-        Session.getInstance().getLoanReturnController().setSceneLoanReturn();
-        Session.getInstance().setPreviousScene("StartpageLoggedIn");
-    }
-
-
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Session.getInstance().setPreviousScene("Startpage");
         welcomeTextLabel.setText("Welcome " + Session.getInstance().getCurrentUser().getFirstName() + "!");
         try {
             itemsOnLoanLabel.setText("Active loans: " + LoanModel.getLoanCountIdUser(Session.getInstance().getCurrentUser().getIdUser()));
@@ -80,7 +39,6 @@ public class StartpageLoggedInController extends ReusableButtonController implem
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void setSceneStartpageLoggedIn() throws IOException {
@@ -89,6 +47,25 @@ public class StartpageLoggedInController extends ReusableButtonController implem
         stage.setScene(sceneStartPageLoggedIn);
         stage.show();
         Session.getInstance().setCurrentScene("StartpageLoggedIn");
+    }
+
+    public void onSearchButtonClick(ActionEvent a) throws IOException {
+        Session.getInstance().getSearchController().setSceneSearch();
+        Session.getInstance().setPreviousScene("StartpageLoggedIn");
+    }
+
+    public void onLoanButtonClick(ActionEvent a) throws IOException {
+        Session.getInstance().getSearchController().setSceneSearch();
+       /* Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
+        Stage stage = (Stage) loanButton.getScene().getWindow();
+        stage.setScene(sceneSearch);
+        stage.show();*/
+        Session.getInstance().setPreviousScene("StartpageLoggedIn");
+    }
+
+    public void onReturnLoanButton(ActionEvent a) throws IOException {
+        Session.getInstance().getLoanReturnController().setSceneLoanReturn();
+        Session.getInstance().setPreviousScene("StartpageLoggedIn");
     }
 
     public void onExitButtonClick() {

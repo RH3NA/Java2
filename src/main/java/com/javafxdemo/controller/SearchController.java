@@ -50,13 +50,42 @@ public class  SearchController extends ReusableButtonController implements Initi
     private Button searchResultsLoanButton;
     @FXML
     private Label errorLabel;
-    @FXML Button loginRedirectButton;
+    @FXML
+    Button loginRedirectButton;
 
     private Boolean isAvailableInStock;
     private Boolean isReference;
 
+
+ /*    @FXML
+    private Button searchButton;
+
+   public void setSceneSearch() throws IOException {
+        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
+        Stage stage = (Stage) searchButton.getScene().getWindow();
+        stage.setScene(sceneSearch);
+        stage.show();
+        Session.getInstance().setPreviousScene("StartpageLoggedIn");
+    }*/
+
+    @FXML
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Session.getInstance().setCurrentScene("Search");
+    }
+
+    public void setSceneSearch() throws IOException {
+        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
+        Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
+        stage.setScene(sceneSearch);
+        stage.show();
+    }
+
     public Boolean getIsReference() { return isReference; }
     public void setIsReference(Boolean isReference) { this.isReference = isReference; }
+
+    public Boolean getAvailableInStock() { return isAvailableInStock;}
+    public void setAvailableInStock(Boolean availableInStock) { isAvailableInStock = availableInStock;}
 
     public void onSearchForResultButton(ActionEvent a) throws Exception {  // throwing out exceptions so the system doesn't crash & also ensure connection and statement closes
         String author;
@@ -99,25 +128,9 @@ public class  SearchController extends ReusableButtonController implements Initi
             }
                 hadResults = statement.getMoreResults(); // will loop until no more results available
             }
-
             statement.close(); // closes query
             System.out.println(Session.getInstance().getCurrentSearch());
         }
-
-
-
-
-
-
-    public Boolean getAvailableInStock() {
-        return isAvailableInStock;
-    }
-
-    public void setAvailableInStock(Boolean availableInStock) {
-        isAvailableInStock = availableInStock;
-    }
-
-
 
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
         errorLabel.setText("");
@@ -148,57 +161,7 @@ public class  SearchController extends ReusableButtonController implements Initi
         LibraryApplication.setSceneStartPage();
     }
 
-    @FXML
-    private Button backButton;
     public void onBackButtonClick() throws IOException {
         backMethod(Session.getInstance().getPreviousScene());
     }
-
-    @FXML
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Session.getInstance().setCurrentScene("Search");
-        //loginRedirectButton.setVisible(false);
-    }
-
-    public void setSceneSearch() throws IOException {
-        Scene sceneSearch = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/search-view.fxml")));
-        Stage stage = (Stage) LibraryApplication.getStage().getScene().getWindow();
-        stage.setScene(sceneSearch);
-        stage.show();
-    }
 }
-
-
-
-        /*DBConnection connectNow = new DBConnection();       //This initiates a new connection instance of 'conn' using the DBConnection Class
-        Connection conn = connectNow.getConnection(); // THis opens a 'conn' connection using the DBConnection
-
-        String sqlInsert = "insert into Keyword (keyword) values ('" + searchTextInputField.getText() + "')";
-       //String sqlProcedureSearchISBN = "{CALL SearchByIsbn(?)}";
-        try {
-            Statement statement = conn.createStatement();  // Allocate a 'Statement' object in the connection instance 'conn'
-
-                                                                // INSERT (create) a partial record
-                                                                // add a new  string (PARTIAL record, ie not all fields - autofields should self-fill -  into database (ie not all fields) via the searchTextInputField and searchForResultButton (Create/insert)
-                                                                // sets textInput parameters (via constructor) to match database (sql) input syntax
-            System.out.println("The SQL statement is: " + sqlInsert + "\n");  //This is an echo test for debugging
-            int countInserted = statement.executeUpdate(sqlInsert);  // This calculates how many rows have been affected.
-            System.out.println(countInserted + " records inserted.\n"); // This OUTPUTS " x records inserted"
-
-                                                                *//* Other code also used by some:
-                                                                String sql= "insert into user values('"+searchTextInputField.getText()+"')"; // INSTEAD OF INSERTING INTO TEXTAREA LIKE THIS ‹  searchResultsArea.setText(searchTextInputField.getText());  ›
-                                                                Statement statement = conn.createStatement();
-                                                                statement.executeUpdate(sql);  *//*
-
-                                                                // Now this will SELECT(find) and show the new data from database into the search-fxml's searchResultsArea TextArea (Read/select))
-            String sql = "select * from user; ";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()) {
-                searchTextInputField.setText(resultSet.getString(1));
-            }
-
-        } catch (SQLException ex) {
-             ex.printStackTrace();
-        }*/

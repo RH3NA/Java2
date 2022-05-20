@@ -20,7 +20,7 @@ public class LoanModel {
 
     public static ArrayList<LoanModel> currentUserLoans = new ArrayList<>();
     public static ArrayList<LoanModel> currentUserLatestLoan = new ArrayList<>();
-    private int idUser;
+    private final int idUser;
 
     public int getIdBarcode() {
         return idBarcode;
@@ -33,7 +33,7 @@ public class LoanModel {
     private int idBarcode;
     private int idLoan;
     private Timestamp loanDate;
-    private Timestamp expiryDate;
+    private final Timestamp expiryDate;
     private int daysOverdue;
     public static ArrayList<LoanModel> loans = new ArrayList<>();
     public static ArrayList<LoanModel> loansIncludingReturned = new ArrayList<>();

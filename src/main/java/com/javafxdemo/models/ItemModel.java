@@ -165,7 +165,7 @@ public class ItemModel {
         stm.executeUpdate(query);
         System.out.println(query);
     }
-    private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+    private static final Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {

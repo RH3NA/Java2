@@ -17,7 +17,8 @@
                     <Image url="@../images/LTULogo.jpg" />
                 </ImageView>
                 <Button mnemonicParsing="false" prefHeight="42.0" text="Exit" visible="false" />
-                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="42.0" text="Exit" />
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="42.0" text="Back" />
+            <Button fx:id="exitButton1" layoutX="442.0" layoutY="35.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="42.0" text="Exit" />
             </buttons>
             <BorderPane.margin>
                 <Insets bottom="15.0" right="15.0" top="15.0" />
@@ -25,16 +26,17 @@
         </ButtonBar>
     </bottom>
     <left>
-        <VBox prefHeight="213.0" prefWidth="177.0" spacing="4.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="213.0" prefWidth="177.0" spacing="4.0" stylesheets="@../LibraryStylesheet.css" BorderPane.alignment="CENTER">
             <padding>
                 <Insets left="38.0" top="15.0" />
             </padding>
-            <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Search" />
-            <Button fx:id="loanButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Loan" />
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="42.0" prefWidth="112.0" text="Search" />
+            <Button fx:id="loanButton" mnemonicParsing="false" onAction="#onLoanButtonClick" prefHeight="42.0" prefWidth="112.0" text="Loan" />
+         <Button fx:id="loanReturnButton" layoutX="48.0" layoutY="71.0" mnemonicParsing="false" onAction="#onReturnLoanButton" prefHeight="42.0" prefWidth="112.0" text="Loan Return" />
             <Button fx:id="overviewButton" mnemonicParsing="false" onAction="#onOverviewButton" prefHeight="42.0" prefWidth="112.0" text="Library Overview" />
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="42.0" prefWidth="112.0" text="Add item" />
-         <Button fx:id="updateButton" layoutX="48.0" layoutY="163.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="42.0" prefWidth="112.0" text="Update item" />
-         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="42.0" prefWidth="112.0" text="Delete item" />
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="42.0" prefWidth="112.0" text="Add Item" />
+         <Button fx:id="updateButton" layoutX="48.0" layoutY="163.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="42.0" prefWidth="112.0" text="Update Item" />
+         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="42.0" prefWidth="112.0" text="Delete Item" />
         </VBox>
     </left>
     <center>

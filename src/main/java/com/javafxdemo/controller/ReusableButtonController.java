@@ -1,13 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.Session;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -33,5 +26,4 @@ public class ReusableButtonController {
             Session.getInstance().getDeleteController().setSceneDeleteItem();
         }
     }
-
 }
