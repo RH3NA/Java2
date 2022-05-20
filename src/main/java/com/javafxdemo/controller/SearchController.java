@@ -128,27 +128,24 @@ public class  SearchController extends ReusableButtonController implements Initi
         errorLabel.setText("");
         UserModel currentUser = Session.getInstance().getCurrentUser();
         ItemModel currentSearch = Session.getInstance().getCurrentSearch();
-        if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (ItemModel.isbnExists(currentSearch.getIsbn()) == Boolean.TRUE) && (getIsReference() == Boolean.FALSE && getAvailableInStock() == Boolean.TRUE)) {
+        if ((currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) && (ItemModel.isbnExists(currentSearch.getIsbn()) == Boolean.TRUE) && (getIsReference() == Boolean.FALSE) && (getAvailableInStock() == Boolean.TRUE)) {
             InventoryModel.getInventoryDB();
             Session.getInstance().setCurrentLoan(new LoanModel(currentUser.getIdUser(), InventoryModel.availableBarcode(currentSearch.getIdItem()), null, null));
             System.out.println(Session.getInstance().getCurrentLoan());
             Session.getInstance().getLoanController().setSceneLoan();
         }
-        if (getIsReference() == Boolean.TRUE && currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) {
+        if ((getIsReference() == Boolean.TRUE) && (currentUser.getCurrentlyLoggedIn() == Boolean.TRUE)) {
             System.out.println("You may not borrow reference literature.");
             errorLabel.setText("You may not borrow reference literature.");
+            System.out.println(currentUser.getCurrentlyLoggedIn());
         }
-        if (getAvailableInStock() == Boolean.FALSE && currentUser.getCurrentlyLoggedIn() == Boolean.TRUE) {
+        if ((getAvailableInStock() == Boolean.FALSE) && (currentUser.getCurrentlyLoggedIn() == Boolean.TRUE)) {
             errorLabel.setText("No items available in stock.");
         }
-        if (getIsReference() == Boolean.FALSE && getAvailableInStock() == Boolean.TRUE) {
+        else if (currentUser.getIdUser() == 0) {
             System.out.println("You need to be logged in to proceed.");
             errorLabel.setText("You need to be logged in to proceed.");
-
-            // add redirect to startpage + error label with this error text in the actual gui
         }
-
-
     }
     @FXML
     private Button backButton;

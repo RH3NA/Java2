@@ -47,15 +47,14 @@
             <VBox.margin>
                <Insets top="4.0" />
             </VBox.margin></Label>
-         <Label fx:id="selectedLoanItemsLabel" prefHeight="98.0" prefWidth="523.0" style="-fx-padding:10;" text="(Selected Loan Items):" />
-         <Label fx:id="receiptLabel" prefHeight="80.0" prefWidth="514.0" style="-fx-padding:10;" text="(Receipt)" />
+         <Label fx:id="selectedLoanItemsLabel" prefHeight="98.0" prefWidth="523.0" style="-fx-padding:10;" />
+         <Label fx:id="receiptLabel" prefHeight="80.0" prefWidth="514.0" style="-fx-padding:10;" />
          <HBox alignment="CENTER" prefHeight="21.0" prefWidth="403.0" spacing="8.0">
             <Label fx:id="borrowingRulesLabel" text="I agree to the borrowing rules and conditions." />
          </HBox>
          <StackPane prefHeight="50.0" prefWidth="403.0">
-            <Label fx:id="inactiveAccountLabel" text="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;?import javafx.scene.control.Label?&gt;&lt;Label fx:id=&quot;currentLoanStatusLabel&quot; style=&quot;-fx-padding:10;&quot; text=&quot;Your current Loan Status is inactive." />
+            <Label fx:id="inactiveAccountLabel" text="Confirm?" />
             <Button fx:id="loanConfirmButton" minHeight="-Infinity" mnemonicParsing="false" onAction="#onLoanConfirmButton" prefHeight="42.0" prefWidth="127.0" text="Confirm" />
-            <Label fx:id="borrowingRulesBrokenLabel" text="This breaches your loan conditions." />
          </StackPane>
          <BorderPane.margin>
             <Insets right="20.0" top="20.0" />

@@ -146,9 +146,9 @@ public class LoanModel {
             getLatestLoanDBidUser(idUser);
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             Session.getInstance().getCurrentUser().setHasTooManyLoans(Boolean.TRUE);
         }
-
     }
 
 

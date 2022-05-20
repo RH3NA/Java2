@@ -69,19 +69,18 @@ public class LoanController extends ReusableButtonController implements Initiali
 
     public void onLoanConfirmButton(ActionEvent a) throws SQLException {
         boolean barcodeIsAvailable = InventoryModel.checkAvailableBarcode(Session.getInstance().getCurrentLoan().getIdBarcode());
+        LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
         if (barcodeIsAvailable) {
             int newLoanID = createIdLoan(Session.getInstance().getCurrentUser().getIdUser());
             LoanModel.insertLoan(createIdLoan(Session.getInstance().getCurrentUser().getIdUser()), Session.getInstance().getCurrentUser().getIdUser(), Session.getInstance().getCurrentLoan().getIdBarcode(), null, null);
-            LoanModel.getLatestLoanDBidUser(Session.getInstance().getCurrentUser().getIdUser());
             System.out.println(LoanModel.currentUserLatestLoan.get(0).getIdLoan());
             if(LoanModel.currentUserLatestLoan.isEmpty()) {
-                System.out.println("No loans");
+                receiptLabel.setText("No loan could be created. Please try again.");
             }
             if (LoanModel.currentUserLatestLoan.get(0).getIdLoan() == newLoanID) {
-                receiptLabel.setText("Success! Loandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
+                receiptLabel.setText("Success! Loan ID: " + LoanModel.currentUserLatestLoan.get(0).getIdLoan() + "\nLoandate: " + LoanModel.currentUserLatestLoan.get(0).getLoanDate() +
                         "\nRemember to return your item before: " + LoanModel.currentUserLatestLoan.get(0).getExpiryDate());
             }
-
         }
         if (!barcodeIsAvailable) {
             receiptLabel.setText("No available items to loan.");
@@ -104,8 +103,7 @@ public class LoanController extends ReusableButtonController implements Initiali
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode() + "");
-
+        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode());
         Session.getInstance().setCurrentScene("Loan");
 
     }
