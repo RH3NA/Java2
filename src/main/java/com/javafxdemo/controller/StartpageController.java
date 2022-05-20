@@ -30,16 +30,15 @@ import static com.javafxdemo.models.UserModel.users;
 @SuppressWarnings("SpellCheckingInspection")
 public class StartpageController implements Initializable {
 
-    @FXML
-    private Label welcomeText;
-    @FXML
-    private Label loginErrorLabel;
-    @FXML
-    TextField usernameInput;
-    @FXML
-    PasswordField passwordInput;
-    @FXML
-    Button loginButton;
+    @FXML public Button HelloButton;
+    @FXML public Button startPageSearchButton;
+    @FXML private Label loginErrorLabel;
+    @FXML TextField usernameInput;
+    @FXML PasswordField passwordInput;
+    @FXML Button loginButton;
+    @FXML private Button registerButton;
+    @FXML private Label welcomeTextLabel;
+
     private int password;
 
     public void loginButtonOnAction(MouseEvent a) throws SQLException {
@@ -61,7 +60,6 @@ public class StartpageController implements Initializable {
         try {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(verifyLogin);
-
 
             while (resultSet.next()) {
                 if (resultSet.getInt(1) == 1) {
@@ -98,18 +96,12 @@ public class StartpageController implements Initializable {
         }
     }
 
-    @FXML
-    private Button registerButton;
-
     public void onRegisterButtonClick(ActionEvent a) throws IOException {
         Scene sceneRegister = new Scene(FXMLLoader.load(LibraryApplication.class.getResource("fxml/registration-view.fxml")));
         Stage stage = (Stage) registerButton.getScene().getWindow();
         stage.setScene(sceneRegister);
         stage.show();
     }
-
-    @FXML
-    private Label welcomeTextLabel;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -119,8 +111,8 @@ public class StartpageController implements Initializable {
     public void onStartPageSearchButtonClick(ActionEvent a) throws IOException {
         Session.getInstance().getSearchController().setSceneSearch();
         Session.getInstance().setPreviousScene("Startpage");
-
     }
+
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
