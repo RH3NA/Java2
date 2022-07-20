@@ -1,6 +1,8 @@
 package com.javafxdemo.controller;
 
+import com.javafxdemo.InheritedMethods;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemHasCreatorModel;
@@ -22,7 +24,7 @@ import java.util.ResourceBundle;
 
 //This controller controls the Add function and its view.
 
-public class AddController extends ReusableButtonController implements Initializable {
+public class AddController extends InheritedMethods implements Initializable, ReusableInterface {
 
     @FXML
     private TextField totalStockInput;
@@ -125,7 +127,6 @@ public class AddController extends ReusableButtonController implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
 
@@ -143,13 +144,22 @@ public class AddController extends ReusableButtonController implements Initializ
     }
 
     public void onBackButtonClick(ActionEvent a) throws IOException {
-        Session.getInstance().getAdminController().backMethod("Admin");
-    }
+        backMethod();
+        }
+
 
     public void onExitButtonClick() {
         exit();
     }
+
+
+    @Override
+    public void backMethod() throws IOException {
+    if (Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
+        Session.getInstance().getAdminController().setSceneAdmin();
     }
+    }
+}
 
 
 

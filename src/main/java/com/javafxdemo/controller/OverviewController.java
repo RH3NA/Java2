@@ -1,8 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.DBConnection;
-import com.javafxdemo.LibraryApplication;
-import com.javafxdemo.Session;
+import com.javafxdemo.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,7 +25,7 @@ import static com.javafxdemo.models.LoanModel.*;
 import static com.javafxdemo.models.UserModel.getUsersDB;
 
 //this controller controls the overview function and its view
-public class OverviewController extends ReusableButtonController implements Initializable {
+public class OverviewController extends InheritedMethods implements Initializable, ReusableInterface {
     @FXML
     private TextArea textArea;
     @FXML
@@ -53,7 +51,7 @@ public class OverviewController extends ReusableButtonController implements Init
 
     public void onChoiceBoxSelection(ChoiceBox<String> choiceBox) throws SQLException { //building the page based on what option you select with a select query that goes into the build data method
         if ((choiceBox.getSelectionModel().getSelectedIndex()) == 0) {
-        buildData("Select * From Loan");
+            buildData("Select * From Loan");
         }
         if ((choiceBox.getSelectionModel().getSelectedIndex()) == 1) {
             buildData("Select * From User");
@@ -89,48 +87,54 @@ public class OverviewController extends ReusableButtonController implements Init
         });
     }
 
-    public void buildData(String s){ //building the data based on the choice picked
+    public void buildData(String s) { //building the data based on the choice picked
         tableView.getItems().clear();
         tableView.getColumns().clear();
         tableView.refresh();
         data = FXCollections.observableArrayList();
-        try{
+        try {
             DBConnection connectNow = new DBConnection();
             Connection conn = connectNow.getConnection();
             ResultSet rs = conn.createStatement().executeQuery(s); //preparing the query based on the choice selected
 
-            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
+            for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
-                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
+                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1));
                 col.setCellValueFactory((Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>) param -> new SimpleStringProperty(param.getValue().get(j).toString()));
 
                 tableView.getColumns().addAll(col);
-                System.out.println("Column ["+i+"] "); //building the columns
+                System.out.println("Column [" + i + "] "); //building the columns
             }
 
-            while(rs.next()){
+            while (rs.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
-                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     row.add(rs.getString(i));
                 }
-                System.out.println("Row [1] added "+row ); //building the rows
+                System.out.println("Row [1] added " + row); //building the rows
                 data.add(row);
 
             }
 
             tableView.setItems(data); //setting the items
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error on Building Data");
         }
     }
 
     public void onBackButtonClick() throws IOException {
-        System.out.println(Session.getInstance().getPreviousScene());
-        backMethod(Session.getInstance().getPreviousScene());
+        backMethod();
     }
 
     public void onExitButtonClick() {
         exit();
+    }
+
+    @Override
+    public void backMethod() throws IOException {
+        if (Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
+            Session.getInstance().getAdminController().setSceneAdmin();
+        }
     }
 }

@@ -1,8 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.DBConnection;
-import com.javafxdemo.LibraryApplication;
-import com.javafxdemo.Session;
+import com.javafxdemo.*;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemModel;
 import com.javafxdemo.models.LoanModel;
@@ -26,7 +24,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 //this controller controls everything related to the search function and its view
-public class  SearchController extends ReusableButtonController implements Initializable {
+public class  SearchController extends InheritedMethods implements Initializable, ReusableInterface {
 
     @FXML
     public TextField searchTextInputField;
@@ -69,11 +67,21 @@ public class  SearchController extends ReusableButtonController implements Initi
         stage.show();
     }
 
-    public Boolean getIsReference() { return isReference; }
-    public void setIsReference(Boolean isReference) { this.isReference = isReference; }
+    public Boolean getIsReference() {
+        return isReference;
+    }
 
-    public Boolean getAvailableInStock() { return isAvailableInStock;}
-    public void setAvailableInStock(Boolean availableInStock) { isAvailableInStock = availableInStock;}
+    public void setIsReference(Boolean isReference) {
+        this.isReference = isReference;
+    }
+
+    public Boolean getAvailableInStock() {
+        return isAvailableInStock;
+    }
+
+    public void setAvailableInStock(Boolean availableInStock) {
+        isAvailableInStock = availableInStock;
+    }
 
     public void onSearchForResultButton(ActionEvent a) throws Exception {  // throwing out exceptions so the system doesn't crash & also ensure connection and statement closes
         String author;
@@ -114,11 +122,11 @@ public class  SearchController extends ReusableButtonController implements Initi
                     setAvailableInStock(Boolean.TRUE);
                 }
             }
-                hadResults = statement.getMoreResults(); // will loop until no more results available
-            }
-            statement.close(); // closes query
-            System.out.println(Session.getInstance().getCurrentSearch());
+            hadResults = statement.getMoreResults(); // will loop until no more results available
         }
+        statement.close(); // closes query
+        System.out.println(Session.getInstance().getCurrentSearch());
+    }
 
     public void onSearchResultsLoanButton(ActionEvent a) throws IOException, SQLException {
         errorLabel.setText("");
@@ -137,19 +145,28 @@ public class  SearchController extends ReusableButtonController implements Initi
         }
         if ((getAvailableInStock() == Boolean.FALSE) && (currentUser.getCurrentlyLoggedIn() == Boolean.TRUE)) {
             errorLabel.setText("No items available in stock.");
-        }
-        else if (currentUser.getIdUser() == 0) {
+        } else if (currentUser.getIdUser() == 0) {
             System.out.println("You need to be logged in to proceed.");
             errorLabel.setText("You need to be logged in to proceed.");
             loginRedirectButton.setVisible(true); //prompting a log in
         }
     }
 
-    public void onLoginRedirectButtonClick (ActionEvent e) throws IOException {
+    public void onLoginRedirectButtonClick(ActionEvent e) throws IOException {
         LibraryApplication.setSceneStartPage();
     }
 
     public void onBackButtonClick() throws IOException {
-        backMethod(Session.getInstance().getPreviousScene());
+        backMethod();
+    }
+
+    @Override
+    public void backMethod() throws IOException {
+        if (Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
+            Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
+        } else {
+            LibraryApplication.setSceneStartPage();
+
+        }
     }
 }

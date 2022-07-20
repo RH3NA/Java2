@@ -1,5 +1,7 @@
 package com.javafxdemo.controller;
 
+import com.javafxdemo.InheritedMethods;
+import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.models.LoanModel;
@@ -17,7 +19,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 //this controller controls everything with the logged in startpage and its view
-public class StartpageLoggedInController extends ReusableButtonController implements Initializable { //added a logged in startpage
+public class StartpageLoggedInController extends InheritedMethods implements Initializable, ReusableInterface { //added a logged in startpage
 
     @FXML
     private Button loanButton;
@@ -66,6 +68,10 @@ public class StartpageLoggedInController extends ReusableButtonController implem
 
     public void onExitButtonClick() {
         exit();
+    }
+
+    @Override
+    public void backMethod() throws IOException {
     }
 }
 
