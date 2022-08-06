@@ -128,7 +128,7 @@ public class InventoryModel {
             }
             return checkBarcode > 0;
         }
-        return false;
+         return false;
     }
 
 
