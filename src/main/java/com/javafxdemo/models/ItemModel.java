@@ -2,30 +2,42 @@ package com.javafxdemo.models;
 
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-// this class is based on the Item table in the database
+// this class is based on the Item table in the database and inventory items for search and select
 public class ItemModel {
 
     private int idItem;
-
+    private String authorLastName;
+    private String authorFirstName;
     private int numberInStock;
     private String title;
     private String isbn;
     private String publisher;
     private int totalStock;
+    private int idBarcode;
+    private String category;
 
     public static ArrayList<ItemModel> items = new ArrayList<>();
 
-    public int getTotalStock() {
-        return totalStock;
+    public ItemModel(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher, String category, int idBarcode, String authorLastName, String authorFirstName, int totalStock1) {
     }
-    public void setTotalStock(int totalStock) {
-        this.totalStock = totalStock;
-    }
+    public ItemModel(int idItem, String title, String authorLastName, String authorFirstName, String publisher, String isbn, String category, int numberInStock, int idBarcode, int totalStock) {
+        this.idItem = idItem;
+        this.title = title;
+        this.authorLastName = authorLastName;
+        this.authorFirstName = authorFirstName;
+        this.publisher = publisher;
+        this.isbn = isbn;
+        this.category = category;
+        this.numberInStock = numberInStock;
+        this.idBarcode = idBarcode;
+        this.totalStock = totalStock;}
 
     public ItemModel(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) { //constructor
         this.idItem = idItem;
@@ -33,10 +45,7 @@ public class ItemModel {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
-        this.totalStock = totalStock;
-
-
-    }
+        this.totalStock = totalStock;}
 
     @Override
     public String toString() //overriding toString method so we get the values instead of the hashcodes from the arraylist prints
@@ -46,50 +55,62 @@ public class ItemModel {
                 " title = " + this.title +
                 " isbn = " + this.isbn +
                 " totalStock = " + this.totalStock +
-                " publisher = " + this.publisher;
+                " publisher = " + this.publisher +
+                " category = " + this.category +
+                " idBarcode = " + this.idBarcode +
+                " authorLastName = " + this.authorLastName +
+                " authorFirstName = " + this.authorFirstName +
+                " totalStock = " + this.totalStock;
     }
 
-
+    public String getAuthorLastName() {
+        return authorLastName;
+    }
+    public void setAuthorLastName(String authorLastName) {
+        this.authorLastName = authorLastName;
+    }
+    public int getTotalStock() {
+        return totalStock;
+    }
+    public void setTotalStock(int totalStock) {
+        this.totalStock = totalStock;
+    }
     public int getIdItem() {
         return idItem;
     }
-
     public void setIdItem(int idItem) {
         this.idItem = idItem;
     }
-
-
     public int getNumberInStock() {
         return numberInStock;
     }
-
     public void setNumberInStock(int numberInStock) {
         this.numberInStock = numberInStock;
     }
-
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getIsbn() {
         return isbn;
     }
-
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-
     public String getPublisher() {
         return publisher;
     }
-
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+    public int getIdBarcode() { return idBarcode;}
+    public String getAuthorFirstName() {
+        return authorFirstName;
+    }
+    public String getCategory() {
+        return category;
     }
 
     public static void getItemsDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist
@@ -107,8 +128,42 @@ public class ItemModel {
             ItemModel item = new ItemModel(rst.getInt("idItem"), rst.getInt("numberInStock"), rst.getString("title"), rst.getString("isbn"), rst.getInt("totalStock"), rst.getString("publisher"));
             items.add(item);
         }
-
     }
+
+    public static ObservableList<ItemModel> searchAllModelObservableList = FXCollections.observableArrayList();
+
+    public static void getSearchItemsDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist
+        items.clear();
+
+        DBConnection connectNow = new DBConnection();
+        Connection conn = connectNow.getConnection();
+
+        String searchAllQuery = "SELECT DISTINCT idItem, title, lastName, firstName, publisher, isbn, category, numberInStock, idBarcode, totalStock FROM D0005N.inventory join item_has_creator on inventory.Items_idItems = item_has_creator.Item_idItem join item on item_has_creator.Item_idItem = item.idItem left join itemkeyword on item.idItem = itemkeyword.Item_idItem left join keyword ON itemkeyword.Keyword_idKeyword = keyword.idKeyword;\n";
+
+        try {
+
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(searchAllQuery);
+
+            while (resultSet.next()) {
+
+                int queryIdItem = resultSet.getInt("idItem");
+                String queryTitle = resultSet.getString("title");
+                String queryAuthorLastName = resultSet.getString("lastName");
+                String queryAuthorFirstName = resultSet.getString("firstName");
+                String queryPublisher = resultSet.getString("publisher");
+                String queryIsbn = resultSet.getString("isbn");
+                String queryCategory = resultSet.getString("category");
+                int queryNumberInStock = resultSet.getInt("numberInStock");
+                int queryIdBarcode = resultSet.getInt("idBarcode");
+                int queryTotalStock = resultSet.getInt("totalStock");
+
+                searchAllModelObservableList.add(new ItemModel(queryIdItem, queryTitle, queryAuthorLastName, queryAuthorFirstName, queryPublisher, queryIsbn, queryCategory, queryNumberInStock, queryIdBarcode, queryTotalStock));
+                System.out.println(searchAllModelObservableList);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);}
+        }
 
     public static void insertItem(int idItem, int numberInStock, String title, String isbn, int totalStock, String publisher) throws SQLException { //inserts an item
         getItemsDB();
@@ -122,8 +177,6 @@ public class ItemModel {
 
                 String queryToItem = " insert into Item (idItem, numberInStock, title, isbn, totalstock, publisher)" + " values (?, ?, ? , ? , ?, ?)";
 
-
-
                 // create the mysql insert preparedstatement
                 PreparedStatement preparedStmt = conn.prepareStatement(queryToItem);
                 preparedStmt.setInt(1, Session.getInstance().getCurrentAdd().idItem);
@@ -134,12 +187,7 @@ public class ItemModel {
                 preparedStmt.setString(6,Session.getInstance().getCurrentAdd().publisher);
 
                 preparedStmt.executeUpdate();
-
-
-
-
             }
-
 
     public static Boolean isbnExists(String ISBN) { //checks if the ISBN exists in the database
         for (ItemModel item : items) {

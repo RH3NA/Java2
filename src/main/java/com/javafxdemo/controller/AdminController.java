@@ -1,8 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.InheritedMethods;
 import com.javafxdemo.LibraryApplication;
-import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +18,7 @@ import java.util.ResourceBundle;
 
 //this controller controls everything on the Admin startpage and its view
 
-public class AdminController extends InheritedMethods implements ReusableInterface, Initializable {
+public class AdminController extends ReusableButtonController implements Initializable {
 
     @FXML
     private Label welcomeTextLabel;
@@ -101,11 +99,9 @@ public class AdminController extends InheritedMethods implements ReusableInterfa
     }
 
     public void onBackButtonClick() throws IOException {
+        backMethod(Session.getInstance().getPreviousScene());
     }
 
-    @Override
-    public void backMethod() throws IOException {
-    }
 }
 
 

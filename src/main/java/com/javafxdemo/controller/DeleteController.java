@@ -1,23 +1,27 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.*;
+import com.javafxdemo.DBConnection;
+import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.annotation.Inherited;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 //this controller controlls the Delete function and its view
 
-public class DeleteController extends InheritedMethods implements Initializable, ReusableInterface {
+public class DeleteController extends ReusableButtonController implements Initializable {
     @FXML
     TextField barcodeInput;
 
@@ -58,17 +62,10 @@ public class DeleteController extends InheritedMethods implements Initializable,
     }
 
     public void onBackButtonClick(ActionEvent a) throws IOException {
-        backMethod();
+        Session.getInstance().getAdminController().backMethod("Admin");
     }
 
     public void onExitButtonClick() {
         exit();
-    }
-
-    @Override
-    public void backMethod() throws IOException {
-        if (Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
-            Session.getInstance().getAdminController().setSceneAdmin();
-        }
     }
 }

@@ -15,7 +15,7 @@ public class Session {
     private final static Session instance = new Session(new LoanController(), new SearchController(),
             new StartpageController(), new StartpageLoggedInController(),
             new LoanReturnController(), new OverviewController(), new AdminController(),
-             new UpdateController(), new DeleteController(), new AddController());
+            new ReusableButtonController(), new UpdateController(), new DeleteController(), new AddController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -55,12 +55,12 @@ public class Session {
 
 
 
-    public ReusableInterface getReusableButtonController() {
-        return reusableInterface;
+    public ReusableButtonController getReusableButtonController() {
+        return reusableButtonController;
     }
 
-    public void setReusableButtonController(ReusableInterface reusableInterface) {
-        this.reusableInterface = reusableInterface;
+    public void setReusableButtonController(ReusableButtonController reusableButtonController) {
+        this.reusableButtonController = reusableButtonController;
     }
 
 
@@ -96,7 +96,7 @@ public class Session {
 
     private OverviewController overviewController;
     private AdminController adminController;
-    private ReusableInterface reusableInterface;
+    private ReusableButtonController reusableButtonController;
     private DeleteController deleteController;
 
     public UpdateController getUpdateController() {
@@ -112,7 +112,7 @@ public class Session {
 //constructor for the Session class
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, LoanReturnController loanReturnController, OverviewController overviewController,
-                   AdminController adminController, UpdateController updateController, DeleteController deleteController, AddController addController) {
+                   AdminController adminController, ReusableButtonController reusableButtonController, UpdateController updateController, DeleteController deleteController, AddController addController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
@@ -120,6 +120,7 @@ public class Session {
         this.loanReturnController = loanReturnController;
         this.overviewController = overviewController;
         this.adminController = adminController;
+        this.reusableButtonController = reusableButtonController;
         this.updateController = updateController;
         this.deleteController = deleteController;
         this.addController = addController;
@@ -168,16 +169,21 @@ public class Session {
     private String publisher;
     private int totalStock;
     private String category;
+    private String authorLastName;
+    private String authorFirstName;
 
     //creating an object of ItemModel as the current search
-    private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, totalStock, publisher);
+    //private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, totalStock, publisher);
+
+    private ItemModel currentSearch = new ItemModel(idItem, numberInStock, title, isbn, totalStock, publisher, category, idBarcode, authorLastName, authorFirstName, totalStock);
 
     public ItemModel getCurrentSearch() {
         return currentSearch;
     }
 
-    public void setCurrentSearch(ItemModel currentSearch) {
+    public ItemModel setCurrentSearch(ItemModel currentSearch) {
         this.currentSearch = currentSearch;
+        return currentSearch;
     }
 
     public ItemModel getCurrentAdd() {

@@ -33,7 +33,7 @@
             <VBox.margin>
                <Insets left="40.0" top="4.0" />
             </VBox.margin></Label>
-         <Label fx:id="selectedLoanItemsLabel" prefHeight="98.0" prefWidth="523.0" style="-fx-padding:10;">
+         <Label fx:id="selectedLoanItemsLabel" prefHeight="98.0" prefWidth="643.0" style="-fx-padding:10;">
             <VBox.margin>
                <Insets left="40.0" />
             </VBox.margin></Label>
@@ -45,7 +45,7 @@
             <Label fx:id="borrowingRulesLabel" text="I agree to the borrowing rules and conditions." />
          </HBox>
          <StackPane prefHeight="50.0" prefWidth="403.0">
-            <Label fx:id="inactiveAccountLabel" text="Confirm?" />
+            <Label fx:id="inactiveAccountLabel" text="Confirm?" visible="false" />
             <Button fx:id="loanConfirmButton" minHeight="-Infinity" mnemonicParsing="false" onAction="#onLoanConfirmButton" prefHeight="42.0" prefWidth="127.0" text="Confirm" />
          </StackPane>
          <BorderPane.margin>

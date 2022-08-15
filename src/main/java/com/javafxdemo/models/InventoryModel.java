@@ -1,6 +1,5 @@
 package com.javafxdemo.models;
 
-
 import com.javafxdemo.DBConnection;
 import com.javafxdemo.Session;
 
@@ -12,11 +11,9 @@ public class InventoryModel {
     public int getLocation_idLocation() {
         return location_idLocation;
     }
-
     public void setLocation_idLocation(int location_idLocation) {
         this.location_idLocation = location_idLocation;
     }
-
     private int location_idLocation;
     private int items_idItems;
     private int idBarcode;
@@ -50,7 +47,6 @@ public class InventoryModel {
         this.idBarcode = idBarcode;
         return idBarcode;
     }
-
 
     public String getCategory() {
         return category;
@@ -128,9 +124,8 @@ public class InventoryModel {
             }
             return checkBarcode > 0;
         }
-         return false;
+        return false;
     }
-
 
     public int getItems_idItems() {
         return items_idItems;
@@ -156,23 +151,18 @@ public class InventoryModel {
         return "No title";
     }
 
-
     public static void insertCategory(String category) throws SQLException { //inserts a category
 
         getInventoryDB();
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
 
-
         String queryCategogry = " insert into Inventory(category)" + " values (" + category + ");";
 
         PreparedStatement preparedStmt = conn.prepareStatement(queryCategogry);
         preparedStmt.setString(1, Session.getInstance().getcurrentInventory().category);
 
-
         preparedStmt.executeUpdate();
-
-
     }
 
     public static void insertBarcode(int idBarcode) throws SQLException { //inserts a barcode
@@ -181,7 +171,6 @@ public class InventoryModel {
         DBConnection connectNow = new DBConnection();
         Connection conn = connectNow.getConnection();
 
-
         String queryToInventory = "insert into Inventory(idBarcode)" + " values (" + idBarcode + ");";
 
         // create the mysql insert preparedstatement
@@ -189,10 +178,7 @@ public class InventoryModel {
         PreparedStatement preparedStmtInventory = conn.prepareStatement(queryToInventory);
         preparedStmtInventory.setInt(1, Session.getInstance().getcurrentInventory().idBarcode);
 
-
         preparedStmtInventory.executeUpdate();
-
-
     }
 
     public static void insertInventory(int idBarcode, int items_idItems, int location_idLocation, String category) throws SQLException { //insert method for a new item
@@ -203,7 +189,6 @@ public class InventoryModel {
 
         String queryToItem = " insert into Inventory (idBarcode, Items_idItems, Location_idLocation, category)" + " values (?, ?, ? , ?)";
 
-
         // create the mysql insert preparedstatement
         PreparedStatement preparedStmt = conn.prepareStatement(queryToItem);
         preparedStmt.setInt(1, idBarcode);
@@ -211,7 +196,5 @@ public class InventoryModel {
         preparedStmt.setInt(3, location_idLocation);
         preparedStmt.setString(4, category);
         preparedStmt.executeUpdate();
-
-
     }
 }

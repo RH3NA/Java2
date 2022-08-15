@@ -1,8 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.InheritedMethods;
 import com.javafxdemo.LibraryApplication;
-import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemHasCreatorModel;
@@ -21,11 +19,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
-import static com.javafxdemo.LibraryApplication.setSceneStartPage;
-
 //this controller controls everything with the loan function and its views
-public class LoanController extends InheritedMethods implements Initializable, ReusableInterface {
+public class LoanController extends ReusableButtonController implements Initializable {
     public LoanController() {
     }
 
@@ -75,7 +70,7 @@ public class LoanController extends InheritedMethods implements Initializable, R
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode()); //creating the loan view with the selected barcode from loan
+        selectedLoanItemsLabel.setText("Selected barcode ID: " + Session.getInstance().getCurrentLoan().getIdBarcode() + "   '" + Session.getInstance().getCurrentSearch().getTitle() + "' by " + Session.getInstance().getCurrentSearch().getAuthorFirstName() + " " + Session.getInstance().getCurrentSearch().getAuthorLastName()); //creating the loan view with the selected barcode from loan
         Session.getInstance().setCurrentScene("Loan");
     }
 
@@ -107,6 +102,8 @@ public class LoanController extends InheritedMethods implements Initializable, R
         if (Session.getInstance().getCurrentUser().getHasTooManyLoans() == Boolean.TRUE) {
             receiptLabel.setText("You have too many active loans. Return a current loan before attempting to loan a new item.");
         }
+        borrowingRulesLabel.setVisible(false);
+        loanConfirmButton.setVisible(false);
     }
 
     public static int createIdLoan(int idUser) { //simple fix for forgetting to implement autoincrement on our primary key in loan, but could be better since it's still possible to fail with this combination
@@ -114,18 +111,11 @@ public class LoanController extends InheritedMethods implements Initializable, R
     }
 
     public void onBackButtonClick(ActionEvent a) throws IOException {
-        backMethod();
+        backMethod(Session.getInstance().getPreviousScene());
     }
 
     public void onExitButtonClick() {
         exit();
-    }
-
-    @Override
-    public void backMethod() throws IOException {
-        if (Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
-            Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
-        }
     }
 }
 

@@ -1,7 +1,6 @@
 package com.javafxdemo.controller;
 
 import com.javafxdemo.DBConnection;
-import com.javafxdemo.InheritedMethods;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.Session;
 import com.javafxdemo.models.UserModel;
@@ -29,7 +28,7 @@ import static com.javafxdemo.models.UserModel.getUsersDB;
 import static com.javafxdemo.models.UserModel.users;
 //this class controls everything related to the startpage and its view
 @SuppressWarnings("SpellCheckingInspection")
-public class StartpageController extends InheritedMethods implements Initializable {
+public class StartpageController implements Initializable {
 
     @FXML public Button HelloButton;
     @FXML public Button startPageSearchButton;

@@ -1,4 +1,4 @@
-module com.example.javafxdemo {
+module com.javafxdemo {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -9,6 +9,9 @@ module com.example.javafxdemo {
 
     opens com.javafxdemo to javafx.fxml;
     exports com.javafxdemo;
-    exports com.javafxdemo.controller;
     opens com.javafxdemo.controller to javafx.fxml;
+    exports com.javafxdemo.controller;
+    opens com.javafxdemo.models to javafx.fxml;
+    exports com.javafxdemo.models;
+
 }
