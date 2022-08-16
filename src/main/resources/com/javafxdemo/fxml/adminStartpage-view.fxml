@@ -30,10 +30,10 @@
             <padding>
                 <Insets left="38.0" top="15.0" />
             </padding>
-            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="42.0" prefWidth="112.0" text="Search" />
+            <!--<Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="42.0" prefWidth="112.0" text="Search" />
             <Button fx:id="loanButton" mnemonicParsing="false" onAction="#onLoanButtonClick" prefHeight="42.0" prefWidth="112.0" text="Loan" />
          <Button fx:id="loanReturnButton" layoutX="48.0" layoutY="71.0" mnemonicParsing="false" onAction="#onReturnLoanButton" prefHeight="42.0" prefWidth="112.0" text="Loan Return" />
-            <Button fx:id="overviewButton" mnemonicParsing="false" onAction="#onOverviewButton" prefHeight="42.0" prefWidth="112.0" text="Library Overview" />
+-->            <Button fx:id="overviewButton" mnemonicParsing="false" onAction="#onOverviewButton" prefHeight="42.0" prefWidth="112.0" text="Library Overview" />
             <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="42.0" prefWidth="112.0" text="Add Item" />
          <Button fx:id="updateButton" layoutX="48.0" layoutY="163.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="42.0" prefWidth="112.0" text="Update Item" />
          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="42.0" prefWidth="112.0" text="Delete Item" />

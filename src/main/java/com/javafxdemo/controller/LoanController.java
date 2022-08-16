@@ -1,6 +1,8 @@
 package com.javafxdemo.controller;
 
+import com.javafxdemo.InheritedMethods;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
 import com.javafxdemo.models.InventoryModel;
 import com.javafxdemo.models.ItemHasCreatorModel;
@@ -20,7 +22,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 //this controller controls everything with the loan function and its views
-public class LoanController extends ReusableButtonController implements Initializable {
+public class LoanController extends InheritedMethods implements Initializable, ReusableInterface {
     public LoanController() {
     }
 
@@ -111,11 +113,18 @@ public class LoanController extends ReusableButtonController implements Initiali
     }
 
     public void onBackButtonClick(ActionEvent a) throws IOException {
-        backMethod(Session.getInstance().getPreviousScene());
+        backMethod();
     }
 
     public void onExitButtonClick() {
         exit();
+    }
+
+    @Override
+    public void backMethod() throws IOException {
+        if (Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
+            Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
+        }
     }
 }
 

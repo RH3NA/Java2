@@ -1,6 +1,8 @@
 package com.javafxdemo.controller;
 
+import com.javafxdemo.InheritedMethods;
 import com.javafxdemo.LibraryApplication;
+import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
 import com.javafxdemo.models.LoanModel;
 import com.javafxdemo.models.LoanreturnModel;
@@ -22,7 +24,7 @@ import java.util.ResourceBundle;
 import static com.javafxdemo.models.InventoryModel.getTitleFromBarcode;
 
 //this controller controls the loan return function and its view
-public class LoanReturnController extends ReusableButtonController implements Initializable {
+public class LoanReturnController extends InheritedMethods implements Initializable, ReusableInterface {
     @FXML
     private Label returnText;
 
@@ -70,8 +72,8 @@ public class LoanReturnController extends ReusableButtonController implements In
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-         int dialogPaneIncreaseSizeY = 20; //setting the pre-determined values for the blueprint for the dialog panes and checkboxes
-         int checkBoxIncreaseSizeY = 53;
+        int dialogPaneIncreaseSizeY = 20; //setting the pre-determined values for the blueprint for the dialog panes and checkboxes
+        int checkBoxIncreaseSizeY = 53;
         for (int i = 0; LoanModel.currentUserLoans.size() > i; i++) { //looping through the amount of loans the user has and builds the page based on that number
             DialogPane dialogPane = new DialogPane();
             try {
@@ -80,7 +82,7 @@ public class LoanReturnController extends ReusableButtonController implements In
                 throw new RuntimeException(e);
             }
 
-           dialogPane.setPrefWidth(750); //more pre-determined build data for each new dialogpane and checkbox
+            dialogPane.setPrefWidth(750); //more pre-determined build data for each new dialogpane and checkbox
             CheckBox checkBox = new CheckBox();
             checkBox.setText("Choose");
             dialogPane.setLayoutY(dialogPaneIncreaseSizeY);
@@ -108,6 +110,7 @@ public class LoanReturnController extends ReusableButtonController implements In
             }
         }
     }
+
     @FXML
     private Label successLabel;
 
@@ -119,7 +122,13 @@ public class LoanReturnController extends ReusableButtonController implements In
     }
 
     public void onBackButtonClick() throws IOException {
-        backMethod(Session.getInstance().getPreviousScene());
+        backMethod();
+    }
+
+    @Override
+    public void backMethod() throws IOException {
+        if (Session.getInstance().getCurrentUser().getCurrentlyLoggedIn() == Boolean.TRUE) {
+            Session.getInstance().getStartpageLoggedInController().setSceneStartpageLoggedIn();
+        }
     }
 }
-

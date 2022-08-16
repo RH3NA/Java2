@@ -15,7 +15,7 @@ public class Session {
     private final static Session instance = new Session(new LoanController(), new SearchController(),
             new StartpageController(), new StartpageLoggedInController(),
             new LoanReturnController(), new OverviewController(), new AdminController(),
-            new ReusableButtonController(), new UpdateController(), new DeleteController(), new AddController());
+            new UpdateController(), new DeleteController(), new AddController());
 
     public LoanController getLoanController() {
         return loanController;
@@ -55,12 +55,12 @@ public class Session {
 
 
 
-    public ReusableButtonController getReusableButtonController() {
-        return reusableButtonController;
+    public ReusableInterface getReusableButtonController() {
+        return reusableInterface;
     }
 
-    public void setReusableButtonController(ReusableButtonController reusableButtonController) {
-        this.reusableButtonController = reusableButtonController;
+    public void setReusableButtonController(ReusableInterface reusableInterface) {
+        this.reusableInterface = reusableInterface;
     }
 
 
@@ -96,7 +96,7 @@ public class Session {
 
     private OverviewController overviewController;
     private AdminController adminController;
-    private ReusableButtonController reusableButtonController;
+    private ReusableInterface reusableInterface;
     private DeleteController deleteController;
 
     public UpdateController getUpdateController() {
@@ -112,7 +112,7 @@ public class Session {
 //constructor for the Session class
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, LoanReturnController loanReturnController, OverviewController overviewController,
-                   AdminController adminController, ReusableButtonController reusableButtonController, UpdateController updateController, DeleteController deleteController, AddController addController) {
+                   AdminController adminController, UpdateController updateController, DeleteController deleteController, AddController addController) {
         this.loanController = loanController;
         this.searchController = searchController;
         this.startpageController = startpageController;
@@ -120,7 +120,6 @@ public class Session {
         this.loanReturnController = loanReturnController;
         this.overviewController = overviewController;
         this.adminController = adminController;
-        this.reusableButtonController = reusableButtonController;
         this.updateController = updateController;
         this.deleteController = deleteController;
         this.addController = addController;
