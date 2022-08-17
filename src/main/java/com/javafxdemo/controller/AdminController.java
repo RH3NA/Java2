@@ -1,6 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.InheritedMethods;
+import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 //this controller controls everything on the Admin startpage and its view
 
-public class AdminController extends InheritedMethods implements Initializable, ReusableInterface {
+public class AdminController extends DBConnection implements Initializable, ReusableInterface {
 
     @FXML
     private Label welcomeTextLabel;

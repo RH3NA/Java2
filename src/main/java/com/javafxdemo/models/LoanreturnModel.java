@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 //this class is based on the LoanReturn table in the database
-public class LoanreturnModel {
+public class LoanreturnModel extends DBConnection {
 
     public LoanreturnModel (int loanIdLoan) { //constructor
         this.loanIdLoan = loanIdLoan;

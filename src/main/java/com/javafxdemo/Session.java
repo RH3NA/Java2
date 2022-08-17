@@ -109,6 +109,8 @@ public class Session {
 
     private UpdateController updateController;
 
+
+
 //constructor for the Session class
     public Session(LoanController loanController, SearchController searchController, StartpageController startpageController,
                    StartpageLoggedInController startpageLoggedInController, LoanReturnController loanReturnController, OverviewController overviewController,

@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 //this class is the model of everything in the ItemHasCreator table in the database
-public class ItemHasCreatorModel {
+public class ItemHasCreatorModel extends DBConnection{
     public int getItem_IdItem() {
         return item_IdItem;
     }

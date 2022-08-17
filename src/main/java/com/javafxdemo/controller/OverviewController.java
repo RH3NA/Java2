@@ -1,6 +1,7 @@
 package com.javafxdemo.controller;
 
 import com.javafxdemo.*;
+import com.javafxdemo.models.UserModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,10 +23,9 @@ import java.util.ResourceBundle;
 
 import static com.javafxdemo.models.ItemModel.getItemsDB;
 import static com.javafxdemo.models.LoanModel.*;
-import static com.javafxdemo.models.UserModel.getUsersDB;
 
 //this controller controls the overview function and its view
-public class OverviewController extends InheritedMethods implements Initializable, ReusableInterface {
+public class OverviewController extends DBConnection implements Initializable, ReusableInterface {
     @FXML
     private TextArea textArea;
     @FXML
@@ -71,7 +71,7 @@ public class OverviewController extends InheritedMethods implements Initializabl
         Session.getInstance().setCurrentScene("Overview");
         try {
             checkOverdueLoansDB();
-            getUsersDB();
+            Session.getInstance().getCurrentUser().getUsersDB();
             getLoansDBIncludingReturned();
             getItemsDB();
         } catch (SQLException e) {
@@ -87,37 +87,36 @@ public class OverviewController extends InheritedMethods implements Initializabl
         });
     }
 
-    public void buildData(String s) { //building the data based on the choice picked
+    public void buildData(String s){ //building the data based on the choice picked
         tableView.getItems().clear();
         tableView.getColumns().clear();
         tableView.refresh();
         data = FXCollections.observableArrayList();
-        try {
-            DBConnection connectNow = new DBConnection();
-            Connection conn = connectNow.getConnection();
+        try{
+            Connection conn = super.getConnection();
             ResultSet rs = conn.createStatement().executeQuery(s); //preparing the query based on the choice selected
 
-            for (int i = 0 ; i < rs.getMetaData().getColumnCount(); i++) {
+            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
                 final int j = i;
-                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1));
+                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
                 col.setCellValueFactory((Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>) param -> new SimpleStringProperty(param.getValue().get(j).toString()));
 
                 tableView.getColumns().addAll(col);
                 System.out.println("Column ["+i+"] "); //building the columns
             }
 
-            while (rs.next()) {
+            while(rs.next()){
                 ObservableList<String> row = FXCollections.observableArrayList();
-                for (int i = 1 ; i <= rs.getMetaData().getColumnCount(); i++) {
+                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
                     row.add(rs.getString(i));
                 }
-                System.out.println("Row [1] added " + row); //building the rows
+                System.out.println("Row [1] added "+row ); //building the rows
                 data.add(row);
 
             }
 
             tableView.setItems(data); //setting the items
-        } catch (Exception e) {
+        }catch(Exception e){
             e.printStackTrace();
             System.out.println("Error on Building Data");
         }

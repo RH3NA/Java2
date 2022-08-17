@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 // this class is based on the Item table in the database and inventory items for search and select
-public class ItemModel {
+public class ItemModel extends DBConnection {
 
     private int idItem;
     private String authorLastName;

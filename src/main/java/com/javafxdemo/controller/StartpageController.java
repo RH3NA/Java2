@@ -1,7 +1,6 @@
 package com.javafxdemo.controller;
 
 import com.javafxdemo.DBConnection;
-import com.javafxdemo.InheritedMethods;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.Session;
 import com.javafxdemo.models.UserModel;
@@ -24,12 +23,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
-
-import static com.javafxdemo.models.UserModel.getUsersDB;
 import static com.javafxdemo.models.UserModel.users;
 //this class controls everything related to the startpage and its view
 @SuppressWarnings("SpellCheckingInspection")
-public class StartpageController extends InheritedMethods implements Initializable {
+public class StartpageController extends DBConnection implements Initializable {
 
     @FXML public Button HelloButton;
     @FXML public Button startPageSearchButton;
@@ -51,9 +48,8 @@ public class StartpageController extends InheritedMethods implements Initializab
     }
 
     public void validateLogin() throws SQLException {
-        DBConnection connectNow = new DBConnection();
-        Connection conn = connectNow.getConnection();
-        getUsersDB();
+        Connection conn = super.getConnection();
+        Session.getInstance().getCurrentUser().getUsersDB();
 
         // If the DBquery email value (username input) = idUser value (password input), then '1' will be returned, meaning a match.
         String verifyLogin = "select count(1) from D0005N.User where email = '" + usernameInput.getText() + "' and idUser = '" + passwordInput.getText() + "'";

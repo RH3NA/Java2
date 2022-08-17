@@ -1,6 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.InheritedMethods;
+import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 import static com.javafxdemo.models.InventoryModel.getTitleFromBarcode;
 
 //this controller controls the loan return function and its view
-public class LoanReturnController extends InheritedMethods implements Initializable, ReusableInterface {
+public class LoanReturnController extends DBConnection implements Initializable, ReusableInterface {
     @FXML
     private Label returnText;
 

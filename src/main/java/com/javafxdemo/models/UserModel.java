@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 //this class is based on the User table from the database
-public class UserModel {
+public class UserModel extends DBConnection {
     private int idUser;
     private String lastName;
     private String firstName;
@@ -115,10 +115,9 @@ public class UserModel {
 
     private Boolean hasTooManyLoans; //boolean to control if the user is blocked from creating any new loans due to too many active loans
 
-    public static void getUsersDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist
+    public void getUsersDB() throws SQLException { //added a method to get and store the users from the DB in a static arraylist
         users.clear();
-        DBConnection connectNow = new DBConnection();
-        Connection conn = connectNow.getConnection();
+        Connection conn = super.getConnection();
         Statement stm;
         stm = conn.createStatement();
         String sql = "Select * From User";
@@ -130,6 +129,11 @@ public class UserModel {
         }
 
         }
+
+       /* public Connection getSuperConnection() {
+        Connection conn = super.getConnection();
+        return conn;
+        }*/
     }
 
 

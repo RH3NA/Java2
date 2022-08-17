@@ -1,6 +1,6 @@
 package com.javafxdemo.controller;
 
-import com.javafxdemo.InheritedMethods;
+import com.javafxdemo.DBConnection;
 import com.javafxdemo.LibraryApplication;
 import com.javafxdemo.ReusableInterface;
 import com.javafxdemo.Session;
@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 //this controller controls everything with the loan function and its views
-public class LoanController extends InheritedMethods implements Initializable, ReusableInterface {
+public class LoanController extends DBConnection implements Initializable, ReusableInterface {
     public LoanController() {
     }
 

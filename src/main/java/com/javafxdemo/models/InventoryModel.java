@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 //this class is the Inventory Model and stores the database objects
-public class InventoryModel {
+public class InventoryModel extends DBConnection {
     public int getLocation_idLocation() {
         return location_idLocation;
     }

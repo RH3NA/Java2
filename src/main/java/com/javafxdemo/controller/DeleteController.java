@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 //this controller controlls the Delete function and its view
 
-public class DeleteController extends InheritedMethods implements Initializable, ReusableInterface {
+public class DeleteController extends DBConnection implements Initializable, ReusableInterface {
     @FXML
     TextField barcodeInput;
 
@@ -40,8 +40,7 @@ public class DeleteController extends InheritedMethods implements Initializable,
     }
 
     public void onDeleteItemButtonClick(ActionEvent a) throws Exception {
-        DBConnection connectNow = new DBConnection();
-        Connection conn = connectNow.getConnection();
+        Connection conn = super.getConnection();
 
 
         CallableStatement statement = conn.prepareCall("{CALL DeleteItem(?)}");  //makes a statement call ready to execute the procedure in database

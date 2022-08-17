@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 import static com.javafxdemo.models.ItemModel.searchAllModelObservableList;
 
 //this controller controls everything related to the search function and its view
-public class  SearchController extends InheritedMethods implements Initializable, ReusableInterface {
+public class  SearchController extends DBConnection implements Initializable, ReusableInterface {
 	@FXML
 	public TextField searchTextInputField;
 	@FXML
@@ -211,6 +211,7 @@ public class  SearchController extends InheritedMethods implements Initializable
 
 	public void onBackButtonClick() throws IOException {
 		backMethod();
+	}
 
 		@Override
 		public void backMethod() throws IOException {
@@ -225,4 +226,5 @@ public class  SearchController extends InheritedMethods implements Initializable
 			exit();
 		}
 	}
-}
+
+

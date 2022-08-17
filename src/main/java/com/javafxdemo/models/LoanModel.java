@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 //this class is based on the Loan table in the database
-public class LoanModel {
+public class LoanModel extends DBConnection {
 
     public static ArrayList<LoanModel> getCurrentUserLoans() {
         return currentUserLoans;
